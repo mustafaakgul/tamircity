@@ -20,6 +20,6 @@ func main() {
 	}
 	log.Println("Postgres connected")
 
-	db.AutoMigrate(&dbModels.Brand{}, &dbModels.Model{}, &dbModels.FixType{})
+	db.AutoMigrate(&dbModels.Brand{}, &dbModels.Model{}, &dbModels.FixType{}, &dbModels.DeviceType{})
 	log.Println("Migrations done")
 }
