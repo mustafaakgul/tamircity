@@ -22,7 +22,6 @@ type deviceTypeService struct {
 func NewDeviceTypeService(deviveTypeRepository repositories.DeviceTypeRepository) DeviceTypeService {
 	return &deviceTypeService{deviveTypeRepository: deviveTypeRepository}
 }
-
 func (m *deviceTypeService) Create(model *db.DeviceType) error {
 	return m.deviveTypeRepository.Create(model)
 }
