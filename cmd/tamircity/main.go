@@ -1,6 +1,10 @@
 package main
 
 import (
+	"github.com/gin-gonic/gin"
+	"github.com/mustafakocatepe/Tamircity/handler/api"
+	"github.com/mustafakocatepe/Tamircity/pkg/service"
+	"github.com/mustafakocatepe/Tamircity/pkg/store/repositories"
 	"log"
 
 	"github.com/joho/godotenv"
@@ -22,4 +26,24 @@ func main() {
 
 	db.AutoMigrate(&dbModels.Brand{}, &dbModels.Model{}, &dbModels.FixType{}, &dbModels.DeviceType{})
 	log.Println("Migrations done")
+
+	//Store
+	serviceTypeStore := repositories.NewServiceTypeStore(db)
+
+	//Service
+	serviceTypeService := service.NewServiceTypeService(serviceTypeStore)
+
+	//Handler
+	serviceTypeHandler := api.NewServiceTypeHandler(serviceTypeService)
+
+	//gin server
+	router := gin.Default()
+	router.Use(gin.Logger())
+
+	route := router.Group("api/v1")
+	{
+		route.GET("/service_type", serviceTypeHandler.GetAll)
+	}
+
+	router.Run(":8080")
 }
