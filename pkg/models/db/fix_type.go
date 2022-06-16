@@ -7,7 +7,3 @@ type FixType struct {
 	Description string `json:"description" gorm:"type:varchar(255);not null"`
 	Is_Active   bool   `json:"is_active" gorm:"type:boolean;default:true;not null"`
 }
-
-func (FixType) TableName() string {
-	return "fixTypes"
-}

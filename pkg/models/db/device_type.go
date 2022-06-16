@@ -8,7 +8,3 @@ type DeviceType struct {
 	Short_Description string `json:"short_description" gorm:"type:varchar(255);"`
 	Is_Active         bool   `json:"is_active" gorm:"type:boolean;default:true;not null"`
 }
-
-func (DeviceType) TableName() string {
-	return "deviceTypes"
-}
