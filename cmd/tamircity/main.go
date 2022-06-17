@@ -29,12 +29,15 @@ func main() {
 
 	//Store
 	serviceTypeStore := repositories.NewServiceTypeStore(db)
+	extraServiceStore := repositories.NewExtraServiceStore(db)
 
 	//Service
 	serviceTypeService := service.NewServiceTypeService(serviceTypeStore)
+	extraServiceService := service.ExtraServiceService(extraServiceStore)
 
 	//Handler
 	serviceTypeHandler := api.NewServiceTypeHandler(serviceTypeService)
+	extraServiceHandler := api.NewExtraServiceHandler(extraServiceService)
 
 	//gin server
 	router := gin.Default()
@@ -43,6 +46,7 @@ func main() {
 	route := router.Group("api/v1")
 	{
 		route.GET("/service_type", serviceTypeHandler.GetAll)
+		route.GET("/extra_service", extraServiceHandler.GetAll)
 	}
 
 	router.Run(":8080")

@@ -9,7 +9,6 @@ type serviceTypeStore struct {
 	db *gorm.DB
 }
 
-//interface
 type ServiceTypeStore interface {
 	Create(model *db.ServiceType) error
 	Update(model *db.ServiceType) error
