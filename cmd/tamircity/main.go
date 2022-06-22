@@ -28,10 +28,12 @@ func main() {
 	log.Println("Migrations done")
 
 	//Store
+	technicalServiceStore := repositories.NewTechnicalServiceStore(db)
 	serviceTypeStore := repositories.NewServiceTypeStore(db)
 	extraServiceStore := repositories.NewExtraServiceStore(db)
 
 	//Service
+	technicalServiceService := service.NewTechnicalServiceService(technicalServiceStore)
 	serviceTypeService := service.NewServiceTypeService(serviceTypeStore)
 	extraServiceService := service.ExtraServiceService(extraServiceStore)
 
@@ -45,8 +47,9 @@ func main() {
 
 	route := router.Group("api/v1")
 	{
-		route.GET("/service_type", serviceTypeHandler.GetAll)
-		route.GET("/extra_service", extraServiceHandler.GetAll)
+		route.GET("/technical-service", serviceTypeHandler.GetAll)
+		route.GET("/service-type", serviceTypeHandler.GetAll)
+		route.GET("/extra-service", extraServiceHandler.GetAll)
 	}
 
 	router.Run(":8080")
