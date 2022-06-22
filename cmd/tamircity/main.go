@@ -26,6 +26,19 @@ func main() {
 	log.Println("Postgres connected")
 
 	db.AutoMigrate(&dbModels.TechnicalService{}, &dbModels.Brand{}, &dbModels.Model{}, &dbModels.FixType{}, &dbModels.DeviceType{})
+	/*
+		//Add Seed data
+		roleRepo := role.NewRoleRepository(db)
+		roleRepo.Seed()
+		userRepo := user.NewUserRepository(db)
+		userRepo.Seed()
+		statusRepo := status.NewStatusRepository(db)
+		statusRepo.Seed()
+		users, _ := userRepo.FindAll()
+		roles, _ := roleRepo.FindAll()
+		userrolemapRepo := userrolemap.NewUserRoleMapRepository(db)
+		userrolemapRepo.Seed(users, roles)
+	*/
 	log.Println("Migrations done")
 
 	// Store
