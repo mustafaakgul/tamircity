@@ -46,6 +46,7 @@ func main() {
 	deviceTypeService := service.NewDeviceTypeService(deviceTypeStore)
 
 	//Handler
+	technicalServiceHandler := api.NewTechnicalServiceHandler(technicalServiceService)
 	serviceTypeHandler := api.NewServiceTypeHandler(serviceTypeService)
 	extraServiceHandler := api.NewExtraServiceHandler(extraServiceService)
 	brandHandler := api.NewBrandHandler(brandService)
@@ -59,7 +60,7 @@ func main() {
 
 	route := router.Group("api/v1")
 	{
-		route.GET("/technical-service", serviceTypeHandler.GetAll)
+		route.GET("/technical-service", technicalServiceHandler.GetAll)
 		route.GET("/service_type", serviceTypeHandler.GetAll)
 		route.GET("/extra_service", extraServiceHandler.GetAll)
 		route.GET("/brand", brandHandler.GetAll)
