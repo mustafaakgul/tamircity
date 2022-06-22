@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/mustafakocatepe/Tamircity/handler/api"
 	"github.com/mustafakocatepe/Tamircity/pkg/service"
@@ -13,7 +14,7 @@ import (
 )
 
 func main() {
-	//Set enviroment variables
+	// Set enviroment variables
 	err := godotenv.Load("../../.env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
@@ -27,7 +28,7 @@ func main() {
 	db.AutoMigrate(&dbModels.TechnicalService{}, &dbModels.Brand{}, &dbModels.Model{}, &dbModels.FixType{}, &dbModels.DeviceType{})
 	log.Println("Migrations done")
 
-	//Store
+	// Store
 	technicalServiceStore := repositories.NewTechnicalServiceStore(db)
 	serviceTypeStore := repositories.NewServiceTypeStore(db)
 	extraServiceStore := repositories.NewExtraServiceStore(db)
@@ -36,7 +37,10 @@ func main() {
 	fixTypeStore := repositories.NewFixTypeRepository(db)
 	deviceTypeStore := repositories.NewDeviceTypeRepository(db)
 
-	//Service
+	// Clients
+	// This one need to be integrated systems
+
+	// Service
 	technicalServiceService := service.NewTechnicalServiceService(technicalServiceStore)
 	serviceTypeService := service.NewServiceTypeService(serviceTypeStore)
 	extraServiceService := service.ExtraServiceService(extraServiceStore)
@@ -45,7 +49,7 @@ func main() {
 	fixTypeService := service.NewFixTypeService(fixTypeStore)
 	deviceTypeService := service.NewDeviceTypeService(deviceTypeStore)
 
-	//Handler
+	// Handler
 	technicalServiceHandler := api.NewTechnicalServiceHandler(technicalServiceService)
 	serviceTypeHandler := api.NewServiceTypeHandler(serviceTypeService)
 	extraServiceHandler := api.NewExtraServiceHandler(extraServiceService)
@@ -54,9 +58,16 @@ func main() {
 	fixTypeHandler := api.NewFixTypeHandler(fixTypeService)
 	deviceTypeHandler := api.NewDeviceTypeHandler(deviceTypeService)
 
-	//gin server
+	// gin server
 	router := gin.Default()
 	router.Use(gin.Logger())
+
+	// CORS Policy
+	corsConfig := cors.DefaultConfig()
+	corsConfig.AllowOrigins = []string{"*"}
+	corsConfig.AllowCredentials = true
+	corsConfig.AddAllowMethods("OPTIONS", "GET", "PUT", "PATCH", "POST")
+	router.Use(cors.New(corsConfig))
 
 	route := router.Group("api/v1")
 	{

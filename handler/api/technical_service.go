@@ -3,6 +3,7 @@ package api
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/mustafakocatepe/Tamircity/pkg/models/db"
+	"github.com/mustafakocatepe/Tamircity/pkg/models/web"
 	"github.com/mustafakocatepe/Tamircity/pkg/service"
 	"github.com/mustafakocatepe/Tamircity/pkg/utils"
 	"net/http"
@@ -31,7 +32,7 @@ func (t *technicalServiceHandler) Get(ctx *gin.Context) {
 }
 
 func (t *technicalServiceHandler) Create(ctx *gin.Context) {
-	var technicalService db.TechnicalServiceRequest
+	var technicalService web.TechnicalServiceRequest
 	if err := ctx.ShouldBindJSON(&technicalService); err != nil {
 		response := utils.HandleResponseModel(false, "", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)
@@ -67,6 +68,13 @@ func (t *technicalServiceHandler) GetAll(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, responseErr)
 		return
 	}
+
+	// Data Format
+	//TODO: Must be Decided
+	/*data := map[string]interface{}{
+		"remainingCredit": remainingCredit,
+		"meterTime":       meterTime,
+	}*/
 
 	response := utils.HandleResponseModel(true, "", nil, technicalServices)
 	ctx.JSON(http.StatusOK, response)
