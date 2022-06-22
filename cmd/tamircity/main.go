@@ -24,7 +24,7 @@ func main() {
 	}
 	log.Println("Postgres connected")
 
-	db.AutoMigrate(&dbModels.Brand{}, &dbModels.Model{}, &dbModels.FixType{}, &dbModels.DeviceType{})
+	db.AutoMigrate(&dbModels.TechnicalService{}, &dbModels.Brand{}, &dbModels.Model{}, &dbModels.FixType{}, &dbModels.DeviceType{})
 	log.Println("Migrations done")
 
 	//Store
@@ -60,13 +60,17 @@ func main() {
 
 	route := router.Group("api/v1")
 	{
+		// Get All Models APIs
 		route.GET("/technical-service", technicalServiceHandler.GetAll)
-		route.GET("/service_type", serviceTypeHandler.GetAll)
-		route.GET("/extra_service", extraServiceHandler.GetAll)
+		route.GET("/service-type", serviceTypeHandler.GetAll)
+		route.GET("/extra-service", extraServiceHandler.GetAll)
 		route.GET("/brand", brandHandler.GetAll)
 		route.GET("/model", modelHandler.GetAll)
-		route.GET("/fix_type", fixTypeHandler.GetAll)
-		route.GET("/device_type", deviceTypeHandler.GetAll)
+		route.GET("/fix-type", fixTypeHandler.GetAll)
+		route.GET("/device-type", deviceTypeHandler.GetAll)
+
+		// Create Model APIs
+		route.POST("/technical-service", technicalServiceHandler.Create)
 	}
 
 	router.Run(":8080")
