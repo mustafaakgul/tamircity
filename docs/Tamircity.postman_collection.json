@@ -1,0 +1,73 @@
+{
+	"info": {
+		"_postman_id": "ba270b08-8706-4ebd-9f5a-a502d59df649",
+		"name": "Tamircity",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14931585"
+	},
+	"item": [
+		{
+			"name": "Technical Service Post",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"service_name\": \"hello1\",\n    \"identity_number\": \"hello2\",\n    \"phone_number\": \"hello3\",\n    \"email\": \"hello4\",\n    \"iban\": \"hello5\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/technical-service",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"technical-service"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Technical Service Get",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"service_name\": \"hello1\",\n    \"identity_number\": \"hello2\",\n    \"phone_number\": \"hello3\",\n    \"email\": \"hello4\",\n    \"iban\": \"hello5\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/technical-service",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"technical-service"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
