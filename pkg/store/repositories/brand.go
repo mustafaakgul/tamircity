@@ -5,12 +5,12 @@ import (
 	"gorm.io/gorm"
 )
 
-type brandRepository struct {
+type brandStore struct {
 	db *gorm.DB
 }
 
 //interface
-type BrandRepository interface {
+type BrandStore interface {
 	Migration()
 	Create(model *db.Brand) error
 	Update(model *db.Brand) error
@@ -21,39 +21,37 @@ type BrandRepository interface {
 	Search(query string) ([]db.Brand, error)
 }
 
-var _ BrandRepository = &brandRepository{}
-
-func NewBrandRepository(db *gorm.DB) *brandRepository {
-	return &brandRepository{db: db}
+func NewBrandStore(db *gorm.DB) *brandStore {
+	return &brandStore{db: db}
 }
-func (m *brandRepository) Migration() {
+func (m *brandStore) Migration() {
 	m.db.AutoMigrate(&db.Brand{})
 }
-func (m *brandRepository) Create(model *db.Brand) error {
+func (m *brandStore) Create(model *db.Brand) error {
 	return m.db.Create(model).Error
 }
-func (m *brandRepository) Update(model *db.Brand) error {
+func (m *brandStore) Update(model *db.Brand) error {
 	return m.db.Save(model).Error
 }
-func (m *brandRepository) Delete(model *db.Brand) error {
+func (m *brandStore) Delete(model *db.Brand) error {
 	return m.db.Delete(model).Error
 }
-func (m *brandRepository) FindAll() ([]db.Brand, error) {
+func (m *brandStore) FindAll() ([]db.Brand, error) {
 	var models []db.Brand
 	err := m.db.Find(&models).Error
 	return models, err
 }
-func (m *brandRepository) FindByID(id int) (db.Brand, error) {
+func (m *brandStore) FindByID(id int) (db.Brand, error) {
 	var model db.Brand
 	err := m.db.First(&model, id).Error
 	return model, err
 }
-func (m *brandRepository) FindBy(column string, value interface{}) ([]db.Brand, error) {
+func (m *brandStore) FindBy(column string, value interface{}) ([]db.Brand, error) {
 	var models []db.Brand
 	err := m.db.Where(column+" = ?", value).Find(&models).Error
 	return models, err
 }
-func (m *brandRepository) Search(query string) ([]db.Brand, error) {
+func (m *brandStore) Search(query string) ([]db.Brand, error) {
 	var models []db.Brand
 	err := m.db.Where("name LIKE ?", "%"+query+"%").Find(&models).Error
 	return models, err

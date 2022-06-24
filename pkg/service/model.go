@@ -16,30 +16,30 @@ type ModelService interface {
 }
 
 type modelService struct {
-	modelRepository repositories.ModelRepository
+	modelStore repositories.ModelStore
 }
 
-func NewModelService(modelRepository repositories.ModelRepository) ModelService {
-	return &modelService{modelRepository: modelRepository}
+func NewModelService(modelStore repositories.ModelStore) ModelService {
+	return &modelService{modelStore: modelStore}
 }
 func (m *modelService) Create(model *db.Model) error {
-	return m.modelRepository.Create(model)
+	return m.modelStore.Create(model)
 }
 func (m *modelService) Update(model *db.Model) error {
-	return m.modelRepository.Update(model)
+	return m.modelStore.Update(model)
 }
 func (m *modelService) Delete(model *db.Model) error {
-	return m.modelRepository.Delete(model)
+	return m.modelStore.Delete(model)
 }
 func (m *modelService) FindAll() ([]db.Model, error) {
-	return m.modelRepository.FindAll()
+	return m.modelStore.FindAll()
 }
 func (m *modelService) FindByID(id int) (db.Model, error) {
-	return m.modelRepository.FindByID(id)
+	return m.modelStore.FindByID(id)
 }
 func (m *modelService) FindBy(column string, value interface{}) ([]db.Model, error) {
-	return m.modelRepository.FindBy(column, value)
+	return m.modelStore.FindBy(column, value)
 }
 func (m *modelService) Search(query string) ([]db.Model, error) {
-	return m.modelRepository.Search(query)
+	return m.modelStore.Search(query)
 }
