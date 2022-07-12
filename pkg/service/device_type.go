@@ -16,30 +16,30 @@ type DeviceTypeService interface {
 }
 
 type deviceTypeService struct {
-	deviveTypeRepository repositories.DeviceTypeRepository
+	deviceTypeStore repositories.DeviceTypeStore
 }
 
-func NewDeviceTypeService(deviveTypeRepository repositories.DeviceTypeRepository) DeviceTypeService {
-	return &deviceTypeService{deviveTypeRepository: deviveTypeRepository}
+func NewDeviceTypeService(deviceTypeStore repositories.DeviceTypeStore) DeviceTypeService {
+	return &deviceTypeService{deviceTypeStore: deviceTypeStore}
 }
 func (m *deviceTypeService) Create(model *db.DeviceType) error {
-	return m.deviveTypeRepository.Create(model)
+	return m.deviceTypeStore.Create(model)
 }
 func (m *deviceTypeService) Update(model *db.DeviceType) error {
-	return m.deviveTypeRepository.Update(model)
+	return m.deviceTypeStore.Update(model)
 }
 func (m *deviceTypeService) Delete(model *db.DeviceType) error {
-	return m.deviveTypeRepository.Delete(model)
+	return m.deviceTypeStore.Delete(model)
 }
 func (m *deviceTypeService) FindAll() ([]db.DeviceType, error) {
-	return m.deviveTypeRepository.FindAll()
+	return m.deviceTypeStore.FindAll()
 }
 func (m *deviceTypeService) FindByID(id int) (db.DeviceType, error) {
-	return m.deviveTypeRepository.FindByID(id)
+	return m.deviceTypeStore.FindByID(id)
 }
 func (m *deviceTypeService) FindBy(column string, value interface{}) ([]db.DeviceType, error) {
-	return m.deviveTypeRepository.FindBy(column, value)
+	return m.deviceTypeStore.FindBy(column, value)
 }
 func (m *deviceTypeService) Search(query string) ([]db.DeviceType, error) {
-	return m.deviveTypeRepository.Search(query)
+	return m.deviceTypeStore.Search(query)
 }

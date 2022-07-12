@@ -5,12 +5,12 @@ import (
 	"gorm.io/gorm"
 )
 
-type deviceTypeRepository struct {
+type deviceTypeStore struct {
 	db *gorm.DB
 }
 
 //interface
-type DeviceTypeRepository interface {
+type DeviceTypeStore interface {
 	Migration()
 	Create(model *db.DeviceType) error
 	Update(model *db.DeviceType) error
@@ -21,39 +21,37 @@ type DeviceTypeRepository interface {
 	Search(query string) ([]db.DeviceType, error)
 }
 
-var _ DeviceTypeRepository = &deviceTypeRepository{}
-
-func NewDeviceTypeRepository(db *gorm.DB) *deviceTypeRepository {
-	return &deviceTypeRepository{db: db}
+func NewDeviceTypeStore(db *gorm.DB) DeviceTypeStore {
+	return &deviceTypeStore{db: db}
 }
-func (m *deviceTypeRepository) Migration() {
+func (m *deviceTypeStore) Migration() {
 	m.db.AutoMigrate(&db.DeviceType{})
 }
-func (m *deviceTypeRepository) Create(model *db.DeviceType) error {
+func (m *deviceTypeStore) Create(model *db.DeviceType) error {
 	return m.db.Create(model).Error
 }
-func (m *deviceTypeRepository) Update(model *db.DeviceType) error {
+func (m *deviceTypeStore) Update(model *db.DeviceType) error {
 	return m.db.Save(model).Error
 }
-func (m *deviceTypeRepository) Delete(model *db.DeviceType) error {
+func (m *deviceTypeStore) Delete(model *db.DeviceType) error {
 	return m.db.Delete(model).Error
 }
-func (m *deviceTypeRepository) FindAll() ([]db.DeviceType, error) {
+func (m *deviceTypeStore) FindAll() ([]db.DeviceType, error) {
 	var models []db.DeviceType
 	err := m.db.Find(&models).Error
 	return models, err
 }
-func (m *deviceTypeRepository) FindByID(id int) (db.DeviceType, error) {
+func (m *deviceTypeStore) FindByID(id int) (db.DeviceType, error) {
 	var model db.DeviceType
 	err := m.db.First(&model, id).Error
 	return model, err
 }
-func (m *deviceTypeRepository) FindBy(column string, value interface{}) ([]db.DeviceType, error) {
+func (m *deviceTypeStore) FindBy(column string, value interface{}) ([]db.DeviceType, error) {
 	var models []db.DeviceType
 	err := m.db.Where(column+" = ?", value).Find(&models).Error
 	return models, err
 }
-func (m *deviceTypeRepository) Search(query string) ([]db.DeviceType, error) {
+func (m *deviceTypeStore) Search(query string) ([]db.DeviceType, error) {
 	var models []db.DeviceType
 	err := m.db.Where("name LIKE ?", "%"+query+"%").Find(&models).Error
 	return models, err

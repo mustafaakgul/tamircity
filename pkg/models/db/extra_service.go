@@ -8,3 +8,9 @@ type ExtraService struct {
 	Price       int64
 	IsActive    bool `json:"is_active" gorm:"type:boolean;default:true;not null"`
 }
+
+/*
+cihaz bakım paketi
+ekran korucu
+ekran koruma standart
+*/

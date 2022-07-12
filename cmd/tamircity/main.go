@@ -45,10 +45,10 @@ func main() {
 	technicalServiceStore := repositories.NewTechnicalServiceStore(db)
 	serviceTypeStore := repositories.NewServiceTypeStore(db)
 	extraServiceStore := repositories.NewExtraServiceStore(db)
-	brandStore := repositories.NewBrandRepository(db)
-	modelStore := repositories.NewModelRepository(db)
-	fixTypeStore := repositories.NewFixTypeRepository(db)
-	deviceTypeStore := repositories.NewDeviceTypeRepository(db)
+	brandStore := repositories.NewBrandStore(db)
+	modelStore := repositories.NewModelStore(db)
+	fixTypeStore := repositories.NewFixTypeStore(db)
+	deviceTypeStore := repositories.NewDeviceTypeStore(db)
 
 	// Clients
 	// This one need to be integrated systems
@@ -95,6 +95,15 @@ func main() {
 
 		// Create Model APIs
 		route.POST("/technical-service", technicalServiceHandler.Create)
+
+		// Get Model APIs
+		route.GET("/technical-service/:id", technicalServiceHandler.Get)
+
+		// Update Model APIs
+		route.PUT("/technical-service/:id", technicalServiceHandler.Get)
+
+		// Delete Model APIs
+		route.DELETE("/technical-service/:id", technicalServiceHandler.Delete)
 	}
 
 	router.Run(":8080")

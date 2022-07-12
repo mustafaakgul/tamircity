@@ -16,30 +16,30 @@ type FixTypeService interface {
 }
 
 type fixTypeService struct {
-	fixTypeRepository repositories.FixTypeRepository
+	fixTypeStore repositories.FixTypeStore
 }
 
-func NewFixTypeService(fixTypeRepository repositories.FixTypeRepository) FixTypeService {
-	return &fixTypeService{fixTypeRepository: fixTypeRepository}
+func NewFixTypeService(fixTypeStore repositories.FixTypeStore) FixTypeService {
+	return &fixTypeService{fixTypeStore: fixTypeStore}
 }
 func (m *fixTypeService) Create(model *db.FixType) error {
-	return m.fixTypeRepository.Create(model)
+	return m.fixTypeStore.Create(model)
 }
 func (m *fixTypeService) Update(model *db.FixType) error {
-	return m.fixTypeRepository.Update(model)
+	return m.fixTypeStore.Update(model)
 }
 func (m *fixTypeService) Delete(model *db.FixType) error {
-	return m.fixTypeRepository.Delete(model)
+	return m.fixTypeStore.Delete(model)
 }
 func (m *fixTypeService) FindAll() ([]db.FixType, error) {
-	return m.fixTypeRepository.FindAll()
+	return m.fixTypeStore.FindAll()
 }
 func (m *fixTypeService) FindByID(id int) (db.FixType, error) {
-	return m.fixTypeRepository.FindByID(id)
+	return m.fixTypeStore.FindByID(id)
 }
 func (m *fixTypeService) FindBy(column string, value interface{}) ([]db.FixType, error) {
-	return m.fixTypeRepository.FindBy(column, value)
+	return m.fixTypeStore.FindBy(column, value)
 }
 func (m *fixTypeService) Search(query string) ([]db.FixType, error) {
-	return m.fixTypeRepository.Search(query)
+	return m.fixTypeStore.Search(query)
 }
