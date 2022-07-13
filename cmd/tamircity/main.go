@@ -25,7 +25,18 @@ func main() {
 	}
 	log.Println("Postgres connected")
 
-	db.AutoMigrate(&dbModels.TechnicalService{}, &dbModels.Brand{}, &dbModels.Model{}, &dbModels.FixType{}, &dbModels.DeviceType{})
+	db.AutoMigrate(
+		&dbModels.Brand{},
+		&dbModels.Contact{},
+		&dbModels.Customer{},
+		&dbModels.DeviceType{},
+		&dbModels.ExtraService{},
+		&dbModels.FixType{},
+		&dbModels.Model{},
+		&dbModels.Newsletter{},
+		&dbModels.ServiceType{},
+		&dbModels.TechnicalService{},
+	)
 	/*
 		//Add Seed data
 		roleRepo := role.NewRoleRepository(db)
