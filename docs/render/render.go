@@ -1,12 +1,6 @@
 package render
 
-import (
-	"bytes"
-	"encoding/json"
-	"github.com/serhatmorkoc/go-realworld-example/handler/api/errors"
-	"net/http"
-)
-
+/*
 func ErrorCode(w http.ResponseWriter, err error, status int) {
 	JSON(w, &errors.Error{Message: err.Error()}, status)
 }
@@ -50,4 +44,4 @@ func JSON(w http.ResponseWriter, v interface{}, status int) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-}
+}*/
