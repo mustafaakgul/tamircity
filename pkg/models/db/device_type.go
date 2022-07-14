@@ -10,4 +10,5 @@ type DeviceType struct {
 	TechnicalServices []*TechnicalService `gorm:"many2many:technical_services_device_types;"`
 	Brands            []*Brand            `gorm:"many2many:device_types_brands;"`
 	FixTypes          []*FixType          `gorm:"many2many:device_types_fix_types;"`
+	Models            []*Model
 }

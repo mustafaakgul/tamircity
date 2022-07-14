@@ -8,5 +8,7 @@ type Model struct {
 	ShortDescription string `gorm:"type:varchar(255);"`
 	BrandId          int
 	Brand            Brand `gorm:"foreignkey:BrandId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
-	IsActive         bool  `gorm:"type:boolean;default:true;not null"`
+	DeviceTypeId     int
+	DeviceType       DeviceType `gorm:"foreignkey:DeviceTypeId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	IsActive         bool       `gorm:"type:boolean;default:true;not null"`
 }
