@@ -34,6 +34,7 @@ func main() {
 		&dbModels.FixType{},
 		&dbModels.Model{},
 		&dbModels.Newsletter{},
+		&dbModels.Reservation{},
 		&dbModels.ServiceType{},
 		&dbModels.TechnicalService{},
 	)
