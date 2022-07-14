@@ -1,12 +1,13 @@
 package main
 
 import (
+	"log"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/mustafakocatepe/Tamircity/handler/api"
 	"github.com/mustafakocatepe/Tamircity/pkg/service"
 	"github.com/mustafakocatepe/Tamircity/pkg/store/repositories"
-	"log"
 
 	"github.com/joho/godotenv"
 	dbModels "github.com/mustafakocatepe/Tamircity/pkg/models/db"
@@ -104,6 +105,7 @@ func main() {
 		route.GET("/model", modelHandler.GetAll)
 		route.GET("/fix-type", fixTypeHandler.GetAll)
 		route.GET("/device-type", deviceTypeHandler.GetAll)
+		route.GET("/device-type/active", deviceTypeHandler.GetAllByActive)
 
 		// Create Model APIs
 		route.POST("/technical-service", technicalServiceHandler.Create)
