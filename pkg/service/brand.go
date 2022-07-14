@@ -2,6 +2,7 @@ package service
 
 import (
 	"github.com/mustafakocatepe/Tamircity/pkg/models/db"
+	"github.com/mustafakocatepe/Tamircity/pkg/models/web"
 	"github.com/mustafakocatepe/Tamircity/pkg/store/repositories"
 )
 
@@ -12,6 +13,7 @@ type BrandService interface {
 	FindAll() ([]db.Brand, error)
 	FindByID(id int) (db.Brand, error)
 	FindBy(column string, value interface{}) ([]db.Brand, error)
+	FindByDeviceTypeId(deviceTypeId int) ([]web.BrandResponse, error)
 	Search(query string) ([]db.Brand, error)
 }
 
@@ -39,6 +41,17 @@ func (m *brandService) FindByID(id int) (db.Brand, error) {
 }
 func (m *brandService) FindBy(column string, value interface{}) ([]db.Brand, error) {
 	return m.brandStore.FindBy(column, value)
+}
+func (m *brandService) FindByDeviceTypeId(deviceTypeId int) (res []web.BrandResponse, err error) {
+	brands, err := m.brandStore.FindByDeviceTypeId(deviceTypeId)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, brand := range brands {
+		res = append(res, web.BrandResponse{Id: brand.ID, Name: brand.Name})
+	}
+	return res, nil
 }
 func (m *brandService) Search(query string) ([]db.Brand, error) {
 	return m.brandStore.Search(query)
