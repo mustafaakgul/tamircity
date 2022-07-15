@@ -3,14 +3,13 @@ package main
 import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	"github.com/mustafakocatepe/Tamircity/handler/api"
+	dbModels "github.com/mustafakocatepe/Tamircity/pkg/models/db"
 	"github.com/mustafakocatepe/Tamircity/pkg/service"
 	"github.com/mustafakocatepe/Tamircity/pkg/store/repositories"
-	"log"
-
-	"github.com/joho/godotenv"
-	dbModels "github.com/mustafakocatepe/Tamircity/pkg/models/db"
 	postgres "github.com/mustafakocatepe/Tamircity/pkg/store/shared/db"
+	"log"
 )
 
 func main() {
@@ -25,7 +24,45 @@ func main() {
 	}
 	log.Println("Postgres connected")
 
-	db.AutoMigrate(
+	// Connection DB and migrations
+	if !db.Migrator().HasTable(&dbModels.Brand{}) {
+		db.AutoMigrate(
+			&dbModels.Brand{},
+			&dbModels.Contact{},
+			&dbModels.Customer{},
+			&dbModels.DeviceType{},
+			&dbModels.ExtraService{},
+			&dbModels.FixType{},
+			&dbModels.Model{},
+			&dbModels.Newsletter{},
+			&dbModels.Reservation{},
+			&dbModels.ServiceType{},
+			&dbModels.TechnicalService{},
+		)
+		// Adding Seed data
+		technicalServiceStore := repositories.NewTechnicalServiceStore(db)
+		/*serviceTypeStore := repositories.NewServiceTypeStore(db)
+		extraServiceStore := repositories.NewExtraServiceStore(db)
+		brandStore := repositories.NewBrandStore(db)
+		modelStore := repositories.NewModelStore(db)
+		fixTypeStore := repositories.NewFixTypeStore(db)
+		deviceTypeStore := repositories.NewDeviceTypeStore(db)*/
+		technicalServiceStore.Seed()
+		/*roleRepo := role.NewRoleRepository(db)
+		roleRepo.Seed()
+		userRepo := user.NewUserRepository(db)
+		userRepo.Seed()
+		statusRepo := status.NewStatusRepository(db)
+		statusRepo.Seed()
+		users, _ := userRepo.FindAll()
+		roles, _ := roleRepo.FindAll()
+		userrolemapRepo := userrolemap.NewUserRoleMapRepository(db)
+		userrolemapRepo.Seed(users, roles)*/
+		log.Println("Migrations done")
+	}
+
+	// TODO: Migrating
+	/*db.AutoMigrate(
 		&dbModels.Brand{},
 		&dbModels.Contact{},
 		&dbModels.Customer{},
@@ -37,20 +74,7 @@ func main() {
 		&dbModels.Reservation{},
 		&dbModels.ServiceType{},
 		&dbModels.TechnicalService{},
-	)
-	/*
-		//Add Seed data
-		roleRepo := role.NewRoleRepository(db)
-		roleRepo.Seed()
-		userRepo := user.NewUserRepository(db)
-		userRepo.Seed()
-		statusRepo := status.NewStatusRepository(db)
-		statusRepo.Seed()
-		users, _ := userRepo.FindAll()
-		roles, _ := roleRepo.FindAll()
-		userrolemapRepo := userrolemap.NewUserRoleMapRepository(db)
-		userrolemapRepo.Seed(users, roles)
-	*/
+	)*/
 	log.Println("Migrations done")
 
 	// Store
@@ -61,6 +85,9 @@ func main() {
 	modelStore := repositories.NewModelStore(db)
 	fixTypeStore := repositories.NewFixTypeStore(db)
 	deviceTypeStore := repositories.NewDeviceTypeStore(db)
+
+	// TODO: Adding Seed data
+	//technicalServiceStore.Seed()
 
 	// Clients
 	// This one need to be integrated systems

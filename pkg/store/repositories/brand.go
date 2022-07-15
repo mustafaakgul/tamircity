@@ -19,6 +19,7 @@ type BrandStore interface {
 	FindByID(id int) (db.Brand, error)
 	FindBy(column string, value interface{}) ([]db.Brand, error)
 	Search(query string) ([]db.Brand, error)
+	Seed() error
 }
 
 func NewBrandStore(db *gorm.DB) *brandStore {
@@ -55,4 +56,19 @@ func (m *brandStore) Search(query string) ([]db.Brand, error) {
 	var models []db.Brand
 	err := m.db.Where("name LIKE ?", "%"+query+"%").Find(&models).Error
 	return models, err
+}
+
+func (m *brandStore) Seed() error {
+	brands := []*db.Brand{
+		{Name: "Samsung", IsActive: true},
+		{Name: "Apple", IsActive: true},
+		{Name: "Xiaomi", IsActive: true},
+		{Name: "Huawei", IsActive: true},
+	}
+	for _, brand := range brands {
+		if err := m.db.Create(&brand).Error; err != nil {
+			return err
+		}
+	}
+	return nil
 }

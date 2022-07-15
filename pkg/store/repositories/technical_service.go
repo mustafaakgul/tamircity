@@ -17,6 +17,7 @@ type TechnicalServiceStore interface {
 	FindByID(id int) (db.TechnicalService, error)
 	FindBy(column string, value interface{}) ([]db.TechnicalService, error)
 	Search(query string) ([]db.TechnicalService, error)
+	Seed() error
 }
 
 func NewTechnicalServiceStore(db *gorm.DB) TechnicalServiceStore {
@@ -57,4 +58,50 @@ func (t *technicalServiceStore) Search(query string) ([]db.TechnicalService, err
 	var models []db.TechnicalService
 	err := t.db.Where("name LIKE ?", "%"+query+"%").Find(&models).Error
 	return models, err
+}
+
+func (t *technicalServiceStore) Seed() error {
+	deviceType := []*db.DeviceType{
+		{
+			Name:             "Bilgisayar",
+			ShortDescription: "Bilgisayar",
+			IsActive:         true,
+		},
+		{
+			Name:             "Telefon",
+			ShortDescription: "Telefon",
+			IsActive:         true,
+		},
+		{
+			Name:             "Tablet",
+			ShortDescription: "Tablet",
+			IsActive:         true,
+		},
+	}
+
+	technicalServices := []db.TechnicalService{
+		{
+			ServiceName:    "service",
+			IdentityNumber: "identt",
+			PhoneNumber:    "phonehell",
+			Email:          "emailhell",
+			Iban:           "ibanhe",
+			IsActive:       true,
+			DeviceTypes:    deviceType,
+		},
+		{
+			ServiceName:    "service",
+			IdentityNumber: "identt",
+			PhoneNumber:    "phonehell",
+			Email:          "emailhell",
+			Iban:           "ibanhe",
+			IsActive:       true,
+		},
+	}
+	for _, technicalService := range technicalServices {
+		if err := t.db.Create(&technicalService).Error; err != nil {
+			return err
+		}
+	}
+	return nil
 }
