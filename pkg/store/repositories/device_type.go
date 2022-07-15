@@ -16,6 +16,7 @@ type DeviceTypeStore interface {
 	Update(model *db.DeviceType) error
 	Delete(model *db.DeviceType) error
 	FindAll() ([]db.DeviceType, error)
+	FindAllByActive() ([]db.DeviceType, error)
 	FindByID(id int) (db.DeviceType, error)
 	FindBy(column string, value interface{}) ([]db.DeviceType, error)
 	Search(query string) ([]db.DeviceType, error)
@@ -39,6 +40,11 @@ func (m *deviceTypeStore) Delete(model *db.DeviceType) error {
 func (m *deviceTypeStore) FindAll() ([]db.DeviceType, error) {
 	var models []db.DeviceType
 	err := m.db.Find(&models).Error
+	return models, err
+}
+func (m *deviceTypeStore) FindAllByActive() ([]db.DeviceType, error) {
+	var models []db.DeviceType
+	err := m.db.Where("deleted_at is null AND is_active = 1").Find(&models).Error
 	return models, err
 }
 func (m *deviceTypeStore) FindByID(id int) (db.DeviceType, error) {
