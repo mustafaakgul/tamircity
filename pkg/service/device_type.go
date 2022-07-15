@@ -10,6 +10,7 @@ type DeviceTypeService interface {
 	Update(model *db.DeviceType) error
 	Delete(model *db.DeviceType) error
 	FindAll() ([]db.DeviceType, error)
+	FindAllByActive() ([]db.DeviceType, error)
 	FindByID(id int) (db.DeviceType, error)
 	FindBy(column string, value interface{}) ([]db.DeviceType, error)
 	Search(query string) ([]db.DeviceType, error)
@@ -33,6 +34,9 @@ func (m *deviceTypeService) Delete(model *db.DeviceType) error {
 }
 func (m *deviceTypeService) FindAll() ([]db.DeviceType, error) {
 	return m.deviceTypeStore.FindAll()
+}
+func (m *deviceTypeService) FindAllByActive() ([]db.DeviceType, error) {
+	return m.deviceTypeStore.FindAllByActive()
 }
 func (m *deviceTypeService) FindByID(id int) (db.DeviceType, error) {
 	return m.deviceTypeStore.FindByID(id)

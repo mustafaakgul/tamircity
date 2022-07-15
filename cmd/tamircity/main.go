@@ -1,6 +1,8 @@
 package main
 
 import (
+	"log"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -131,6 +133,7 @@ func main() {
 		route.GET("/model", modelHandler.GetAll)
 		route.GET("/fix-type", fixTypeHandler.GetAll)
 		route.GET("/device-type", deviceTypeHandler.GetAll)
+		route.GET("/device-type/active", deviceTypeHandler.GetAllByActive)
 
 		// Create Model APIs
 		route.POST("/technical-service", technicalServiceHandler.Create)
@@ -143,6 +146,9 @@ func main() {
 
 		// Delete Model APIs
 		route.DELETE("/technical-service/:id", technicalServiceHandler.Delete)
+
+		// Get All Brands By DeviceTypeId API
+		route.GET("/brand/:deviceTypeId", brandHandler.GetAllByDeviceTypeId)
 	}
 
 	router.Run(":8080")

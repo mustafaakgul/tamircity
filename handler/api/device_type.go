@@ -14,6 +14,7 @@ type deviceTypeHandler struct {
 
 type DeviceTypeHandler interface {
 	GetAll(ctx *gin.Context)
+	GetAllByActive(ctx *gin.Context)
 }
 
 func NewDeviceTypeHandler(deviceTypeService service.DeviceTypeService) DeviceTypeHandler {
@@ -24,6 +25,19 @@ func NewDeviceTypeHandler(deviceTypeService service.DeviceTypeService) DeviceTyp
 
 func (d *deviceTypeHandler) GetAll(ctx *gin.Context) {
 	deviceTypes, err := d.deviceTypeService.FindAll()
+
+	if err != nil {
+		responseErr := utils.HandleResponseModel(false, "", err, nil)
+		ctx.JSON(http.StatusBadRequest, responseErr)
+		return
+	}
+
+	response := utils.HandleResponseModel(true, "", nil, deviceTypes)
+	ctx.JSON(http.StatusOK, response)
+}
+
+func (d *deviceTypeHandler) GetAllByActive(ctx *gin.Context) {
+	deviceTypes, err := d.deviceTypeService.FindAllByActive()
 
 	if err != nil {
 		responseErr := utils.HandleResponseModel(false, "", err, nil)
