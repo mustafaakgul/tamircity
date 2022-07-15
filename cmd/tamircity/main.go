@@ -147,6 +147,9 @@ func main() {
 
 		// Get All Brands By DeviceTypeId API
 		route.GET("/brand/:deviceTypeId", brandHandler.GetAllByDeviceTypeId)
+
+		// Get All Fix Types By DeviceTypeId API
+		route.GET("/fix-type/:deviceTypeId", fixTypeHandler.GetAllByDevicetypeId)
 	}
 
 	router.Run(":8080")

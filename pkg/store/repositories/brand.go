@@ -58,7 +58,7 @@ func (b *brandStore) Search(query string) ([]db.Brand, error) {
 	err := b.db.Where("name LIKE ?", "%"+query+"%").Find(&models).Error
 	return models, err
 }
-func (m *brandStore) Seed() error {
+func (b *brandStore) Seed() error {
 	brands := []*db.Brand{
 		{Name: "Samsung", IsActive: true},
 		{Name: "Apple", IsActive: true},
@@ -66,7 +66,7 @@ func (m *brandStore) Seed() error {
 		{Name: "Huawei", IsActive: true},
 	}
 	for _, brand := range brands {
-		if err := m.db.Create(&brand).Error; err != nil {
+		if err := b.db.Create(&brand).Error; err != nil {
 			return err
 		}
 	}
