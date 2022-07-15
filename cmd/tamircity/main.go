@@ -116,6 +116,9 @@ func main() {
 
 		// Delete Model APIs
 		route.DELETE("/technical-service/:id", technicalServiceHandler.Delete)
+
+		// Get All Brands By DeviceTypeId API
+		route.GET("/brand/:deviceTypeId", brandHandler.GetAllByDeviceTypeId)
 	}
 
 	router.Run(":8080")
