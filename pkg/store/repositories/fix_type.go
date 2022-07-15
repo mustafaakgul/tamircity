@@ -18,41 +18,47 @@ type FixTypeStore interface {
 	FindAll() ([]db.FixType, error)
 	FindByID(id int) (db.FixType, error)
 	FindBy(column string, value interface{}) ([]db.FixType, error)
+	FindByDeviceTypeId(deviceTypeId int) ([]db.FixType, error)
 	Search(query string) ([]db.FixType, error)
 }
 
 func NewFixTypeStore(db *gorm.DB) FixTypeStore {
 	return &fixTypeStore{db: db}
 }
-func (m *fixTypeStore) Migration() {
-	m.db.AutoMigrate(&db.FixType{})
+func (f *fixTypeStore) Migration() {
+	f.db.AutoMigrate(&db.FixType{})
 }
-func (m *fixTypeStore) Create(model *db.FixType) error {
-	return m.db.Create(model).Error
+func (f *fixTypeStore) Create(model *db.FixType) error {
+	return f.db.Create(model).Error
 }
-func (m *fixTypeStore) Update(model *db.FixType) error {
-	return m.db.Save(model).Error
+func (f *fixTypeStore) Update(model *db.FixType) error {
+	return f.db.Save(model).Error
 }
-func (m *fixTypeStore) Delete(model *db.FixType) error {
-	return m.db.Delete(model).Error
+func (f *fixTypeStore) Delete(model *db.FixType) error {
+	return f.db.Delete(model).Error
 }
-func (m *fixTypeStore) FindAll() ([]db.FixType, error) {
+func (f *fixTypeStore) FindAll() ([]db.FixType, error) {
 	var models []db.FixType
-	err := m.db.Find(&models).Error
+	err := f.db.Find(&models).Error
 	return models, err
 }
-func (m *fixTypeStore) FindByID(id int) (db.FixType, error) {
+func (f *fixTypeStore) FindByID(id int) (db.FixType, error) {
 	var model db.FixType
-	err := m.db.First(&model, id).Error
+	err := f.db.First(&model, id).Error
 	return model, err
 }
-func (m *fixTypeStore) FindBy(column string, value interface{}) ([]db.FixType, error) {
+func (f *fixTypeStore) FindBy(column string, value interface{}) ([]db.FixType, error) {
 	var models []db.FixType
-	err := m.db.Where(column+" = ?", value).Find(&models).Error
+	err := f.db.Where(column+" = ?", value).Find(&models).Error
 	return models, err
 }
-func (m *fixTypeStore) Search(query string) ([]db.FixType, error) {
+func (f *fixTypeStore) FindByDeviceTypeId(deviceTypeId int) ([]db.FixType, error) {
+	var fixTypes []db.FixType
+	err := f.db.Model(&fixTypes).Joins("INNER JOIN device_types_fix_types on fix_types.id = device_types_fix_types.fix_type_id").Where("device_types_fix_types.device_type_id = ?", deviceTypeId).Find(&fixTypes).Error
+	return fixTypes, err
+}
+func (f *fixTypeStore) Search(query string) ([]db.FixType, error) {
 	var models []db.FixType
-	err := m.db.Where("name LIKE ?", "%"+query+"%").Find(&models).Error
+	err := f.db.Where("name LIKE ?", "%"+query+"%").Find(&models).Error
 	return models, err
 }
