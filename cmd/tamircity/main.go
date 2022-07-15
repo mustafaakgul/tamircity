@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"github.com/mustafakocatepe/Tamircity/handler/api"
+	"github.com/mustafakocatepe/Tamircity/handler/routes"
 	dbModels "github.com/mustafakocatepe/Tamircity/pkg/models/db"
 	"github.com/mustafakocatepe/Tamircity/pkg/service"
 	"github.com/mustafakocatepe/Tamircity/pkg/store/repositories"
@@ -121,36 +122,14 @@ func main() {
 	corsConfig.AddAllowMethods("OPTIONS", "GET", "PUT", "PATCH", "POST")
 	router.Use(cors.New(corsConfig))
 
-	route := router.Group("api/v1")
-	{
-		// Get All Models APIs
-		route.GET("/technical-service", technicalServiceHandler.GetAll)
-		route.GET("/service-type", serviceTypeHandler.GetAll)
-		route.GET("/extra-service", extraServiceHandler.GetAll)
-		route.GET("/brand", brandHandler.GetAll)
-		route.GET("/model", modelHandler.GetAll)
-		route.GET("/fix-type", fixTypeHandler.GetAll)
-		route.GET("/device-type", deviceTypeHandler.GetAll)
-		route.GET("/device-type/active", deviceTypeHandler.GetAllByActive)
-
-		// Create Model APIs
-		route.POST("/technical-service", technicalServiceHandler.Create)
-
-		// Get Model APIs
-		route.GET("/technical-service/:id", technicalServiceHandler.Get)
-
-		// Update Model APIs
-		route.PUT("/technical-service/:id", technicalServiceHandler.Get)
-
-		// Delete Model APIs
-		route.DELETE("/technical-service/:id", technicalServiceHandler.Delete)
-
-		// Get All Brands By DeviceTypeId API
-		route.GET("/brand/:deviceTypeId", brandHandler.GetAllByDeviceTypeId)
-
-		// Get All Fix Types By DeviceTypeId API
-		route.GET("/fix-type/:deviceTypeId", fixTypeHandler.GetAllByDevicetypeId)
-	}
+	// Routes
+	routes.BrandRouter(router, brandHandler)
+	routes.DeviceTypeRouter(router, deviceTypeHandler)
+	routes.ExtraServiceRouter(router, extraServiceHandler)
+	routes.FixTypeRouter(router, fixTypeHandler)
+	routes.ModelRouter(router, modelHandler)
+	routes.ServiceTypeRouter(router, serviceTypeHandler)
+	routes.TechnicalServiceRouter(router, technicalServiceHandler)
 
 	router.Run(":8080")
 }

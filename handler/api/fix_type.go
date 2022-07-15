@@ -13,12 +13,12 @@ type fixTypeHandler struct {
 	fixTypeService service.FixTypeService
 }
 
-type FixTypeService interface {
+type FixTypeHandler interface {
 	GetAll(ctx *gin.Context)
 	GetAllByDevicetypeId(ctx *gin.Context)
 }
 
-func NewFixTypeHandler(fixTypeService service.FixTypeService) FixTypeService {
+func NewFixTypeHandler(fixTypeService service.FixTypeService) FixTypeHandler {
 	return &fixTypeHandler{
 		fixTypeService: fixTypeService,
 	}
