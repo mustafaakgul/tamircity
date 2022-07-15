@@ -1,7 +1,9 @@
 package service
 
 import (
+	"fmt"
 	"github.com/mustafakocatepe/Tamircity/pkg/models/db"
+	"github.com/mustafakocatepe/Tamircity/pkg/models/web"
 	"github.com/mustafakocatepe/Tamircity/pkg/store/repositories"
 )
 
@@ -12,6 +14,7 @@ type ModelService interface {
 	FindAll() ([]db.Model, error)
 	FindByID(id int) (db.Model, error)
 	FindBy(column string, value interface{}) ([]db.Model, error)
+	FindByBrandIdDeviceTypeId(brandId int, deviceTypeId int) ([]web.ModelResponse, error)
 	Search(query string) ([]db.Model, error)
 }
 
@@ -39,6 +42,17 @@ func (m *modelService) FindByID(id int) (db.Model, error) {
 }
 func (m *modelService) FindBy(column string, value interface{}) ([]db.Model, error) {
 	return m.modelStore.FindBy(column, value)
+}
+func (m *modelService) FindByBrandIdDeviceTypeId(brandId int, deviceTypeId int) (res []web.ModelResponse, err error) {
+	query := fmt.Sprintf("brand_id = %x AND device_type_id = %x ", brandId, deviceTypeId)
+	models, err := m.modelStore.Where(query)
+	if err != nil {
+		return nil, err
+	}
+	for _, model := range models {
+		res = append(res, web.ModelResponse{Id: model.ID, Name: model.Name})
+	}
+	return res, nil
 }
 func (m *modelService) Search(query string) ([]db.Model, error) {
 	return m.modelStore.Search(query)

@@ -18,6 +18,7 @@ type ModelStore interface {
 	FindAll() ([]db.Model, error)
 	FindByID(id int) (db.Model, error)
 	FindBy(column string, value interface{}) ([]db.Model, error)
+	Where(query string) ([]db.Model, error)
 	Search(query string) ([]db.Model, error)
 }
 
@@ -49,6 +50,11 @@ func (m *modelStore) FindByID(id int) (db.Model, error) {
 func (m *modelStore) FindBy(column string, value interface{}) ([]db.Model, error) {
 	var models []db.Model
 	err := m.db.Where(column+" = ?", value).Find(&models).Error
+	return models, err
+}
+func (m *modelStore) Where(query string) ([]db.Model, error) {
+	var models []db.Model
+	err := m.db.Where(query).Find(&models).Error
 	return models, err
 }
 func (m *modelStore) Search(query string) ([]db.Model, error) {

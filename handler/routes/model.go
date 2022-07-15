@@ -9,5 +9,6 @@ func ModelRouter(router *gin.Engine, modelHandler api.ModelHandler) {
 	route := router.Group("api/v1/model")
 	{
 		route.GET("/", modelHandler.GetAll)
+		route.GET("/query", modelHandler.GetAllByBrandIdDeviceTypeId) // TO DO
 	}
 }
