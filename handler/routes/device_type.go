@@ -8,7 +8,7 @@ import (
 func DeviceTypeRouter(router *gin.Engine, deviceTypeHandler api.DeviceTypeHandler) {
 	route := router.Group("api/v1/device-type")
 	{
-		route.GET("/", deviceTypeHandler.GetAll)
-		route.GET("/active", deviceTypeHandler.GetAllByActive)
+		//route.GET("/", deviceTypeHandler.GetAll)
+		route.GET("/", deviceTypeHandler.GetAllByActive)
 	}
 }

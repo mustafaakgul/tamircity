@@ -1,7 +1,9 @@
 package api
 
 import (
+	"github.com/mustafakocatepe/Tamircity/pkg/models/db"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/mustafakocatepe/Tamircity/pkg/service"
@@ -37,7 +39,17 @@ func (d *deviceTypeHandler) GetAll(ctx *gin.Context) {
 }
 
 func (d *deviceTypeHandler) GetAllByActive(ctx *gin.Context) {
-	deviceTypes, err := d.deviceTypeService.FindAllByActive()
+
+	active, err := strconv.Atoi(ctx.Query("active"))
+	if err != nil {
+		responseErr := utils.HandleResponseModel(false, "", err, nil)
+		ctx.JSON(http.StatusBadRequest, responseErr)
+		return
+	}
+	var deviceTypes []db.DeviceType
+	if active == 1 {
+		deviceTypes, err = d.deviceTypeService.FindAllByActive()
+	}
 
 	if err != nil {
 		responseErr := utils.HandleResponseModel(false, "", err, nil)

@@ -8,7 +8,7 @@ import (
 func BrandRouter(router *gin.Engine, brandHandler api.BrandHandler) {
 	route := router.Group("api/v1/brand")
 	{
-		route.GET("/brand", brandHandler.GetAll)
-		route.GET("/:deviceTypeId", brandHandler.GetAllByDeviceTypeId)
+		//route.GET("/", brandHandler.GetAll)
+		route.GET("/", brandHandler.GetAllByDeviceTypeId)
 	}
 }

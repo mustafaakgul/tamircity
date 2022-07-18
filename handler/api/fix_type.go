@@ -39,7 +39,7 @@ func (f *fixTypeHandler) GetAll(ctx *gin.Context) {
 
 func (f *fixTypeHandler) GetAllByDevicetypeId(ctx *gin.Context) {
 
-	deviceTypeId, err := strconv.Atoi(ctx.Param("deviceTypeId"))
+	deviceTypeId, err := strconv.Atoi(ctx.Query("device_type_Id"))
 	if err != nil {
 		responseErr := utils.HandleResponseModel(false, "", err, nil)
 		ctx.JSON(http.StatusBadRequest, responseErr)

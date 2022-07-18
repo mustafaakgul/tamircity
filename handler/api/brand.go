@@ -36,7 +36,14 @@ func (b *brandHandler) GetAll(ctx *gin.Context) {
 }
 
 func (b *brandHandler) GetAllByDeviceTypeId(ctx *gin.Context) {
-	deviceTypeId, _ := strconv.Atoi(ctx.Param("deviceTypeId"))
+
+	deviceTypeId, err := strconv.Atoi(ctx.Param("device_type_id"))
+	if err != nil {
+		responseErr := utils.HandleResponseModel(false, "", err, nil)
+		ctx.JSON(http.StatusBadRequest, responseErr)
+		return
+	}
+
 	brands, err := b.brandService.FindByDeviceTypeId(deviceTypeId)
 	if err != nil {
 		responseErr := utils.HandleResponseModel(false, "", err, nil)
