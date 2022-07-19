@@ -20,6 +20,7 @@ type DeviceTypeStore interface {
 	FindByID(id int) (db.DeviceType, error)
 	FindBy(column string, value interface{}) ([]db.DeviceType, error)
 	Search(query string) ([]db.DeviceType, error)
+	Seed() error
 }
 
 func NewDeviceTypeStore(db *gorm.DB) DeviceTypeStore {
@@ -61,4 +62,17 @@ func (m *deviceTypeStore) Search(query string) ([]db.DeviceType, error) {
 	var models []db.DeviceType
 	err := m.db.Where("name LIKE ?", "%"+query+"%").Find(&models).Error
 	return models, err
+}
+func (m *deviceTypeStore) Seed() error {
+	deviceTypes = []*db.DeviceType{
+		{Name: "Personel Computer", ShortDescription: "PC", IsActive: true},
+		{Name: "Phone", ShortDescription: "PHONE", IsActive: true},
+		{Name: "Tablet", ShortDescription: "TABLET", IsActive: true}
+	}
+	for _, deviceType := range deviceTypes {
+		if err := b.db.Create(&deviceType).Error; err != nil {
+			return err
+		}
+	}
+	return nil
 }
