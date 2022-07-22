@@ -12,9 +12,9 @@ type deviceTypeStore struct {
 //interface
 type DeviceTypeStore interface {
 	Migration()
-	Create(model *db.DeviceType) error
-	Update(model *db.DeviceType) error
-	Delete(model *db.DeviceType) error
+	Create(deviceType *db.DeviceType) error
+	Update(deviceType *db.DeviceType) error
+	Delete(deviceType *db.DeviceType) error
 	FindAll() ([]db.DeviceType, error)
 	FindAllByActive() ([]db.DeviceType, error)
 	FindByID(id int) (db.DeviceType, error)
@@ -26,51 +26,51 @@ type DeviceTypeStore interface {
 func NewDeviceTypeStore(db *gorm.DB) DeviceTypeStore {
 	return &deviceTypeStore{db: db}
 }
-func (m *deviceTypeStore) Migration() {
-	m.db.AutoMigrate(&db.DeviceType{})
+func (d *deviceTypeStore) Migration() {
+	d.db.AutoMigrate(&db.DeviceType{})
 }
-func (m *deviceTypeStore) Create(model *db.DeviceType) error {
-	return m.db.Create(model).Error
+func (d *deviceTypeStore) Create(deviceType *db.DeviceType) error {
+	return d.db.Create(deviceType).Error
 }
-func (m *deviceTypeStore) Update(model *db.DeviceType) error {
-	return m.db.Save(model).Error
+func (d *deviceTypeStore) Update(deviceType *db.DeviceType) error {
+	return d.db.Save(deviceType).Error
 }
-func (m *deviceTypeStore) Delete(model *db.DeviceType) error {
-	return m.db.Delete(model).Error
+func (d *deviceTypeStore) Delete(deviceType *db.DeviceType) error {
+	return d.db.Delete(deviceType).Error
 }
-func (m *deviceTypeStore) FindAll() ([]db.DeviceType, error) {
-	var models []db.DeviceType
-	err := m.db.Find(&models).Error
-	return models, err
+func (d *deviceTypeStore) FindAll() ([]db.DeviceType, error) {
+	var deviceTypes []db.DeviceType
+	err := d.db.Find(&deviceTypes).Error
+	return deviceTypes, err
 }
-func (m *deviceTypeStore) FindAllByActive() ([]db.DeviceType, error) {
-	var models []db.DeviceType
-	err := m.db.Where("deleted_at is null AND is_active = 1").Find(&models).Error
-	return models, err
+func (d *deviceTypeStore) FindAllByActive() ([]db.DeviceType, error) {
+	var deviceTypes []db.DeviceType
+	err := d.db.Where("deleted_at is null AND is_active = 1").Find(&deviceTypes).Error
+	return deviceTypes, err
 }
-func (m *deviceTypeStore) FindByID(id int) (db.DeviceType, error) {
-	var model db.DeviceType
-	err := m.db.First(&model, id).Error
-	return model, err
+func (d *deviceTypeStore) FindByID(id int) (db.DeviceType, error) {
+	var deviceType db.DeviceType
+	err := d.db.First(&deviceType, id).Error
+	return deviceType, err
 }
-func (m *deviceTypeStore) FindBy(column string, value interface{}) ([]db.DeviceType, error) {
-	var models []db.DeviceType
-	err := m.db.Where(column+" = ?", value).Find(&models).Error
-	return models, err
+func (d *deviceTypeStore) FindBy(column string, value interface{}) ([]db.DeviceType, error) {
+	var deviceTypes []db.DeviceType
+	err := d.db.Where(column+" = ?", value).Find(&deviceTypes).Error
+	return deviceTypes, err
 }
-func (m *deviceTypeStore) Search(query string) ([]db.DeviceType, error) {
-	var models []db.DeviceType
-	err := m.db.Where("name LIKE ?", "%"+query+"%").Find(&models).Error
-	return models, err
+func (d *deviceTypeStore) Search(query string) ([]db.DeviceType, error) {
+	var deviceTypes []db.DeviceType
+	err := d.db.Where("name LIKE ?", "%"+query+"%").Find(&deviceTypes).Error
+	return deviceTypes, err
 }
-func (m *deviceTypeStore) Seed() error {
-	deviceTypes = []*db.DeviceType{
+func (d *deviceTypeStore) Seed() error {
+	deviceTypes := []*db.DeviceType{
 		{Name: "Personel Computer", ShortDescription: "PC", IsActive: true},
 		{Name: "Phone", ShortDescription: "PHONE", IsActive: true},
-		{Name: "Tablet", ShortDescription: "TABLET", IsActive: true}
+		{Name: "Tablet", ShortDescription: "TABLET", IsActive: true},
 	}
 	for _, deviceType := range deviceTypes {
-		if err := b.db.Create(&deviceType).Error; err != nil {
+		if err := d.db.Create(&deviceType).Error; err != nil {
 			return err
 		}
 	}
