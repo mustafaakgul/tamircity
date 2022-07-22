@@ -2,10 +2,10 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/mustafakocatepe/Tamircity/handler/api"
+	"github.com/mustafakocatepe/Tamircity/api/handler"
 )
 
-func TechnicalServiceRouter(router *gin.Engine, technicalServiceHandler api.TechnicalServiceHandler) {
+func TechnicalServiceRouter(router *gin.Engine, technicalServiceHandler handler.TechnicalServiceHandler) {
 	technicalServiceRoute := router.Group("api/v1/technical-service")
 	{
 		technicalServiceRoute.GET("/", technicalServiceHandler.GetAll)

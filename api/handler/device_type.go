@@ -1,4 +1,4 @@
-package api
+package handler
 
 import (
 	"github.com/mustafakocatepe/Tamircity/pkg/models/db"

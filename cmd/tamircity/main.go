@@ -4,8 +4,8 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"github.com/mustafakocatepe/Tamircity/handler/api"
-	"github.com/mustafakocatepe/Tamircity/handler/routes"
+	"github.com/mustafakocatepe/Tamircity/api/handler"
+	"github.com/mustafakocatepe/Tamircity/api/routes"
 	dbModels "github.com/mustafakocatepe/Tamircity/pkg/models/db"
 	"github.com/mustafakocatepe/Tamircity/pkg/service"
 	"github.com/mustafakocatepe/Tamircity/pkg/store/repositories"
@@ -103,13 +103,13 @@ func main() {
 	deviceTypeService := service.NewDeviceTypeService(deviceTypeStore)
 
 	// Handler
-	technicalServiceHandler := api.NewTechnicalServiceHandler(technicalServiceService)
-	serviceTypeHandler := api.NewServiceTypeHandler(serviceTypeService)
-	extraServiceHandler := api.NewExtraServiceHandler(extraServiceService)
-	brandHandler := api.NewBrandHandler(brandService)
-	modelHandler := api.NewModelHandler(modelService)
-	fixTypeHandler := api.NewFixTypeHandler(fixTypeService)
-	deviceTypeHandler := api.NewDeviceTypeHandler(deviceTypeService)
+	technicalServiceHandler := handler.NewTechnicalServiceHandler(technicalServiceService)
+	serviceTypeHandler := handler.NewServiceTypeHandler(serviceTypeService)
+	extraServiceHandler := handler.NewExtraServiceHandler(extraServiceService)
+	brandHandler := handler.NewBrandHandler(brandService)
+	modelHandler := handler.NewModelHandler(modelService)
+	fixTypeHandler := handler.NewFixTypeHandler(fixTypeService)
+	deviceTypeHandler := handler.NewDeviceTypeHandler(deviceTypeService)
 
 	// gin server
 	router := gin.Default()
