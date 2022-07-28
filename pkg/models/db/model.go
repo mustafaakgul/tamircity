@@ -9,6 +9,7 @@ type Model struct {
 	BrandId          int
 	Brand            Brand `gorm:"foreignkey:BrandId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	DeviceTypeId     int
-	DeviceType       DeviceType `gorm:"foreignkey:DeviceTypeId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
-	IsActive         bool       `gorm:"type:boolean;default:true;not null"`
+	DeviceType       DeviceType          `gorm:"foreignkey:DeviceTypeId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	IsActive         bool                `gorm:"type:boolean;default:true;not null"`
+	TechnicalService []*TechnicalService `gorm:"many2many:technical_services_models;"`
 }

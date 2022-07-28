@@ -45,11 +45,14 @@ func (t *technicalServiceService) FindByID(id int) (db.TechnicalService, error) 
 	return t.technicalServiceStore.FindByID(id)
 }
 
+func (t *technicalServiceService) FindByModelId(modelId uint) ([]db.TechnicalService, error) {
+	return t.technicalServiceStore.FindByModelId(modelId)
+}
+
 func (t *technicalServiceService) FindBy(column string, value interface{}) ([]db.TechnicalService, error) {
 	return t.technicalServiceStore.FindBy(column, value)
 }
 
 func (t *technicalServiceService) Search(query string) ([]db.TechnicalService, error) {
 	return t.technicalServiceStore.Search(query)
-
 }

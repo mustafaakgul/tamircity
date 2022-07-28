@@ -15,7 +15,7 @@ import (
 
 func main() {
 	// Set enviroment variables
-	err := godotenv.Load("../../.env")
+	err := godotenv.Load(".env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
@@ -86,6 +86,9 @@ func main() {
 	modelStore := repositories.NewModelStore(db)
 	fixTypeStore := repositories.NewFixTypeStore(db)
 	deviceTypeStore := repositories.NewDeviceTypeStore(db)
+
+	a, _ := technicalServiceStore.FindByModelId(1)
+	println(a)
 
 	// TODO: Adding Seed data
 	//technicalServiceStore.Seed()

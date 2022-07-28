@@ -16,6 +16,7 @@ type TechnicalServiceStore interface {
 	FindAll() ([]db.TechnicalService, error)
 	FindByID(id int) (db.TechnicalService, error)
 	FindBy(column string, value interface{}) ([]db.TechnicalService, error)
+	FindByModelId(modelId uint) ([]db.TechnicalService, error)
 	Search(query string) ([]db.TechnicalService, error)
 	Seed() error
 }
@@ -52,6 +53,12 @@ func (t *technicalServiceStore) FindBy(column string, value interface{}) ([]db.T
 	var models []db.TechnicalService
 	err := t.db.Where(column+" = ?", value).Find(&models).Error
 	return models, err
+}
+
+func (t *technicalServiceStore) FindByModelId(modelId uint) ([]db.TechnicalService, error) {
+	var technicalServices []db.TechnicalService
+	err := t.db.Model(&technicalServices).Joins("INNER JOIN technical_services_models on model_id = technical_services_models.model_id").Where("technical_services_models.model_id = ?", modelId).Error
+	return technicalServices, err
 }
 
 func (t *technicalServiceStore) Search(query string) ([]db.TechnicalService, error) {
