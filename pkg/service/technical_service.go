@@ -2,6 +2,7 @@ package service
 
 import (
 	"github.com/mustafakocatepe/Tamircity/pkg/models/db"
+	"github.com/mustafakocatepe/Tamircity/pkg/models/web"
 	"github.com/mustafakocatepe/Tamircity/pkg/store/repositories"
 )
 
@@ -16,6 +17,7 @@ type TechnicalServiceService interface {
 	FindAll() ([]db.TechnicalService, error)
 	FindByID(id int) (db.TechnicalService, error)
 	FindBy(column string, value interface{}) ([]db.TechnicalService, error)
+	FindByModelId(modelId int) ([]web.TechnicalServiceSearchResponse, error)
 	Search(query string) ([]db.TechnicalService, error)
 }
 
@@ -45,8 +47,37 @@ func (t *technicalServiceService) FindByID(id int) (db.TechnicalService, error) 
 	return t.technicalServiceStore.FindByID(id)
 }
 
-func (t *technicalServiceService) FindByModelId(modelId uint) ([]db.TechnicalService, error) {
-	return t.technicalServiceStore.FindByModelId(modelId)
+func (t *technicalServiceService) FindByModelId(modelId int) (response []web.TechnicalServiceSearchResponse, err error) {
+	technicalServices, err := t.technicalServiceStore.FindByModelId(modelId)
+
+	if err != nil {
+		return nil, err
+	}
+
+	for _, technicalService := range technicalServices {
+		var technicalServiceResponse web.TechnicalServiceSearchResponse
+		technicalServiceResponse.Id = int(technicalService.ID)
+		technicalServiceResponse.Name = technicalService.ServiceName
+		technicalServiceResponse.Address = "" // TO DO
+
+		for _, shift := range technicalService.TechnicalServiceShifts {
+			technicalServiceResponse.TechnicalServiceShift.Day = shift.Day
+			technicalServiceResponse.TechnicalServiceShift.StartOfShift = shift.StartOfShift
+			technicalServiceResponse.TechnicalServiceShift.EndOfShift = shift.EndOfShift
+		}
+
+		for _, reservation := range technicalService.TechnicalServiceReservations {
+			var technicalServiceReservation web.TechnicalServiceReservation
+			technicalServiceReservation.Day = reservation.Day
+			technicalServiceReservation.DateOfDay = reservation.DateofDay
+			technicalServiceReservation.StartOfShift = reservation.StartOfShift
+			technicalServiceReservation.EndOfShift = reservation.EndOfShift
+			technicalServiceResponse.TechnicalServiceReservations = append(technicalServiceResponse.TechnicalServiceReservations, technicalServiceReservation)
+		}
+		response = append(response, technicalServiceResponse)
+	}
+
+	return response, nil
 }
 
 func (t *technicalServiceService) FindBy(column string, value interface{}) ([]db.TechnicalService, error) {

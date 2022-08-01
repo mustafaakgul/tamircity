@@ -3,6 +3,7 @@ package repositories
 import (
 	"github.com/mustafakocatepe/Tamircity/pkg/models/db"
 	"gorm.io/gorm"
+	"time"
 )
 
 type technicalServiceStore struct {
@@ -16,7 +17,7 @@ type TechnicalServiceStore interface {
 	FindAll() ([]db.TechnicalService, error)
 	FindByID(id int) (db.TechnicalService, error)
 	FindBy(column string, value interface{}) ([]db.TechnicalService, error)
-	FindByModelId(modelId uint) ([]db.TechnicalService, error)
+	FindByModelId(modelId int) ([]db.TechnicalService, error)
 	Search(query string) ([]db.TechnicalService, error)
 	Seed() error
 }
@@ -55,11 +56,24 @@ func (t *technicalServiceStore) FindBy(column string, value interface{}) ([]db.T
 	return models, err
 }
 
-func (t *technicalServiceStore) FindByModelId(modelId uint) ([]db.TechnicalService, error) {
+func (t *technicalServiceStore) FindByModelId(modelId int) ([]db.TechnicalService, error) {
+	var technicalServices []db.TechnicalService
+	err := t.db.Joins("INNER JOIN technical_services_models on technical_services.id = technical_services_models.technical_service_id").Where("technical_services_models.model_id = ?", modelId).Preload("TechnicalServiceShifts", "day = ?", time.Now().Day()).Preload("TechnicalServiceReservations").Find(&technicalServices).Error
+	return technicalServices, err
+}
+
+/*
+func (t *technicalServiceStore) FindShifts(technicalServiceId uint) ([]db.TechnicalService, error) {
 	var technicalServices []db.TechnicalService
 	err := t.db.Model(&technicalServices).Joins("INNER JOIN technical_services_models on model_id = technical_services_models.model_id").Where("technical_services_models.model_id = ?", modelId).Error
 	return technicalServices, err
 }
+
+func (t *technicalServiceStore) FindReservations(technicalServiceId uint, dateTime time.Time) ([]db.TechnicalService, error) {
+	var technicalServices []db.TechnicalService
+	err := t.db.Model(&technicalServices).Joins("INNER JOIN technical_services_models on model_id = technical_services_models.model_id").Where("technical_services_models.model_id = ?", modelId).Error
+	return technicalServices, err
+}*/
 
 func (t *technicalServiceStore) Search(query string) ([]db.TechnicalService, error) {
 	var models []db.TechnicalService

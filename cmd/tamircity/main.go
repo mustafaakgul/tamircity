@@ -39,6 +39,8 @@ func main() {
 			&dbModels.Reservation{},
 			&dbModels.ServiceType{},
 			&dbModels.TechnicalService{},
+			&dbModels.TechnicalServiceReservation{},
+			&dbModels.TechnicalServiceShift{},
 		)
 		// Adding Seed data
 		technicalServiceStore := repositories.NewTechnicalServiceStore(db)

@@ -7,10 +7,12 @@ import (
 	"github.com/mustafakocatepe/Tamircity/pkg/service"
 	"github.com/mustafakocatepe/Tamircity/pkg/utils"
 	"net/http"
+	"strconv"
 )
 
 type TechnicalServiceHandler interface {
 	GetAll(ctx *gin.Context)
+	GetAllByFilter(ctx *gin.Context)
 	Get(ctx *gin.Context)
 	Create(ctx *gin.Context)
 	Delete(ctx *gin.Context)
@@ -75,6 +77,27 @@ func (t *technicalServiceHandler) GetAll(ctx *gin.Context) {
 		"remainingCredit": remainingCredit,
 		"meterTime":       meterTime,
 	}*/
+
+	response := utils.HandleResponseModel(true, "", nil, technicalServices)
+	ctx.JSON(http.StatusOK, response)
+}
+
+func (t *technicalServiceHandler) GetAllByFilter(ctx *gin.Context) {
+
+	modelId, err := strconv.Atoi(ctx.Query("model_id"))
+	if err != nil {
+		responseErr := utils.HandleResponseModel(false, "", err, nil)
+		ctx.JSON(http.StatusBadRequest, responseErr)
+		return
+	}
+	var technicalServices []web.TechnicalServiceSearchResponse
+	technicalServices, err = t.technicalServiceService.FindByModelId(modelId)
+
+	if err != nil {
+		responseErr := utils.HandleResponseModel(false, "", err, nil)
+		ctx.JSON(http.StatusBadRequest, responseErr)
+		return
+	}
 
 	response := utils.HandleResponseModel(true, "", nil, technicalServices)
 	ctx.JSON(http.StatusOK, response)

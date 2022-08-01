@@ -9,6 +9,7 @@ func TechnicalServiceRouter(router *gin.Engine, technicalServiceHandler handler.
 	technicalServiceRoute := router.Group("api/v1/technical-service")
 	{
 		technicalServiceRoute.GET("/", technicalServiceHandler.GetAll)
+		technicalServiceRoute.GET("/query", technicalServiceHandler.GetAllByFilter)
 		technicalServiceRoute.POST("/", technicalServiceHandler.Create)
 		technicalServiceRoute.GET("/:id", technicalServiceHandler.Get)
 		technicalServiceRoute.PUT("/:id", technicalServiceHandler.Get)
