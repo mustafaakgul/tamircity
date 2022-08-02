@@ -1,0 +1,19 @@
+package web
+
+import "time"
+
+type ReservationCreateRequest struct {
+	DeviceTypeId       int       `json:"device_type_id"`
+	BrandId            int       `json:"brand_id"`
+	ModelId            int       `json:"model_id"`
+	FixTypeId          int       `json:"fix_type_id"`
+	ServiceTypeId      int       `json:"service_type_id"`
+	ExtraServiceId     int       `json:"extra_service_id"`
+	TechnicalServiceId int       `json:"technical_service_id"`
+	ReservationDate    time.Time `json:"reservation_date"`
+	Price              int       `json:"price"`
+	FullName           string    `json:"full_name"`
+	PhoneNumber        string    `json:"phone_number"`
+	SecondPhoneNumber  string    `json:"second_phone_number"`
+	Description        string    `json:"second_phone"`
+}

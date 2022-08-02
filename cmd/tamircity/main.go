@@ -86,11 +86,9 @@ func main() {
 	extraServiceStore := repositories.NewExtraServiceStore(db)
 	brandStore := repositories.NewBrandStore(db)
 	modelStore := repositories.NewModelStore(db)
+	reservationStore := repositories.NewReservationStore(db)
 	fixTypeStore := repositories.NewFixTypeStore(db)
 	deviceTypeStore := repositories.NewDeviceTypeStore(db)
-
-	a, _ := technicalServiceStore.FindByModelId(1)
-	println(a)
 
 	// TODO: Adding Seed data
 	//technicalServiceStore.Seed()
@@ -106,6 +104,7 @@ func main() {
 	modelService := service.NewModelService(modelStore)
 	fixTypeService := service.NewFixTypeService(fixTypeStore)
 	deviceTypeService := service.NewDeviceTypeService(deviceTypeStore)
+	reservationService := service.NewReservationService(reservationStore)
 
 	// Handler
 	technicalServiceHandler := handler.NewTechnicalServiceHandler(technicalServiceService)
@@ -115,6 +114,7 @@ func main() {
 	modelHandler := handler.NewModelHandler(modelService)
 	fixTypeHandler := handler.NewFixTypeHandler(fixTypeService)
 	deviceTypeHandler := handler.NewDeviceTypeHandler(deviceTypeService)
+	reservationHandler := handler.NewReservationHandler(reservationService)
 
 	// gin server
 	router := gin.Default()
@@ -135,6 +135,7 @@ func main() {
 	routes.ModelRouter(router, modelHandler)
 	routes.ServiceTypeRouter(router, serviceTypeHandler)
 	routes.TechnicalServiceRouter(router, technicalServiceHandler)
+	routes.ReservationRouter(router, reservationHandler)
 
 	router.Run(":8080")
 }
