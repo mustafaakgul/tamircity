@@ -7,15 +7,27 @@ import (
 
 type Reservation struct {
 	gorm.Model
-	DeviceTypeId    string `gorm:"not null"`
-	BrandId         string `gorm:"not null"`
-	ModelId         string `gorm:"not null"`
-	FixTypeId       string `gorm:"not null"`
-	ServiceTypeId   string `gorm:"not null"`
-	ExtraServiceId  string `gorm:"not null"`
-	ReservationDate time.Time
-	FullName        string `gorm:"not null"`
-	Email           string `gorm:"not null"`
-	PhoneNumber     string `gorm:"not null"`
-	Description     string
+	DeviceTypeId       int `gorm:"not null"`
+	BrandId            int `gorm:"not null"`
+	ModelId            int `gorm:"not null"`
+	FixTypeId          int `gorm:"not null"`
+	ServiceTypeId      int `gorm:"not null"`
+	ExtraServiceId     int `gorm:"not null"`
+	TechnicalServiceId int
+	ReservationDate    time.Time
+	Price              int
+	Status             ReservationStatus
+	FullName           string `gorm:"not null"`
+	Email              string `gorm:"not null"`
+	PhoneNumber        string `gorm:"not null"`
+	SecondPhoneNumber  string `gorm:"not null"`
+	Description        string
 }
+
+type ReservationStatus int
+
+const (
+	Pending  ReservationStatus = 0 // Beklemede
+	Denied                     = 1 // Reddedildi
+	Approved                   = 2 // Onaylandı
+)
