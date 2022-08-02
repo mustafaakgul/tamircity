@@ -1,0 +1,19 @@
+{
+	"Device_Types": [
+		{
+			"Name": "Personel Computer",
+			"ShortDescription":"PC",
+			"IsActive": true
+		},
+		{
+			"Name": "Phone",
+			"ShortDescription":"PHONE",
+			"IsActive": true
+		},
+		{
+			"Name": "Tablet",
+			"ShortDescription":"TABLET",
+			"IsActive": true
+		}
+	]
+}

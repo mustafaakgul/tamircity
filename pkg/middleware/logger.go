@@ -1,9 +1,10 @@
-package middleware1
+package middleware
 
 import (
-	"github.com/sirupsen/logrus"
 	"net/http"
 	"time"
+
+	"github.com/sirupsen/logrus"
 )
 
 func Logger(next http.Handler) http.Handler {
@@ -29,7 +30,7 @@ func logStartOfRequest(r *http.Request) {
 
 func logEndOfRequest(duration time.Duration) {
 	fields := logrus.Fields{
-		"status":  " mw.Status()",
+		"status":   " mw.Status()",
 		"bytes":    "mw.BytesWritten()",
 		"duration": duration,
 	}

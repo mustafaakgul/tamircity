@@ -1,0 +1,21 @@
+{
+	"Brands": [
+		{
+			"Name": "Apple",
+			"IsActive": true
+		},
+		{
+			"Name": "Samsung",
+			"IsActive": true
+		},
+		{
+			"Name": "Xiaomi",
+			"IsActive": true
+		},
+
+		{
+			"Name": "Huawei",
+			"IsActive": true
+		}
+	]
+}
