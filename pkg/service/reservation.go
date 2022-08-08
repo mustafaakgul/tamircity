@@ -12,6 +12,7 @@ type reservationService struct {
 
 type ReservationService interface {
 	Create(model *web.ReservationCreateRequest) error
+	GetPendingListByTechnicalServiceId(technicalServiceId int) (response []web.ReservationPendingResponse, err error)
 }
 
 func NewReservationService(reservationStore repositories.ReservationStore) ReservationService {
@@ -38,4 +39,28 @@ func (r *reservationService) Create(reservationReq *web.ReservationCreateRequest
 	reservation.Description = reservationReq.Description
 
 	return r.reservationStore.Create(reservation)
+}
+
+func (r *reservationService) GetPendingListByTechnicalServiceId(technicalServiceId int) (response []web.ReservationPendingResponse, err error) {
+	reservations, err := r.reservationStore.GetPendingListByTechnicalServiceId(technicalServiceId)
+
+	if err != nil {
+		return nil, err
+	}
+
+	for _, reservation := range reservations {
+		var reservationResponse web.ReservationPendingResponse
+		reservationResponse.ReservationId = int(reservation.ID)
+		reservationResponse.ReservationDate = reservation.ReservationDate
+		reservationResponse.DeviceTypeName = reservation.DeviceType.Name
+		reservationResponse.BrandName = reservation.Brand.Name
+		reservationResponse.ModelName = reservation.ModelEntity.Name
+		reservationResponse.FixTypeName = reservation.FixType.Description // ?
+		reservationResponse.ServiceTypeName = reservation.ServiceType.Description
+		reservationResponse.ExtraServiceName = reservation.ExtraService.Description
+
+		response = append(response, reservationResponse)
+	}
+
+	return response, nil
 }

@@ -12,4 +12,5 @@ type Model struct {
 	DeviceType       DeviceType          `gorm:"foreignkey:DeviceTypeId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	IsActive         bool                `gorm:"type:boolean;default:true;not null"`
 	TechnicalService []*TechnicalService `gorm:"many2many:technical_services_models;"`
+	Reservations     []*Reservation
 }

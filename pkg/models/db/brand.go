@@ -9,4 +9,5 @@ type Brand struct {
 	TechnicalServices []*TechnicalService `gorm:"many2many:technical_services_brands;"`
 	DeviceTypes       []*DeviceType       `gorm:"many2many:device_types_brands;"`
 	Models            []*Model
+	Reservations      []*Reservation
 }

@@ -15,4 +15,5 @@ type TechnicalService struct {
 	Models                       []*Model      `gorm:"many2many:technical_services_models;"`
 	TechnicalServiceShifts       []*TechnicalServiceShift
 	TechnicalServiceReservations []*TechnicalServiceReservation
+	Reservations                 []*Reservation
 }
