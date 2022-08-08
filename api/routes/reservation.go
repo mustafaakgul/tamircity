@@ -9,5 +9,6 @@ func ReservationRouter(router *gin.Engine, reservationHandler handler.Reservatio
 	route := router.Group("api/v1/reservation")
 	{
 		route.POST("/", reservationHandler.Create)
+		route.GET("/query", reservationHandler.GetPendingList)
 	}
 }

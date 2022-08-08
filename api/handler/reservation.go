@@ -6,6 +6,7 @@ import (
 	"github.com/mustafakocatepe/Tamircity/pkg/service"
 	"github.com/mustafakocatepe/Tamircity/pkg/utils"
 	"net/http"
+	"strconv"
 )
 
 type reservationHandler struct {
@@ -14,6 +15,7 @@ type reservationHandler struct {
 
 type ReservationHandler interface {
 	Create(ctx *gin.Context)
+	GetPendingList(ctx *gin.Context)
 }
 
 func NewReservationHandler(reservationService service.ReservationService) ReservationHandler {
@@ -37,4 +39,23 @@ func (r *reservationHandler) Create(ctx *gin.Context) {
 	}
 	response := utils.HandleResponseModel(true, "Rezervasyon başarı ile oluşturulmuştur.", nil, nil)
 	ctx.JSON(http.StatusOK, response)
+}
+
+func (r *reservationHandler) GetPendingList(ctx *gin.Context) {
+	technicalServiceId, err := strconv.Atoi(ctx.Param("technical_service_id"))
+	if err != nil {
+		responseErr := utils.HandleResponseModel(false, "", err, nil)
+		ctx.JSON(http.StatusBadRequest, responseErr)
+		return
+	}
+
+	reservations, err := r.reservationService.GetPendingListByTechnicalServiceId(technicalServiceId)
+	if err != nil {
+		responseErr := utils.HandleResponseModel(false, "", err, nil)
+		ctx.JSON(http.StatusBadRequest, responseErr)
+		return
+	}
+	response := utils.HandleResponseModel(true, "", nil, reservations)
+	ctx.JSON(http.StatusOK, response)
+
 }

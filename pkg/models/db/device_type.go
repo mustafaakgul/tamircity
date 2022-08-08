@@ -11,4 +11,5 @@ type DeviceType struct {
 	Brands            []*Brand            `gorm:"many2many:device_types_brands;"`
 	FixTypes          []*FixType          `gorm:"many2many:device_types_fix_types;"`
 	Models            []*Model
+	Reservation       []*Reservation
 }

@@ -17,3 +17,14 @@ type ReservationCreateRequest struct {
 	SecondPhoneNumber  string    `json:"second_phone_number"`
 	Description        string    `json:"second_phone"`
 }
+
+type ReservationPendingResponse struct {
+	ReservationId    int       `json:"reservation_id"`
+	ReservationDate  time.Time `json:"reservation_date"`
+	DeviceTypeName   string    `json:"device_type_name"`
+	BrandName        string    `json:"brand_name"`
+	ModelName        string    `json:"model_name"`
+	FixTypeName      string    `json:"fix_type_name"`
+	ServiceTypeName  string    `json:"service_type_name"`
+	ExtraServiceName string    `json:"extra_service_name"`
+}
