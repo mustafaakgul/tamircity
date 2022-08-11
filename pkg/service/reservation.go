@@ -11,8 +11,9 @@ type reservationService struct {
 }
 
 type ReservationService interface {
-	Create(model *web.ReservationCreateRequest) error
+	Create(*web.ReservationCreateRequest) error
 	GetPendingListByTechnicalServiceId(technicalServiceId int) (response []web.ReservationPendingResponse, err error)
+	UpdateReservationStatus(int, db.ReservationStatus) error
 }
 
 func NewReservationService(reservationStore repositories.ReservationStore) ReservationService {
@@ -63,4 +64,8 @@ func (r *reservationService) GetPendingListByTechnicalServiceId(technicalService
 	}
 
 	return response, nil
+}
+
+func (r *reservationService) UpdateReservationStatus(reservationId int, status db.ReservationStatus) error {
+	return r.reservationStore.UpdateReservationStatus(reservationId, status)
 }
