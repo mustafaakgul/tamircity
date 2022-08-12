@@ -6,7 +6,7 @@ import (
 )
 
 func FixTypeRouter(router *gin.Engine, fixTypeHandler handler.FixTypeHandler) {
-	fixTypeRoute := router.Group("api/v1/fix-type")
+	fixTypeRoute := router.Group("api/v1/fix-types")
 	{
 		fixTypeRoute.GET("/", fixTypeHandler.GetAll)
 		fixTypeRoute.GET("/query", fixTypeHandler.GetAllByDevicetypeId)

@@ -6,7 +6,7 @@ import (
 )
 
 func TechnicalServiceRouter(router *gin.Engine, technicalServiceHandler handler.TechnicalServiceHandler) {
-	technicalServiceRoute := router.Group("api/v1/technical-service")
+	technicalServiceRoute := router.Group("api/v1/technical-services")
 	{
 		technicalServiceRoute.GET("/", technicalServiceHandler.GetAll)
 		technicalServiceRoute.GET("/query", technicalServiceHandler.GetAllByFilter)

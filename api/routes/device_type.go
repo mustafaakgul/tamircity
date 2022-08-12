@@ -6,7 +6,7 @@ import (
 )
 
 func DeviceTypeRouter(router *gin.Engine, deviceTypeHandler handler.DeviceTypeHandler) {
-	route := router.Group("api/v1/device-type")
+	route := router.Group("api/v1/device-types")
 	{
 		route.GET("/", deviceTypeHandler.GetAll)
 		route.GET("/query", deviceTypeHandler.GetAllByActive)
