@@ -14,7 +14,7 @@ import (
 
 func main() {
 	// Set enviroment variables
-	err := godotenv.Load("../../.env")
+	err := godotenv.Load(".env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
@@ -28,6 +28,7 @@ func main() {
 	postgres.Migrate(db)
 
 	// TODO: Migrating
+	postgres.Seeder(db)
 	/*db.AutoMigrate(
 		&dbModels.Brand{},
 		&dbModels.Contact{},

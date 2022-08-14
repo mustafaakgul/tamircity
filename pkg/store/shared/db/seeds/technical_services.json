@@ -1,0 +1,9 @@
+{
+  "Technical_Services": [
+    {
+      "Name": "Personel Computer",
+      "ShortDescription":"PC",
+      "IsActive": true
+    }
+  ]
+}
