@@ -6,7 +6,6 @@ import (
 	"os"
 )
 
-//Read json file and return map slice
 func ReadToJson(path string) (result *[]map[string]interface{}, err error) {
 	jsonFile, err := os.Open(path)
 	if err != nil {

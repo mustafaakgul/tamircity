@@ -6,7 +6,6 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/mustafakocatepe/Tamircity/api/handler"
 	"github.com/mustafakocatepe/Tamircity/api/routes"
-	dbModels "github.com/mustafakocatepe/Tamircity/pkg/models/db"
 	"github.com/mustafakocatepe/Tamircity/pkg/service"
 	"github.com/mustafakocatepe/Tamircity/pkg/store/repositories"
 	postgres "github.com/mustafakocatepe/Tamircity/pkg/store/shared/db"
@@ -15,7 +14,7 @@ import (
 
 func main() {
 	// Set enviroment variables
-	err := godotenv.Load(".env")
+	err := godotenv.Load("../../.env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
@@ -26,43 +25,7 @@ func main() {
 	log.Println("Postgres connected")
 
 	// Connection DB and migrations
-	if !db.Migrator().HasTable(&dbModels.Brand{}) {
-		db.AutoMigrate(
-			&dbModels.Brand{},
-			&dbModels.Contact{},
-			&dbModels.Customer{},
-			&dbModels.DeviceType{},
-			&dbModels.ExtraService{},
-			&dbModels.FixType{},
-			&dbModels.Model{},
-			&dbModels.Newsletter{},
-			&dbModels.Reservation{},
-			&dbModels.ServiceType{},
-			&dbModels.TechnicalService{},
-			&dbModels.TechnicalServiceReservation{},
-			&dbModels.TechnicalServiceShift{},
-		)
-		// Adding Seed data
-		technicalServiceStore := repositories.NewTechnicalServiceStore(db)
-		/*serviceTypeStore := repositories.NewServiceTypeStore(db)
-		extraServiceStore := repositories.NewExtraServiceStore(db)
-		brandStore := repositories.NewBrandStore(db)
-		modelStore := repositories.NewModelStore(db)
-		fixTypeStore := repositories.NewFixTypeStore(db)
-		deviceTypeStore := repositories.NewDeviceTypeStore(db)*/
-		technicalServiceStore.Seed()
-		/*roleRepo := role.NewRoleRepository(db)
-		roleRepo.Seed()
-		userRepo := user.NewUserRepository(db)
-		userRepo.Seed()
-		statusRepo := status.NewStatusRepository(db)
-		statusRepo.Seed()
-		users, _ := userRepo.FindAll()
-		roles, _ := roleRepo.FindAll()
-		userrolemapRepo := userrolemap.NewUserRoleMapRepository(db)
-		userrolemapRepo.Seed(users, roles)*/
-		log.Println("Migrations done")
-	}
+	postgres.Migrate(db)
 
 	// TODO: Migrating
 	/*db.AutoMigrate(

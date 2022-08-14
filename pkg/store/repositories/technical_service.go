@@ -82,23 +82,30 @@ func (t *technicalServiceStore) Search(query string) ([]db.TechnicalService, err
 }
 
 func (t *technicalServiceStore) Seed() error {
-	deviceType := []*db.DeviceType{
+
+	deviceTypePc := []*db.DeviceType{
 		{
 			Name:             "Bilgisayar",
 			ShortDescription: "Bilgisayar",
 			IsActive:         true,
 		},
-		{
-			Name:             "Telefon",
-			ShortDescription: "Telefon",
-			IsActive:         true,
-		},
-		{
-			Name:             "Tablet",
-			ShortDescription: "Tablet",
-			IsActive:         true,
-		},
 	}
+
+	/*	deviceTypePhone := []*db.DeviceType{
+			{
+				Name:             "Telefon",
+				ShortDescription: "Telefon",
+				IsActive:         true,
+			},
+		}
+
+		deviceTypeTablet := []*db.DeviceType{
+			{
+				Name:             "Tablet",
+				ShortDescription: "Tablet",
+				IsActive:         true,
+			},
+		}*/
 
 	technicalServices := []db.TechnicalService{
 		{
@@ -108,7 +115,7 @@ func (t *technicalServiceStore) Seed() error {
 			Email:          "emailhell",
 			Iban:           "ibanhe",
 			IsActive:       true,
-			DeviceTypes:    deviceType,
+			DeviceTypes:    deviceTypePc,
 		},
 		{
 			ServiceName:    "service",
