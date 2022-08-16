@@ -13,6 +13,7 @@ type reservationService struct {
 type ReservationService interface {
 	Create(*web.ReservationCreateRequest) error
 	GetPendingListByTechnicalServiceId(technicalServiceId int) (response []web.ReservationPendingResponse, err error)
+	GetPendingAndCompletedReservationCount(technicalServiceId int) (*web.ReservationPendingAndCompletedCountResponse, error)
 	UpdateReservationStatus(int, db.ReservationStatus) error
 }
 
@@ -68,4 +69,16 @@ func (r *reservationService) GetPendingListByTechnicalServiceId(technicalService
 
 func (r *reservationService) UpdateReservationStatus(reservationId int, status db.ReservationStatus) error {
 	return r.reservationStore.UpdateReservationStatus(reservationId, status)
+}
+
+func (r *reservationService) GetPendingAndCompletedReservationCount(technicalServiceId int) (res *web.ReservationPendingAndCompletedCountResponse, err error) {
+	res.PendingCount, err = r.reservationStore.GetReservationCountWithStatus(technicalServiceId, db.ReservationStatus(0))
+	if err != nil {
+		return res, err
+	}
+	res.CompletedCount, err = r.reservationStore.GetReservationCountWithStatus(technicalServiceId, db.ReservationStatus(1))
+	if err != nil {
+		return res, err
+	}
+	return res, nil
 }

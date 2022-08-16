@@ -28,3 +28,8 @@ type ReservationPendingResponse struct {
 	ServiceTypeName  string    `json:"service_type_name"`
 	ExtraServiceName string    `json:"extra_service_name"`
 }
+
+type ReservationPendingAndCompletedCountResponse struct {
+	PendingCount   int64 `json:"pending_count"`
+	CompletedCount int64 `json:"completed_count"`
+}
