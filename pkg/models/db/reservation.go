@@ -34,7 +34,8 @@ type Reservation struct {
 type ReservationStatus int
 
 const (
-	Pending  ReservationStatus = 0 // Beklemede
-	Denied                     = 1 // Reddedildi
-	Approved                   = 2 // Onaylandı
+	Pending   ReservationStatus = 0 // Beklemede
+	Denied                      = 1 // Reddedildi
+	Approved                    = 2 // Onaylandı
+	Completed                   = 3 // Tamamlandı
 )
