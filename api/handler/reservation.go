@@ -18,6 +18,7 @@ type ReservationHandler interface {
 	Create(ctx *gin.Context)
 	GetPendingList(ctx *gin.Context)
 	UpdateReservationStatus(ctx *gin.Context)
+	GetPendingAndCompletedReservationCount(ctx *gin.Context)
 }
 
 func NewReservationHandler(reservationService service.ReservationService) ReservationHandler {
@@ -83,5 +84,23 @@ func (r *reservationHandler) UpdateReservationStatus(ctx *gin.Context) {
 		return
 	}
 	response := utils.HandleResponseModel(true, "İşlem başarıyla gerçekleşmiştir.", nil, nil)
+	ctx.JSON(http.StatusOK, response)
+}
+
+func (r *reservationHandler) GetPendingAndCompletedReservationCount(ctx *gin.Context) {
+	technicalServiceId, err := strconv.Atoi(ctx.Param("technical_service_id"))
+	if err != nil {
+		responseErr := utils.HandleResponseModel(false, "", err, nil)
+		ctx.JSON(http.StatusBadRequest, responseErr)
+		return
+	}
+
+	res, err := r.reservationService.GetPendingAndCompletedReservationCount(technicalServiceId)
+	if err != nil {
+		responseErr := utils.HandleResponseModel(false, "", err, nil)
+		ctx.JSON(http.StatusBadRequest, responseErr)
+		return
+	}
+	response := utils.HandleResponseModel(true, "", nil, res)
 	ctx.JSON(http.StatusOK, response)
 }

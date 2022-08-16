@@ -12,6 +12,7 @@ type reservationStore struct {
 type ReservationStore interface {
 	Create(reservation *db.Reservation) error
 	GetPendingListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error)
+	GetReservationCountWithStatus(technicalServiceId int, status db.ReservationStatus) (count int64, err error)
 	UpdateReservationStatus(reservationId int, status db.ReservationStatus) error
 }
 
@@ -52,4 +53,11 @@ func (r *reservationStore) UpdateReservationStatus(reservationId int, status db.
 	}
 	tx.Commit()
 	return nil
+}
+
+func (r *reservationStore) GetReservationCountWithStatus(technicalServiceId int, status db.ReservationStatus) (count int64, err error) {
+	if err := r.db.Model(&db.Reservation{}).Where("technical_service_id = ? AND status = ?", technicalServiceId, status).Count(&count).Error; err != nil {
+		return 0, err
+	}
+	return count, nil
 }
