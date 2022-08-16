@@ -27,6 +27,9 @@ type ReservationPendingResponse struct {
 	FixTypeName      string    `json:"fix_type_name"`
 	ServiceTypeName  string    `json:"service_type_name"`
 	ExtraServiceName string    `json:"extra_service_name"`
+	FullName         string    `json:"full_name"`
+	Email            string    `json:"email"`
+	PhoneNumber      string    `json:"phone_number"`
 }
 
 type ReservationPendingAndCompletedCountResponse struct {

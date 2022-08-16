@@ -60,6 +60,9 @@ func (r *reservationService) GetPendingListByTechnicalServiceId(technicalService
 		reservationResponse.FixTypeName = reservation.FixType.Description // ?
 		reservationResponse.ServiceTypeName = reservation.ServiceType.Description
 		reservationResponse.ExtraServiceName = reservation.ExtraService.Description
+		reservationResponse.FullName = reservation.FullName
+		reservationResponse.Email = reservation.Email
+		reservationResponse.PhoneNumber = reservation.PhoneNumber
 
 		response = append(response, reservationResponse)
 	}
