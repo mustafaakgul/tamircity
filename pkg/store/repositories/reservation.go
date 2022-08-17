@@ -12,6 +12,7 @@ type reservationStore struct {
 type ReservationStore interface {
 	Create(reservation *db.Reservation) error
 	GetPendingListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error)
+	GetCompletedListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error)
 	GetReservationCountWithStatus(technicalServiceId int, status db.ReservationStatus) (count int64, err error)
 	UpdateReservationStatus(reservationId int, status db.ReservationStatus) error
 }
@@ -27,6 +28,12 @@ func (r *reservationStore) Create(reservation *db.Reservation) error {
 func (r *reservationStore) GetPendingListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error) {
 	var reservations []db.Reservation
 	err := r.db.Where("technical_service_id  = ? AND status = ? ", technicalServiceId, 0).Preload("DeviceType").Preload("Brand").Preload("Model").Preload("FixType").Preload("ServiceType").Preload("ExtraService").Preload("TechnicalService").Find(&reservations).Error // TO DO : 0 olan yer ReservationStatus.Pending olmalı
+	return reservations, err
+}
+
+func (r *reservationStore) GetCompletedListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error) {
+	var reservations []db.Reservation
+	err := r.db.Where("technical_service_id  = ? AND status = ? ", technicalServiceId, 3).Preload("DeviceType").Preload("Brand").Preload("Model").Preload("FixType").Preload("ServiceType").Preload("ExtraService").Preload("TechnicalService").Find(&reservations).Error // TO DO : 0 olan yer ReservationStatus.Pending olmalı
 	return reservations, err
 }
 
