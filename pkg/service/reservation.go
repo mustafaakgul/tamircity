@@ -14,6 +14,7 @@ type ReservationService interface {
 	Create(*web.ReservationCreateRequest) error
 	GetPendingListByTechnicalServiceId(technicalServiceId int) (response []web.ReservationPendingResponse, err error)
 	GetCompletedListByTechnicalServiceId(technicalServiceId int) (response []web.ReservationCompletedResponse, err error)
+	GetCancelledListByTechnicalServiceId(technicalServiceId int) (response []web.ReservationCancelledResponse, err error)
 	GetPendingAndCompletedReservationCount(technicalServiceId int) (*web.ReservationPendingAndCompletedCountResponse, error)
 	UpdateReservationStatus(int, db.ReservationStatus) error
 }
@@ -80,6 +81,33 @@ func (r *reservationService) GetCompletedListByTechnicalServiceId(technicalServi
 
 	for _, reservation := range reservations {
 		var reservationResponse web.ReservationCompletedResponse
+		reservationResponse.ReservationId = int(reservation.ID)
+		reservationResponse.ReservationDate = reservation.ReservationDate
+		reservationResponse.DeviceTypeName = reservation.DeviceType.Name
+		reservationResponse.BrandName = reservation.Brand.Name
+		reservationResponse.ModelName = reservation.ModelEntity.Name
+		reservationResponse.FixTypeName = reservation.FixType.Description // ?
+		reservationResponse.ServiceTypeName = reservation.ServiceType.Description
+		reservationResponse.ExtraServiceName = reservation.ExtraService.Description
+		reservationResponse.FullName = reservation.FullName
+		reservationResponse.Email = reservation.Email
+		reservationResponse.PhoneNumber = reservation.PhoneNumber
+
+		response = append(response, reservationResponse)
+	}
+
+	return response, nil
+}
+
+func (r *reservationService) GetCancelledListByTechnicalServiceId(technicalServiceId int) (response []web.ReservationCancelledResponse, err error) {
+	reservations, err := r.reservationStore.GetCancelledListByTechnicalServiceId(technicalServiceId)
+
+	if err != nil {
+		return nil, err
+	}
+
+	for _, reservation := range reservations {
+		var reservationResponse web.ReservationCancelledResponse
 		reservationResponse.ReservationId = int(reservation.ID)
 		reservationResponse.ReservationDate = reservation.ReservationDate
 		reservationResponse.DeviceTypeName = reservation.DeviceType.Name
