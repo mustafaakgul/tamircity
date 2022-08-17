@@ -13,5 +13,6 @@ func ReservationRouter(router *gin.Engine, reservationHandler handler.Reservatio
 		route.PATCH("/query", reservationHandler.UpdateReservationStatus)
 		route.GET("/pending-and-completed-count", reservationHandler.GetPendingAndCompletedReservationCount)
 		route.GET("/completed", reservationHandler.GetCompletedList)
+		route.GET("/cancelled", reservationHandler.GetCancelledList)
 	}
 }

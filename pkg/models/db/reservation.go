@@ -35,7 +35,7 @@ type ReservationStatus int
 
 const (
 	Pending   ReservationStatus = 0 // Beklemede
-	Denied                      = 1 // Reddedildi
+	Cancelled                   = 1 // İptal Edildi
 	Approved                    = 2 // Onaylandı
 	Completed                   = 3 // Tamamlandı
 )
