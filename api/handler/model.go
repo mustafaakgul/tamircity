@@ -1,6 +1,8 @@
 package handler
 
 import (
+	"github.com/mustafakocatepe/Tamircity/pkg/models/db"
+	"github.com/mustafakocatepe/Tamircity/pkg/models/web"
 	"net/http"
 	"strconv"
 
@@ -16,6 +18,7 @@ type modelHandler struct {
 type ModelHandler interface {
 	GetAll(ctx *gin.Context)
 	GetAllByBrandIdDeviceTypeId(ctx *gin.Context)
+	Create(ctx *gin.Context)
 }
 
 func NewModelHandler(modelService service.ModelService) ModelHandler {
@@ -60,5 +63,27 @@ func (m *modelHandler) GetAllByBrandIdDeviceTypeId(ctx *gin.Context) {
 		return
 	}
 	response := utils.HandleResponseModel(true, "", nil, models)
+	ctx.JSON(http.StatusOK, response)
+}
+
+func (m *modelHandler) Create(ctx *gin.Context) {
+	var model web.ModelRequest
+	if err := ctx.ShouldBindJSON(&model); err != nil {
+		response := utils.HandleResponseModel(false, "", err, nil)
+		ctx.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	var modelModel db.Model
+	modelModel.Name = model.Name
+	modelModel.ShortDescription = model.ShortDescription
+	modelModel.IsActive = model.IsActive
+
+	err := m.modelService.Create(&modelModel)
+	if err != nil {
+		response := utils.HandleResponseModel(false, "", err, nil)
+		ctx.JSON(http.StatusBadRequest, response)
+	}
+	response := utils.HandleResponseModel(true, "", nil, modelModel)
 	ctx.JSON(http.StatusOK, response)
 }
