@@ -1,9 +1,7 @@
 {
-  "Technical_Services": [
-    {
-      "Name": "Personel Computer",
-      "ShortDescription":"PC",
-      "IsActive": true
-    }
-  ]
+  "service_name": "hello1seed",
+  "identity_number": "hello2seed",
+  "phone_number": "hello3seed",
+  "email": "hello4seed",
+  "iban": "hello5seed"
 }

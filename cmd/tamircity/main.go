@@ -28,7 +28,7 @@ func main() {
 	postgres.Migrate(db)
 
 	// TODO: Migrating
-	postgres.Seeder(db)
+	//postgres.Seeder(db)  //TODO
 	/*db.AutoMigrate(
 		&dbModels.Brand{},
 		&dbModels.Contact{},
