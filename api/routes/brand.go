@@ -10,5 +10,6 @@ func BrandRouter(router *gin.Engine, brandHandler handler.BrandHandler) {
 	{
 		route.GET("/", brandHandler.GetAll)
 		route.GET("/query", brandHandler.GetAllByDeviceTypeId)
+		route.POST("/", brandHandler.Create)
 	}
 }
