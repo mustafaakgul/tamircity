@@ -10,5 +10,6 @@ func DeviceTypeRouter(router *gin.Engine, deviceTypeHandler handler.DeviceTypeHa
 	{
 		route.GET("/", deviceTypeHandler.GetAll)
 		route.GET("/query", deviceTypeHandler.GetAllByActive)
+		route.POST("/", deviceTypeHandler.Create)
 	}
 }
