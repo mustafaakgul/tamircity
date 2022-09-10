@@ -19,6 +19,7 @@ type DeviceTypeHandler interface {
 	GetAll(ctx *gin.Context)
 	GetAllByActive(ctx *gin.Context)
 	Create(ctx *gin.Context)
+	GetById(ctx *gin.Context)
 }
 
 func NewDeviceTypeHandler(deviceTypeService service.DeviceTypeService) DeviceTypeHandler {
@@ -83,4 +84,10 @@ func (d *deviceTypeHandler) Create(ctx *gin.Context) {
 	}
 	response := utils.HandleResponseModel(true, "", nil, deviceTypeModel)
 	ctx.JSON(http.StatusOK, response)
+}
+
+func (d *deviceTypeHandler) GetById(ctx *gin.Context) {
+	id, _ := strconv.Atoi(ctx.Params.ByName("id"))
+	deviceType, _ := d.deviceTypeService.FindByID(id)
+	ctx.JSON(http.StatusOK, deviceType)
 }

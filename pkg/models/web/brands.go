@@ -1,8 +1,9 @@
 package web
 
 type BrandRequest struct {
-	Name     string `json:"name"`
-	IsActive bool   `json:"is_active"`
+	Name        string               `json:"name"`
+	IsActive    bool                 `json:"is_active"`
+	DeviceTypes []*DeviceTypeRequest `json:"device_types"`
 }
 
 type BrandResponse struct {

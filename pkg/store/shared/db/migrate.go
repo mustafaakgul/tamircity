@@ -28,6 +28,8 @@ func Migrate(db *gorm.DB) error {
 		)
 		// Adding Seed data
 		technicalServiceStore := repositories.NewTechnicalServiceStore(db)
+		brandStore := repositories.NewBrandStore(db)
+		modelStore := repositories.NewModelStore(db)
 		/*serviceTypeStore := repositories.NewServiceTypeStore(db)
 		extraServiceStore := repositories.NewExtraServiceStore(db)
 		brandStore := repositories.NewBrandStore(db)
@@ -35,6 +37,8 @@ func Migrate(db *gorm.DB) error {
 		fixTypeStore := repositories.NewFixTypeStore(db)
 		deviceTypeStore := repositories.NewDeviceTypeStore(db)*/
 		technicalServiceStore.Seed()
+		brandStore.Seed()
+		modelStore.Seed()
 		/*roleRepo := role.NewRoleRepository(db)
 		roleRepo.Seed()
 		userRepo := user.NewUserRepository(db)

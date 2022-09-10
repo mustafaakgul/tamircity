@@ -18,8 +18,9 @@ type ModelStore interface {
 	FindAll() ([]db.Model, error)
 	FindByID(id int) (db.Model, error)
 	FindBy(column string, value interface{}) ([]db.Model, error)
-	Where(query string) ([]db.Model, error)
+	Where(brandId int, deviceTypeId int) ([]db.Model, error)
 	Search(query string) ([]db.Model, error)
+	Seed() error
 }
 
 func NewModelStore(db *gorm.DB) ModelStore {
@@ -60,9 +61,15 @@ func (m *modelStore) FindBy(column string, value interface{}) ([]db.Model, error
 	return models, err
 }
 
-func (m *modelStore) Where(query string) ([]db.Model, error) {
+func (m *modelStore) Where(brandId int, deviceTypeId int) ([]db.Model, error) {
 	var models []db.Model
-	err := m.db.Where(query).Find(&models).Error
+	err := m.db.Model(&models).
+		Joins("inner join models_brands on models.id = models_brands.model_id").
+		Where("models_brands.brand_id = ?", brandId).
+		Joins("inner join models_device_types on models.id = models_device_types.model_id").
+		Where("models_device_types.device_type_id = ?", deviceTypeId).
+		Find(&models).Error
+	//err := m.db.Where(query).Find(&models).Error
 	return models, err
 }
 
@@ -70,4 +77,37 @@ func (m *modelStore) Search(query string) ([]db.Model, error) {
 	var models []db.Model
 	err := m.db.Where("name LIKE ?", "%"+query+"%").Find(&models).Error
 	return models, err
+}
+
+func (m *modelStore) Seed() error {
+
+	model := &db.Brand{}
+	m.db.Where("id = ?", 1).First(model)
+	test := model.Name
+	println(test)
+
+	models := []db.Model{
+		{
+			Name:             "iPhone 12 Pro",
+			ShortDescription: "iPhone 12 Pro",
+			IsActive:         true,
+			DeviceTypes:      deviceTypePhone,
+			Brands:           brandsApple,
+		},
+		{
+			Name:             "Samsung Galaxy S9",
+			ShortDescription: "Samsung Galaxy S9",
+			IsActive:         true,
+			DeviceTypes:      deviceTypePhone,
+			Brands:           brandsSamsung,
+		},
+	}
+
+	for _, model := range models {
+		if err := m.db.Create(&model).Error; err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

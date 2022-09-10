@@ -1,7 +1,6 @@
 package service
 
 import (
-	"fmt"
 	"github.com/mustafakocatepe/Tamircity/pkg/models/db"
 	"github.com/mustafakocatepe/Tamircity/pkg/models/web"
 	"github.com/mustafakocatepe/Tamircity/pkg/store/repositories"
@@ -51,8 +50,9 @@ func (m *modelService) FindBy(column string, value interface{}) ([]db.Model, err
 }
 
 func (m *modelService) FindByBrandIdDeviceTypeId(brandId int, deviceTypeId int) (res []web.ModelResponse, err error) {
-	query := fmt.Sprintf("brand_id = %x AND device_type_id = %x ", brandId, deviceTypeId)
-	models, err := m.modelStore.Where(query)
+	//query := fmt.Sprintf("brand_id = %x AND device_type_id = %x ", brandId, deviceTypeId)
+
+	models, err := m.modelStore.Where(brandId, deviceTypeId)
 	if err != nil {
 		return nil, err
 	}

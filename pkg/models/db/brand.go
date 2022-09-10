@@ -8,6 +8,6 @@ type Brand struct {
 	IsActive          bool                `gorm:"type:boolean;default:true;not null"`
 	TechnicalServices []*TechnicalService `gorm:"many2many:technical_services_brands;"`
 	DeviceTypes       []*DeviceType       `gorm:"many2many:device_types_brands;"`
-	Models            []*Model
+	Models            []*Model            `gorm:"many2many:models_brands;"`
 	Reservations      []*Reservation
 }
