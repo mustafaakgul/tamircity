@@ -2,6 +2,7 @@ package handler
 
 import (
 	"github.com/mustafakocatepe/Tamircity/pkg/models/db"
+	"github.com/mustafakocatepe/Tamircity/pkg/models/web"
 	"net/http"
 	"strconv"
 
@@ -17,6 +18,8 @@ type deviceTypeHandler struct {
 type DeviceTypeHandler interface {
 	GetAll(ctx *gin.Context)
 	GetAllByActive(ctx *gin.Context)
+	Create(ctx *gin.Context)
+	GetById(ctx *gin.Context)
 }
 
 func NewDeviceTypeHandler(deviceTypeService service.DeviceTypeService) DeviceTypeHandler {
@@ -59,4 +62,32 @@ func (d *deviceTypeHandler) GetAllByActive(ctx *gin.Context) {
 
 	response := utils.HandleResponseModel(true, "", nil, deviceTypes)
 	ctx.JSON(http.StatusOK, response)
+}
+
+func (d *deviceTypeHandler) Create(ctx *gin.Context) {
+	var deviceType web.DeviceTypeRequest
+	if err := ctx.ShouldBindJSON(&deviceType); err != nil {
+		response := utils.HandleResponseModel(false, "", err, nil)
+		ctx.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	var deviceTypeModel db.DeviceType
+	deviceTypeModel.Name = deviceType.Name
+	deviceTypeModel.ShortDescription = deviceType.ShortDescription
+	deviceTypeModel.IsActive = deviceType.IsActive
+
+	err := d.deviceTypeService.Create(&deviceTypeModel)
+	if err != nil {
+		response := utils.HandleResponseModel(false, "", err, nil)
+		ctx.JSON(http.StatusBadRequest, response)
+	}
+	response := utils.HandleResponseModel(true, "", nil, deviceTypeModel)
+	ctx.JSON(http.StatusOK, response)
+}
+
+func (d *deviceTypeHandler) GetById(ctx *gin.Context) {
+	id, _ := strconv.Atoi(ctx.Params.ByName("id"))
+	deviceType, _ := d.deviceTypeService.FindByID(id)
+	ctx.JSON(http.StatusOK, deviceType)
 }

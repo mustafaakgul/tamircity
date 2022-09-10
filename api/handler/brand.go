@@ -1,6 +1,8 @@
 package handler
 
 import (
+	"github.com/mustafakocatepe/Tamircity/pkg/models/db"
+	"github.com/mustafakocatepe/Tamircity/pkg/models/web"
 	"net/http"
 	"strconv"
 
@@ -16,6 +18,7 @@ type brandHandler struct {
 type BrandHandler interface {
 	GetAll(ctx *gin.Context)
 	GetAllByDeviceTypeId(ctx *gin.Context)
+	Create(ctx *gin.Context)
 }
 
 func NewBrandHandler(brandService service.BrandService) BrandHandler {
@@ -37,7 +40,7 @@ func (b *brandHandler) GetAll(ctx *gin.Context) {
 
 func (b *brandHandler) GetAllByDeviceTypeId(ctx *gin.Context) {
 
-	deviceTypeId, err := strconv.Atoi(ctx.Param("device_type_id"))
+	deviceTypeId, err := strconv.Atoi(ctx.Query("device_type_id"))
 	if err != nil {
 		responseErr := utils.HandleResponseModel(false, "", err, nil)
 		ctx.JSON(http.StatusBadRequest, responseErr)
@@ -51,5 +54,26 @@ func (b *brandHandler) GetAllByDeviceTypeId(ctx *gin.Context) {
 		return
 	}
 	response := utils.HandleResponseModel(true, "", nil, brands)
+	ctx.JSON(http.StatusOK, response)
+}
+
+func (b *brandHandler) Create(ctx *gin.Context) {
+	var brand web.BrandRequest
+	if err := ctx.ShouldBindJSON(&brand); err != nil {
+		response := utils.HandleResponseModel(false, "", err, nil)
+		ctx.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	var brandModel db.Brand
+	brandModel.Name = brand.Name
+	brandModel.IsActive = brand.IsActive
+
+	err := b.brandService.Create(&brandModel)
+	if err != nil {
+		response := utils.HandleResponseModel(false, "", err, nil)
+		ctx.JSON(http.StatusBadRequest, response)
+	}
+	response := utils.HandleResponseModel(true, "", nil, brandModel)
 	ctx.JSON(http.StatusOK, response)
 }

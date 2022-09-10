@@ -81,55 +81,106 @@ func (t *technicalServiceStore) Search(query string) ([]db.TechnicalService, err
 	return models, err
 }
 
+var deviceTypePc = &db.DeviceType{
+	Name:             "Personel Computer",
+	ShortDescription: "PC",
+	IsActive:         true,
+}
+
+var deviceTypePhone = &db.DeviceType{
+	Name:             "Phone",
+	ShortDescription: "Phone",
+	IsActive:         true,
+}
+
+var deviceTypeTablet = &db.DeviceType{
+	Name:             "Tablet",
+	ShortDescription: "Tablet",
+	IsActive:         true,
+}
+
+//var deviceTypePc = []*db.DeviceType{
+//	{
+//		Name:             "Personel Computer",
+//		ShortDescription: "PC",
+//		IsActive:         true,
+//	},
+//}
+
+//var deviceTypePhone = []*db.DeviceType{
+//	{
+//		Name:             "Phone",
+//		ShortDescription: "Phone",
+//		IsActive:         true,
+//	},
+//}
+//var deviceTypePhone = db.DeviceType{
+//	Name:             "Phone",
+//	ShortDescription: "Phone",
+//	IsActive:         true,
+//}
+//
+//var deviceTypeTablet = []*db.DeviceType{
+//	{
+//		Name:             "Tablet",
+//		ShortDescription: "Tablet",
+//		IsActive:         true,
+//	},
+//}
+
+//var deviceTypePhone = []*db.DeviceType{
+//	{
+//		Name:             "Phone",
+//		ShortDescription: "Phone",
+//		IsActive:         true,
+//	},
+//}
+//
+//var deviceTypeTablet = []*db.DeviceType{
+//	{
+//		Name:             "Tablet",
+//		ShortDescription: "Tablet",
+//		IsActive:         true,
+//	},
+//}
+
 func (t *technicalServiceStore) Seed() error {
-
-	deviceTypePc := []*db.DeviceType{
-		{
-			Name:             "Bilgisayar",
-			ShortDescription: "Bilgisayar",
-			IsActive:         true,
-		},
-	}
-
-	/*	deviceTypePhone := []*db.DeviceType{
-			{
-				Name:             "Telefon",
-				ShortDescription: "Telefon",
-				IsActive:         true,
-			},
-		}
-
-		deviceTypeTablet := []*db.DeviceType{
-			{
-				Name:             "Tablet",
-				ShortDescription: "Tablet",
-				IsActive:         true,
-			},
-		}*/
 
 	technicalServices := []db.TechnicalService{
 		{
-			ServiceName:    "service",
-			IdentityNumber: "identt",
-			PhoneNumber:    "phonehell",
-			Email:          "emailhell",
-			Iban:           "ibanhe",
+			ServiceName:    "service1",
+			IdentityNumber: "123456789",
+			PhoneNumber:    "123456789",
+			Email:          "email1@email.com",
+			Iban:           "123456789",
 			IsActive:       true,
-			DeviceTypes:    deviceTypePc,
+			DeviceTypes:    []*db.DeviceType{deviceTypePc},
 		},
 		{
-			ServiceName:    "service",
-			IdentityNumber: "identt",
-			PhoneNumber:    "phonehell",
-			Email:          "emailhell",
-			Iban:           "ibanhe",
+			ServiceName:    "service2",
+			IdentityNumber: "123456789",
+			PhoneNumber:    "123456789",
+			Email:          "email2@email.com",
+			Iban:           "123456789",
 			IsActive:       true,
+			DeviceTypes:    []*db.DeviceType{deviceTypePhone},
+		},
+		{
+			ServiceName:    "service3",
+			IdentityNumber: "123456789",
+			PhoneNumber:    "123456789",
+			Email:          "email3@email.com",
+			Iban:           "123456789",
+			IsActive:       true,
+			DeviceTypes:    []*db.DeviceType{deviceTypeTablet},
 		},
 	}
+
 	for _, technicalService := range technicalServices {
 		if err := t.db.Create(&technicalService).Error; err != nil {
 			return err
 		}
 	}
+
 	return nil
 }

@@ -10,16 +10,16 @@ import (
 	"strconv"
 )
 
+type technicalServiceHandler struct {
+	technicalServiceService service.TechnicalServiceService
+}
+
 type TechnicalServiceHandler interface {
 	GetAll(ctx *gin.Context)
 	GetAllByFilter(ctx *gin.Context)
 	Get(ctx *gin.Context)
 	Create(ctx *gin.Context)
 	Delete(ctx *gin.Context)
-}
-
-type technicalServiceHandler struct {
-	technicalServiceService service.TechnicalServiceService
 }
 
 func NewTechnicalServiceHandler(technicalServiceService service.TechnicalServiceService) TechnicalServiceHandler {
@@ -40,6 +40,7 @@ func (t *technicalServiceHandler) Create(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, response)
 		return
 	}
+
 	var technicalServiceModel db.TechnicalService
 	technicalServiceModel.ServiceName = technicalService.ServiceName
 	technicalServiceModel.IdentityNumber = technicalService.IdentityNumber

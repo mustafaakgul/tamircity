@@ -68,23 +68,92 @@ func (b *brandStore) Search(query string) ([]db.Brand, error) {
 }
 
 func (b *brandStore) FindByDeviceTypeId(deviceTypeId int) ([]db.Brand, error) {
+	//var brands []db.Brand
+	//err := b.db.Model(&brands).Joins("inner join device_types_brands on brands.id = device_types_brands.brand_id").Where("device_types_brands.device_type_id = ?", deviceTypeId).Find(&brands).Error
+	//return brands, err
+
 	var brands []db.Brand
 	err := b.db.Model(&brands).Joins("inner join device_types_brands on brands.id = device_types_brands.brand_id").Where("device_types_brands.device_type_id = ?", deviceTypeId).Find(&brands).Error
+	//err := b.db.Model(brands).Preload("DeviceTypes").Where("device_types.id = ?", deviceTypeId).Find(&brands).Error
 	return brands, err
 }
 
+//var brands = []db.Brand{
+//	{
+//		Name:        "Apple",
+//		IsActive:    true,
+//		DeviceTypes: deviceTypePc,
+//	},
+//	{
+//		Name:        "Samsung",
+//		IsActive:    true,
+//		DeviceTypes: deviceTypePc,
+//	},
+//	{
+//		Name:        "Lenovo",
+//		IsActive:    true,
+//		DeviceTypes: deviceTypePhone,
+//	},
+//}
+
+//var brandsApple = db.Brand{
+//	Name:        "Apple",
+//	IsActive:    true,
+//	DeviceTypes: deviceTypePc,
+//}
+
+var brandsApple = &db.Brand{
+	Name:        "Apple",
+	IsActive:    true,
+	DeviceTypes: []*db.DeviceType{deviceTypePc, deviceTypePhone},
+}
+
+//var brandsSamsung = db.Brand{
+//	Name:        "Samsung",
+//	IsActive:    true,
+//	DeviceTypes: deviceTypePc,
+//}
+
+var brandsSamsung = &db.Brand{
+	Name:        "Samsung",
+	IsActive:    true,
+	DeviceTypes: []*db.DeviceType{deviceTypePc},
+}
+
+var brandsLenovo = &db.Brand{
+	Name:        "Lenovo",
+	IsActive:    true,
+	DeviceTypes: []*db.DeviceType{deviceTypePhone},
+}
+
 func (b *brandStore) Seed() error {
-	brands := []*db.Brand{
-		{Name: "Samsung", IsActive: true},
-		{Name: "Apple", IsActive: true},
-		{Name: "Xiaomi", IsActive: true},
-		{Name: "Huawei", IsActive: true},
-	}
-	for _, brand := range brands {
-		if err := b.db.Create(&brand).Error; err != nil {
-			return err
-		}
-	}
+
+	b.db.Create(&brandsApple)
+	b.db.Create(&brandsSamsung)
+	b.db.Create(&brandsLenovo)
+
+	//brands := []db.Brand{
+	//	{
+	//		Name:        "Apple",
+	//		IsActive:    true,
+	//		DeviceTypes: deviceTypePc,
+	//	},
+	//	{
+	//		Name:        "Samsung",
+	//		IsActive:    true,
+	//		DeviceTypes: deviceTypePc,
+	//	},
+	//	{
+	//		Name:        "Lenovo",
+	//		IsActive:    true,
+	//		DeviceTypes: deviceTypePhone,
+	//	},
+	//}
+	//for _, brand := range brands {
+	//	if err := b.db.Create(&brand).Error; err != nil {
+	//		return err
+	//	}
+	//}
 
 	return nil
 }
