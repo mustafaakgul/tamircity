@@ -91,15 +91,15 @@ func (m *modelStore) Seed() error {
 			Name:             "iPhone 12 Pro",
 			ShortDescription: "iPhone 12 Pro",
 			IsActive:         true,
-			DeviceTypes:      deviceTypePhone,
-			Brands:           brandsApple,
+			DeviceType:       deviceTypePhone,
+			Brand:            brandsApple,
 		},
 		{
 			Name:             "Samsung Galaxy S9",
 			ShortDescription: "Samsung Galaxy S9",
 			IsActive:         true,
-			DeviceTypes:      deviceTypePhone,
-			Brands:           brandsSamsung,
+			DeviceType:       deviceTypePhone,
+			Brand:            brandsSamsung,
 		},
 	}
 

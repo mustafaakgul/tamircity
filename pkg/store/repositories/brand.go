@@ -102,12 +102,10 @@ func (b *brandStore) FindByDeviceTypeId(deviceTypeId int) ([]db.Brand, error) {
 //	DeviceTypes: deviceTypePc,
 //}
 
-var brandsApple = []*db.Brand{
-	{
-		Name:        "Apple",
-		IsActive:    true,
-		DeviceTypes: deviceTypePc,
-	},
+var brandsApple = &db.Brand{
+	Name:        "Apple",
+	IsActive:    true,
+	DeviceTypes: []*db.DeviceType{deviceTypePc, deviceTypePhone},
 }
 
 //var brandsSamsung = db.Brand{
@@ -116,20 +114,16 @@ var brandsApple = []*db.Brand{
 //	DeviceTypes: deviceTypePc,
 //}
 
-var brandsSamsung = []*db.Brand{
-	{
-		Name:        "Samsung",
-		IsActive:    true,
-		DeviceTypes: deviceTypePc,
-	},
+var brandsSamsung = &db.Brand{
+	Name:        "Samsung",
+	IsActive:    true,
+	DeviceTypes: []*db.DeviceType{deviceTypePc},
 }
 
-var brandsLenovo = []*db.Brand{
-	{
-		Name:        "Lenovo",
-		IsActive:    true,
-		DeviceTypes: deviceTypePhone,
-	},
+var brandsLenovo = &db.Brand{
+	Name:        "Lenovo",
+	IsActive:    true,
+	DeviceTypes: []*db.DeviceType{deviceTypePhone},
 }
 
 func (b *brandStore) Seed() error {

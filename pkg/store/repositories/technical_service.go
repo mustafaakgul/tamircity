@@ -81,28 +81,22 @@ func (t *technicalServiceStore) Search(query string) ([]db.TechnicalService, err
 	return models, err
 }
 
-var deviceTypePc = []*db.DeviceType{
-	{
-		Name:             "Personel Computer",
-		ShortDescription: "PC",
-		IsActive:         true,
-	},
+var deviceTypePc = &db.DeviceType{
+	Name:             "Personel Computer",
+	ShortDescription: "PC",
+	IsActive:         true,
 }
 
-var deviceTypePhone = []*db.DeviceType{
-	{
-		Name:             "Phone",
-		ShortDescription: "Phone",
-		IsActive:         true,
-	},
+var deviceTypePhone = &db.DeviceType{
+	Name:             "Phone",
+	ShortDescription: "Phone",
+	IsActive:         true,
 }
 
-var deviceTypeTablet = []*db.DeviceType{
-	{
-		Name:             "Tablet",
-		ShortDescription: "Tablet",
-		IsActive:         true,
-	},
+var deviceTypeTablet = &db.DeviceType{
+	Name:             "Tablet",
+	ShortDescription: "Tablet",
+	IsActive:         true,
 }
 
 //var deviceTypePc = []*db.DeviceType{
@@ -160,7 +154,7 @@ func (t *technicalServiceStore) Seed() error {
 			Email:          "email1@email.com",
 			Iban:           "123456789",
 			IsActive:       true,
-			DeviceTypes:    deviceTypePc,
+			DeviceTypes:    []*db.DeviceType{deviceTypePc},
 		},
 		{
 			ServiceName:    "service2",
@@ -169,7 +163,7 @@ func (t *technicalServiceStore) Seed() error {
 			Email:          "email2@email.com",
 			Iban:           "123456789",
 			IsActive:       true,
-			DeviceTypes:    deviceTypePhone,
+			DeviceTypes:    []*db.DeviceType{deviceTypePhone},
 		},
 		{
 			ServiceName:    "service3",
@@ -178,7 +172,7 @@ func (t *technicalServiceStore) Seed() error {
 			Email:          "email3@email.com",
 			Iban:           "123456789",
 			IsActive:       true,
-			DeviceTypes:    deviceTypeTablet,
+			DeviceTypes:    []*db.DeviceType{deviceTypeTablet},
 		},
 	}
 
