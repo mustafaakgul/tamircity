@@ -3,11 +3,11 @@ FROM golang:1.18 AS builder
 RUN mkdir /app
 ADD . /app
 WORKDIR /app
-RUN CGO_ENABLED=0 GOOS=linux go build -o main ./...
+RUN CGO_ENABLED=0 GOOS=linux go build main.go
 
 FROM alpine:latest AS production
 COPY --from=builder /app .
-CMD ["./main"]
+CMD ["./cmd/tamircity/main"]
 
 ## Base image for building the go project
 #FROM golang:1.14-alpine AS build
