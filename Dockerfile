@@ -7,7 +7,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o main ./...
 
 FROM alpine:latest AS production
 COPY --from=builder /app .
-CMD ["./cmd/tamircity/main"]
+CMD ["./main"]
 
 ## Base image for building the go project
 #FROM golang:1.14-alpine AS build
