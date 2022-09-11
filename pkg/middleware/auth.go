@@ -1,4 +1,4 @@
-package auth
+package middleware
 
 import (
 	"context"
@@ -21,9 +21,9 @@ type jwtCustomClaims struct {
 func GenerateToken(id uint, userName string) (string, error) {
 	now := time.Now()
 	claims := &jwtCustomClaims{
-		UserId: id,
+		UserId:   id,
 		UserName: userName,
-		UID:    uuid.New().String(),
+		UID:      uuid.New().String(),
 		StandardClaims: jwt.StandardClaims{
 			Audience:  "",
 			ExpiresAt: now.Add(time.Minute * 60).Unix(),
@@ -45,7 +45,7 @@ func GenerateToken(id uint, userName string) (string, error) {
 	return t, nil
 }
 
-func GetUserId(ctx context.Context)(uint, error) {
+func GetUserId(ctx context.Context) (uint, error) {
 
 	//TODO:
 	props, _ := ctx.Value("userAuthCtx").(jwt.MapClaims)
@@ -57,7 +57,6 @@ func GetUserId(ctx context.Context)(uint, error) {
 
 	return uint(userId), nil
 }
-
 
 func parseToken(accessToken string) (uint, error) {
 	//TODO:
