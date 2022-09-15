@@ -50,7 +50,7 @@ func (d *deviceTypeStore) FindAll() ([]db.DeviceType, error) {
 
 func (d *deviceTypeStore) FindAllByActive() ([]db.DeviceType, error) {
 	var deviceTypes []db.DeviceType
-	err := d.db.Where("deleted_at is null AND is_active = 1").Find(&deviceTypes).Error
+	err := d.db.Where("deleted_at is null AND is_active = ?", true).Find(&deviceTypes).Error
 	return deviceTypes, err
 }
 
