@@ -49,7 +49,7 @@ func (d *deviceTypeHandler) GetAllByActive(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, responseErr)
 		return
 	}
-	var deviceTypes []db.DeviceType
+	var deviceTypes []web.DeviceTypeResponse
 	if active == 1 {
 		deviceTypes, err = d.deviceTypeService.FindAllByActive()
 	}
