@@ -63,13 +63,13 @@ func (m *modelStore) FindBy(column string, value interface{}) ([]db.Model, error
 
 func (m *modelStore) Where(brandId int, deviceTypeId int) ([]db.Model, error) {
 	var models []db.Model
-	err := m.db.Model(&models).
+	/*err := m.db.Model(&models).
 		Joins("inner join models_brands on models.id = models_brands.model_id").
 		Where("models_brands.brand_id = ?", brandId).
 		Joins("inner join models_device_types on models.id = models_device_types.model_id").
 		Where("models_device_types.device_type_id = ?", deviceTypeId).
-		Find(&models).Error
-	//err := m.db.Where(query).Find(&models).Error
+		Find(&models).Error*/
+	err := m.db.Where("brand_id = ? AND device_type_id = ?", brandId,deviceTypeId).Find(&models).Error
 	return models, err
 }
 
@@ -79,29 +79,89 @@ func (m *modelStore) Search(query string) ([]db.Model, error) {
 	return models, err
 }
 
+var modelIphone11 = &db.Model{
+	Name:             "iPhone 11",
+	ShortDescription: "iPhone 11",
+	IsActive:         true,
+	DeviceType:       deviceTypePhone,
+	Brand:            brandsApple,
+}
+
+var modelIphone12 = &db.Model{
+	Name:             "iPhone 12",
+	ShortDescription: "iPhone 12",
+	IsActive:         true,
+	DeviceType:       deviceTypePhone,
+	Brand:            brandsApple,
+}
+
+var modelIphone12Pro = &db.Model{
+	Name:             "iPhone 12 Pro",
+	ShortDescription: "iPhone 12 Pro",
+	IsActive:         true,
+	DeviceType:       deviceTypePhone,
+	Brand:            brandsApple,
+}
+
+var modelSamsungGalaxyS7 = &db.Model{
+	Name:             "Galaxy S7",
+	ShortDescription: "Galaxy S7",
+	IsActive:         true,
+	DeviceType:       deviceTypePhone,
+	Brand:            brandsSamsung,
+}
+
+var modelSamsungGalaxyS9 = &db.Model{
+	Name:             "Galaxy S9",
+	ShortDescription: "Galaxy S9",
+	IsActive:         true,
+	DeviceType:       deviceTypePhone,
+	Brand:            brandsSamsung,
+}
+
+var modelLenovoM7 = &db.Model{
+	Name:             "Lenovo Tab M7",
+	ShortDescription: "Lenovo Tab M7",
+	IsActive:         true,
+	DeviceType:       deviceTypeTablet,
+	Brand:            brandsLenovo,
+}
+
+var modelLenovoM8 = &db.Model{
+	Name:             "Lenovo Tab M8",
+	ShortDescription: "Lenovo Tab M8",
+	IsActive:         true,
+	DeviceType:       deviceTypeTablet,
+	Brand:            brandsLenovo,
+}
+
+var modeliPad6 = &db.Model{
+	Name:             "iPad 6.Nesil",
+	ShortDescription: "iPad 6.Nesil",
+	IsActive:         true,
+	DeviceType:       deviceTypeTablet,
+	Brand:            brandsApple,
+}
+
+
+var modeliPad9 = &db.Model{
+	Name:             "iPad 9.Nesil",
+	ShortDescription: "iPad 9.Nesil",
+	IsActive:         true,
+	DeviceType:       deviceTypeTablet,
+	Brand:            brandsApple,
+}
+
+
+
 func (m *modelStore) Seed() error {
 
-	model := &db.Brand{}
+	/*model := &db.Brand{}
 	m.db.Where("id = ?", 1).First(model)
 	test := model.Name
-	println(test)
+	println(test)*/
 
-	models := []db.Model{
-		{
-			Name:             "iPhone 12 Pro",
-			ShortDescription: "iPhone 12 Pro",
-			IsActive:         true,
-			DeviceType:       deviceTypePhone,
-			Brand:            brandsApple,
-		},
-		{
-			Name:             "Samsung Galaxy S9",
-			ShortDescription: "Samsung Galaxy S9",
-			IsActive:         true,
-			DeviceType:       deviceTypePhone,
-			Brand:            brandsSamsung,
-		},
-	}
+	models := []*db.Model{modelIphone11, modelIphone12,modelIphone12Pro, modelSamsungGalaxyS7, modelSamsungGalaxyS9, modelLenovoM7, modelLenovoM8, modeliPad6, modeliPad9 }
 
 	for _, model := range models {
 		if err := m.db.Create(&model).Error; err != nil {
