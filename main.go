@@ -26,22 +26,6 @@ func main() {
 
 	// Connection DB and migrations
 	postgres.Migrate(db)
-
-	// TODO: Migrating
-	//postgres.Seeder(db)  //TODO
-	/*db.AutoMigrate(
-		&dbModels.Brand{},
-		&dbModels.Contact{},
-		&dbModels.Customer{},
-		&dbModels.DeviceType{},
-		&dbModels.ExtraService{},
-		&dbModels.FixType{},
-		&dbModels.Model{},
-		&dbModels.Newsletter{},
-		&dbModels.Reservation{},
-		&dbModels.ServiceType{},
-		&dbModels.TechnicalService{},
-	)*/
 	log.Println("Migrations done")
 
 	// Store
