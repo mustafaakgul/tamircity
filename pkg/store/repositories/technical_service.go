@@ -81,6 +81,7 @@ func (t *technicalServiceStore) Search(query string) ([]db.TechnicalService, err
 	return models, err
 }
 
+
 //var deviceTypePc = []*db.DeviceType{
 //	{
 //		Name:             "Personel Computer",

@@ -91,7 +91,8 @@ var deviceTypeTablet = &db.DeviceType{
 }
 
 func (d *deviceTypeStore) Seed() error {
-	deviceTypes := []*db.DeviceType{deviceTypePc, deviceTypePhone, deviceTypeTablet}
+	deviceTypes := []*db.DeviceType{deviceTypePc, deviceTypePhone, deviceTypeTablet,
+	}
 	for _, deviceType := range deviceTypes {
 		if err := d.db.Create(&deviceType).Error; err != nil {
 			return err

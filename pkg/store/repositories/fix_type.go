@@ -65,36 +65,38 @@ func (f *fixTypeStore) Search(query string) ([]db.FixType, error) {
 }
 
 var fixType1 = &db.FixType{
-	Description: "Ekran Değişimi",
-	IsActive:    true,
-	Price:       400,
+	Description:         "Ekran Değişimi",
+	IsActive:         true,
+	Price : 400,
 	DeviceTypes: []*db.DeviceType{deviceTypePc, deviceTypePhone, deviceTypeTablet},
 }
 
 var fixType2 = &db.FixType{
-	Description: "Batarya Değişimi",
-	IsActive:    true,
-	Price:       1000,
+	Description:         "Batarya Değişimi",
+	IsActive:         true,
+	Price : 1000,
 	DeviceTypes: []*db.DeviceType{deviceTypePc, deviceTypePhone, deviceTypeTablet},
+
 }
 
 var fixType3 = &db.FixType{
-	Description: "Açma Kapama Tuşu Sorunu",
-	IsActive:    true,
-	Price:       250,
+	Description:         "Açma Kapama Tuşu Sorunu",
+	IsActive:         true,
+	Price : 250,
 	DeviceTypes: []*db.DeviceType{deviceTypePc, deviceTypePhone, deviceTypeTablet},
 }
 
 var fixType4 = &db.FixType{
-	Description: "Hoparlör",
-	IsActive:    true,
-	Price:       250,
+	Description:         "Hoparlör",
+	IsActive:         true,
+	Price : 250,
 	DeviceTypes: []*db.DeviceType{deviceTypePc, deviceTypePhone, deviceTypeTablet},
 }
 
+
 func (f *fixTypeStore) Seed() error {
 
-	fixTypes := []*db.FixType{fixType1, fixType2, fixType3, fixType4}
+	fixTypes := []*db.FixType{fixType1, fixType2,fixType3, fixType4}
 
 	for _, fixType := range fixTypes {
 		if err := f.db.Create(&fixType).Error; err != nil {

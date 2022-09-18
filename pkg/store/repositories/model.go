@@ -64,12 +64,12 @@ func (m *modelStore) FindBy(column string, value interface{}) ([]db.Model, error
 func (m *modelStore) Where(brandId int, deviceTypeId int) ([]db.Model, error) {
 	var models []db.Model
 	/*err := m.db.Model(&models).
-	Joins("inner join models_brands on models.id = models_brands.model_id").
-	Where("models_brands.brand_id = ?", brandId).
-	Joins("inner join models_device_types on models.id = models_device_types.model_id").
-	Where("models_device_types.device_type_id = ?", deviceTypeId).
-	Find(&models).Error*/
-	err := m.db.Where("brand_id = ? AND device_type_id = ?", brandId, deviceTypeId).Find(&models).Error
+		Joins("inner join models_brands on models.id = models_brands.model_id").
+		Where("models_brands.brand_id = ?", brandId).
+		Joins("inner join models_device_types on models.id = models_device_types.model_id").
+		Where("models_device_types.device_type_id = ?", deviceTypeId).
+		Find(&models).Error*/
+	err := m.db.Where("brand_id = ? AND device_type_id = ?", brandId,deviceTypeId).Find(&models).Error
 	return models, err
 }
 
@@ -143,6 +143,7 @@ var modeliPad6 = &db.Model{
 	Brand:            brandsApple,
 }
 
+
 var modeliPad9 = &db.Model{
 	Name:             "iPad 9.Nesil",
 	ShortDescription: "iPad 9.Nesil",
@@ -151,6 +152,8 @@ var modeliPad9 = &db.Model{
 	Brand:            brandsApple,
 }
 
+
+
 func (m *modelStore) Seed() error {
 
 	/*model := &db.Brand{}
@@ -158,7 +161,7 @@ func (m *modelStore) Seed() error {
 	test := model.Name
 	println(test)*/
 
-	models := []*db.Model{modelIphone11, modelIphone12, modelIphone12Pro, modelSamsungGalaxyS7, modelSamsungGalaxyS9, modelLenovoM7, modelLenovoM8, modeliPad6, modeliPad9}
+	models := []*db.Model{modelIphone11, modelIphone12,modelIphone12Pro, modelSamsungGalaxyS7, modelSamsungGalaxyS9, modelLenovoM7, modelLenovoM8, modeliPad6, modeliPad9 }
 
 	for _, model := range models {
 		if err := m.db.Create(&model).Error; err != nil {
