@@ -18,17 +18,16 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
+
+	// Connection to Postgres
 	db, err := postgres.NewPsqlDB()
 	if err != nil {
 		log.Fatal("Postgres cannot init", err)
 	}
 	log.Println("Postgres connected")
 
-	// Connection DB and Migrations
+	// Migrations Mechanism
 	postgres.Migrate(db)
-
-	// Seeding Mechanism
-	postgres.Seeder(db)
 
 	// Store
 	technicalServiceStore := repositories.NewTechnicalServiceStore(db)
@@ -39,9 +38,6 @@ func main() {
 	reservationStore := repositories.NewReservationStore(db)
 	fixTypeStore := repositories.NewFixTypeStore(db)
 	deviceTypeStore := repositories.NewDeviceTypeStore(db)
-
-	// TODO: Adding Seed data
-	//technicalServiceStore.Seed()
 
 	// Clients
 	// This one need to be integrated systems

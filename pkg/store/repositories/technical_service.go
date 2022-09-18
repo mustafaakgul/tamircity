@@ -81,52 +81,6 @@ func (t *technicalServiceStore) Search(query string) ([]db.TechnicalService, err
 	return models, err
 }
 
-
-//var deviceTypePc = []*db.DeviceType{
-//	{
-//		Name:             "Personel Computer",
-//		ShortDescription: "PC",
-//		IsActive:         true,
-//	},
-//}
-
-//var deviceTypePhone = []*db.DeviceType{
-//	{
-//		Name:             "Phone",
-//		ShortDescription: "Phone",
-//		IsActive:         true,
-//	},
-//}
-//var deviceTypePhone = db.DeviceType{
-//	Name:             "Phone",
-//	ShortDescription: "Phone",
-//	IsActive:         true,
-//}
-//
-//var deviceTypeTablet = []*db.DeviceType{
-//	{
-//		Name:             "Tablet",
-//		ShortDescription: "Tablet",
-//		IsActive:         true,
-//	},
-//}
-
-//var deviceTypePhone = []*db.DeviceType{
-//	{
-//		Name:             "Phone",
-//		ShortDescription: "Phone",
-//		IsActive:         true,
-//	},
-//}
-//
-//var deviceTypeTablet = []*db.DeviceType{
-//	{
-//		Name:             "Tablet",
-//		ShortDescription: "Tablet",
-//		IsActive:         true,
-//	},
-//}
-
 func (t *technicalServiceStore) Seed() error {
 
 	technicalServices := []db.TechnicalService{

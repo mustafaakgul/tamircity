@@ -26,6 +26,9 @@ func Migrate(db *gorm.DB) error {
 			&dbModels.TechnicalServiceReservation{},
 			&dbModels.TechnicalServiceShift{},
 		)
+
+		Seeder(db)
+
 		log.Println("Migrations done")
 	}
 	return error(nil)

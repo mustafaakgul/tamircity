@@ -9,7 +9,6 @@ type fixTypeStore struct {
 	db *gorm.DB
 }
 
-//interface
 type FixTypeStore interface {
 	Migration()
 	Create(model *db.FixType) error
@@ -26,77 +25,56 @@ type FixTypeStore interface {
 func NewFixTypeStore(db *gorm.DB) FixTypeStore {
 	return &fixTypeStore{db: db}
 }
+
 func (f *fixTypeStore) Migration() {
 	f.db.AutoMigrate(&db.FixType{})
 }
+
 func (f *fixTypeStore) Create(model *db.FixType) error {
 	return f.db.Create(model).Error
 }
+
 func (f *fixTypeStore) Update(model *db.FixType) error {
 	return f.db.Save(model).Error
 }
+
 func (f *fixTypeStore) Delete(model *db.FixType) error {
 	return f.db.Delete(model).Error
 }
+
 func (f *fixTypeStore) FindAll() ([]db.FixType, error) {
 	var models []db.FixType
 	err := f.db.Find(&models).Error
 	return models, err
 }
+
 func (f *fixTypeStore) FindByID(id int) (db.FixType, error) {
 	var model db.FixType
 	err := f.db.First(&model, id).Error
 	return model, err
 }
+
 func (f *fixTypeStore) FindBy(column string, value interface{}) ([]db.FixType, error) {
 	var models []db.FixType
 	err := f.db.Where(column+" = ?", value).Find(&models).Error
 	return models, err
 }
+
 func (f *fixTypeStore) FindByDeviceTypeId(deviceTypeId int) ([]db.FixType, error) {
 	var fixTypes []db.FixType
 	err := f.db.Model(&fixTypes).Joins("INNER JOIN device_types_fix_types on fix_types.id = device_types_fix_types.fix_type_id").Where("device_types_fix_types.device_type_id = ?", deviceTypeId).Find(&fixTypes).Error
 	return fixTypes, err
 }
+
 func (f *fixTypeStore) Search(query string) ([]db.FixType, error) {
 	var models []db.FixType
 	err := f.db.Where("name LIKE ?", "%"+query+"%").Find(&models).Error
 	return models, err
 }
 
-var fixType1 = &db.FixType{
-	Description:         "Ekran Değişimi",
-	IsActive:         true,
-	Price : 400,
-	DeviceTypes: []*db.DeviceType{deviceTypePc, deviceTypePhone, deviceTypeTablet},
-}
-
-var fixType2 = &db.FixType{
-	Description:         "Batarya Değişimi",
-	IsActive:         true,
-	Price : 1000,
-	DeviceTypes: []*db.DeviceType{deviceTypePc, deviceTypePhone, deviceTypeTablet},
-
-}
-
-var fixType3 = &db.FixType{
-	Description:         "Açma Kapama Tuşu Sorunu",
-	IsActive:         true,
-	Price : 250,
-	DeviceTypes: []*db.DeviceType{deviceTypePc, deviceTypePhone, deviceTypeTablet},
-}
-
-var fixType4 = &db.FixType{
-	Description:         "Hoparlör",
-	IsActive:         true,
-	Price : 250,
-	DeviceTypes: []*db.DeviceType{deviceTypePc, deviceTypePhone, deviceTypeTablet},
-}
-
-
 func (f *fixTypeStore) Seed() error {
 
-	fixTypes := []*db.FixType{fixType1, fixType2,fixType3, fixType4}
+	fixTypes := []*db.FixType{fixType1, fixType2, fixType3, fixType4}
 
 	for _, fixType := range fixTypes {
 		if err := f.db.Create(&fixType).Error; err != nil {

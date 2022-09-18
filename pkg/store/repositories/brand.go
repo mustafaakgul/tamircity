@@ -78,76 +78,6 @@ func (b *brandStore) FindByDeviceTypeId(deviceTypeId int) ([]db.Brand, error) {
 	return brands, err
 }
 
-//var brands = []db.Brand{
-//	{
-//		Name:        "Apple",
-//		IsActive:    true,
-//		DeviceTypes: deviceTypePc,
-//	},
-//	{
-//		Name:        "Samsung",
-//		IsActive:    true,
-//		DeviceTypes: deviceTypePc,
-//	},
-//	{
-//		Name:        "Lenovo",
-//		IsActive:    true,
-//		DeviceTypes: deviceTypePhone,
-//	},
-//}
-
-//var brandsApple = db.Brand{
-//	Name:        "Apple",
-//	IsActive:    true,
-//	DeviceTypes: deviceTypePc,
-//}
-
-var brandsApple = &db.Brand{
-	Name:        "Apple",
-	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{deviceTypePc, deviceTypePhone, deviceTypeTablet},
-}
-
-//var brandsSamsung = db.Brand{
-//	Name:        "Samsung",
-//	IsActive:    true,
-//	DeviceTypes: deviceTypePc,
-//}
-
-var brandsSamsung = &db.Brand{
-	Name:        "Samsung",
-	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{deviceTypePc, deviceTypePhone, deviceTypeTablet},
-}
-
-var brandsLenovo = &db.Brand{
-	Name:        "Lenovo",
-	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{deviceTypePhone, deviceTypeTablet},
-}
-
-var brandNokia = &db.Brand{
-	Name:        "Nokia",
-	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{deviceTypePhone},
-}
-var brandOppo = &db.Brand{
-	Name:        "Oppo",
-	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{deviceTypePhone},
-}
-var brandGeneralMobile = &db.Brand{
-	Name:        "General Mobile",
-	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{deviceTypePhone},
-}
-
-var brandHometech = &db.Brand{
-	Name:        "Hometech",
-	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{deviceTypeTablet},
-}
-
 func (b *brandStore) Seed() error {
 
 	b.db.Create(&brandsApple)
@@ -156,29 +86,6 @@ func (b *brandStore) Seed() error {
 	b.db.Create(&brandNokia)
 	b.db.Create(&brandOppo)
 	b.db.Create(&brandHometech)
-
-	//brands := []db.Brand{
-	//	{
-	//		Name:        "Apple",
-	//		IsActive:    true,
-	//		DeviceTypes: deviceTypePc,
-	//	},
-	//	{
-	//		Name:        "Samsung",
-	//		IsActive:    true,
-	//		DeviceTypes: deviceTypePc,
-	//	},
-	//	{
-	//		Name:        "Lenovo",
-	//		IsActive:    true,
-	//		DeviceTypes: deviceTypePhone,
-	//	},
-	//}
-	//for _, brand := range brands {
-	//	if err := b.db.Create(&brand).Error; err != nil {
-	//		return err
-	//	}
-	//}
 
 	return nil
 }

@@ -24,16 +24,6 @@ func Seeder(db *gorm.DB) error {
 	brandStore.Seed()
 	modelStore.Seed()
 	fixTypeStore.Seed()
-	/*roleRepo := role.NewRoleRepository(db)
-	roleRepo.Seed()
-	userRepo := user.NewUserRepository(db)
-	userRepo.Seed()
-	statusRepo := status.NewStatusRepository(db)
-	statusRepo.Seed()
-	users, _ := userRepo.FindAll()
-	roles, _ := roleRepo.FindAll()
-	userrolemapRepo := userrolemap.NewUserRoleMapRepository(db)
-	userrolemapRepo.Seed(users, roles)*/
 
 	log.Printf("Seeding done")
 
