@@ -105,7 +105,7 @@ func (b *brandStore) FindByDeviceTypeId(deviceTypeId int) ([]db.Brand, error) {
 var brandsApple = &db.Brand{
 	Name:        "Apple",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{deviceTypePc, deviceTypePhone},
+	DeviceTypes: []*db.DeviceType{deviceTypePc, deviceTypePhone, deviceTypeTablet},
 }
 
 //var brandsSamsung = db.Brand{
@@ -117,13 +117,35 @@ var brandsApple = &db.Brand{
 var brandsSamsung = &db.Brand{
 	Name:        "Samsung",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{deviceTypePc},
+	DeviceTypes: []*db.DeviceType{deviceTypePc, deviceTypePhone, deviceTypeTablet},
 }
 
 var brandsLenovo = &db.Brand{
 	Name:        "Lenovo",
 	IsActive:    true,
+	DeviceTypes: []*db.DeviceType{deviceTypePhone, deviceTypeTablet},
+}
+
+var brandNokia = &db.Brand{
+	Name:        "Nokia",
+	IsActive:    true,
 	DeviceTypes: []*db.DeviceType{deviceTypePhone},
+}
+var brandOppo = &db.Brand{
+	Name:        "Oppo",
+	IsActive:    true,
+	DeviceTypes: []*db.DeviceType{deviceTypePhone},
+}
+var brandGeneralMobile = &db.Brand{
+	Name:        "General Mobile",
+	IsActive:    true,
+	DeviceTypes: []*db.DeviceType{deviceTypePhone},
+}
+
+var brandHometech = &db.Brand{
+	Name:        "Hometech",
+	IsActive:    true,
+	DeviceTypes: []*db.DeviceType{deviceTypeTablet},
 }
 
 func (b *brandStore) Seed() error {
@@ -131,6 +153,9 @@ func (b *brandStore) Seed() error {
 	b.db.Create(&brandsApple)
 	b.db.Create(&brandsSamsung)
 	b.db.Create(&brandsLenovo)
+	b.db.Create(&brandNokia)
+	b.db.Create(&brandOppo)
+	b.db.Create(&brandHometech)
 
 	//brands := []db.Brand{
 	//	{

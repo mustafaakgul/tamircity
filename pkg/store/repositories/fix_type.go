@@ -20,6 +20,7 @@ type FixTypeStore interface {
 	FindBy(column string, value interface{}) ([]db.FixType, error)
 	FindByDeviceTypeId(deviceTypeId int) ([]db.FixType, error)
 	Search(query string) ([]db.FixType, error)
+	Seed() error
 }
 
 func NewFixTypeStore(db *gorm.DB) FixTypeStore {
@@ -61,4 +62,45 @@ func (f *fixTypeStore) Search(query string) ([]db.FixType, error) {
 	var models []db.FixType
 	err := f.db.Where("name LIKE ?", "%"+query+"%").Find(&models).Error
 	return models, err
+}
+
+var fixType1 = &db.FixType{
+	Description: "Ekran Değişimi",
+	IsActive:    true,
+	Price:       400,
+	DeviceTypes: []*db.DeviceType{deviceTypePc, deviceTypePhone, deviceTypeTablet},
+}
+
+var fixType2 = &db.FixType{
+	Description: "Batarya Değişimi",
+	IsActive:    true,
+	Price:       1000,
+	DeviceTypes: []*db.DeviceType{deviceTypePc, deviceTypePhone, deviceTypeTablet},
+}
+
+var fixType3 = &db.FixType{
+	Description: "Açma Kapama Tuşu Sorunu",
+	IsActive:    true,
+	Price:       250,
+	DeviceTypes: []*db.DeviceType{deviceTypePc, deviceTypePhone, deviceTypeTablet},
+}
+
+var fixType4 = &db.FixType{
+	Description: "Hoparlör",
+	IsActive:    true,
+	Price:       250,
+	DeviceTypes: []*db.DeviceType{deviceTypePc, deviceTypePhone, deviceTypeTablet},
+}
+
+func (f *fixTypeStore) Seed() error {
+
+	fixTypes := []*db.FixType{fixType1, fixType2, fixType3, fixType4}
+
+	for _, fixType := range fixTypes {
+		if err := f.db.Create(&fixType).Error; err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

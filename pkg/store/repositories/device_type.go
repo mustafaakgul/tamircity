@@ -50,7 +50,7 @@ func (d *deviceTypeStore) FindAll() ([]db.DeviceType, error) {
 
 func (d *deviceTypeStore) FindAllByActive() ([]db.DeviceType, error) {
 	var deviceTypes []db.DeviceType
-	err := d.db.Where("deleted_at is null AND is_active = 1").Find(&deviceTypes).Error
+	err := d.db.Where("deleted_at is null AND is_active = ?", true).Find(&deviceTypes).Error
 	return deviceTypes, err
 }
 
@@ -72,12 +72,26 @@ func (d *deviceTypeStore) Search(query string) ([]db.DeviceType, error) {
 	return deviceTypes, err
 }
 
+var deviceTypePc = &db.DeviceType{
+	Name:             "Personel Computer",
+	ShortDescription: "PC",
+	IsActive:         true,
+}
+
+var deviceTypePhone = &db.DeviceType{
+	Name:             "Phone",
+	ShortDescription: "Phone",
+	IsActive:         true,
+}
+
+var deviceTypeTablet = &db.DeviceType{
+	Name:             "Tablet",
+	ShortDescription: "Tablet",
+	IsActive:         true,
+}
+
 func (d *deviceTypeStore) Seed() error {
-	deviceTypes := []*db.DeviceType{
-		{Name: "Personel Computer", ShortDescription: "PC", IsActive: true},
-		{Name: "Phone", ShortDescription: "PHONE", IsActive: true},
-		{Name: "Tablet", ShortDescription: "TABLET", IsActive: true},
-	}
+	deviceTypes := []*db.DeviceType{deviceTypePc, deviceTypePhone, deviceTypeTablet}
 	for _, deviceType := range deviceTypes {
 		if err := d.db.Create(&deviceType).Error; err != nil {
 			return err
