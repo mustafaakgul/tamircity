@@ -8,8 +8,8 @@ import (
 func ModelRouter(router *gin.Engine, modelHandler handler.ModelHandler) {
 	route := router.Group("api/v1/models")
 	{
-		route.GET("/", modelHandler.GetAll)
+		route.GET("", modelHandler.GetAll)
 		route.GET("/query", modelHandler.GetAllByBrandIdDeviceTypeId)
-		route.POST("/", modelHandler.Create)
+		route.POST("", modelHandler.Create)
 	}
 }

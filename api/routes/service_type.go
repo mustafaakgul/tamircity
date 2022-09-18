@@ -8,6 +8,6 @@ import (
 func ServiceTypeRouter(router *gin.Engine, serviceTypeHandler handler.ServiceTypeHandler) {
 	route := router.Group("api/v1/service-types")
 	{
-		route.GET("/", serviceTypeHandler.GetAll)
+		route.GET("", serviceTypeHandler.GetAll)
 	}
 }
