@@ -10,7 +10,7 @@ type TechnicalServiceShift struct {
 	TechnicalServiceId uint
 	TechnicalService   TechnicalService `gorm:"foreignkey:TechnicalServiceId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	Day                time.Weekday     // (Pazartesi, Salı, Çarşamba vs.)
-	StartOfShift       time.Time
-	EndOfShift         time.Time
+	StartOfShift       int
+	EndOfShift         int
 	Status             bool
 }
