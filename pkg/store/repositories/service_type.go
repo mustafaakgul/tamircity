@@ -17,6 +17,7 @@ type ServiceTypeStore interface {
 	FindByID(id int) (db.ServiceType, error)
 	FindBy(column string, value interface{}) ([]db.ServiceType, error)
 	Search(query string) ([]db.ServiceType, error)
+	Seed() error
 }
 
 func NewServiceTypeStore(db *gorm.DB) ServiceTypeStore {
@@ -57,4 +58,14 @@ func (s *serviceTypeStore) Search(query string) ([]db.ServiceType, error) {
 	var models []db.ServiceType
 	err := s.db.Where("name LIKE ?", "%"+query+"%").Find(&models).Error
 	return models, err
+}
+
+func (s *serviceTypeStore) Seed() error {
+
+	s.db.Create(&serviceType1)
+	s.db.Create(&serviceType2)
+	s.db.Create(&serviceType3)
+	s.db.Create(&serviceType4)
+
+	return nil
 }
