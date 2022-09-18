@@ -13,7 +13,7 @@ import (
 )
 
 func main() {
-	// Set enviroment variables
+	// Set Enviroment Variables
 	err := godotenv.Load(".env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
@@ -24,25 +24,11 @@ func main() {
 	}
 	log.Println("Postgres connected")
 
-	// Connection DB and migrations
+	// Connection DB and Migrations
 	postgres.Migrate(db)
 
-	// TODO: Migrating
-	//postgres.Seeder(db)  //TODO
-	/*db.AutoMigrate(
-		&dbModels.Brand{},
-		&dbModels.Contact{},
-		&dbModels.Customer{},
-		&dbModels.DeviceType{},
-		&dbModels.ExtraService{},
-		&dbModels.FixType{},
-		&dbModels.Model{},
-		&dbModels.Newsletter{},
-		&dbModels.Reservation{},
-		&dbModels.ServiceType{},
-		&dbModels.TechnicalService{},
-	)*/
-	log.Println("Migrations done")
+	// Seeding Mechanism
+	postgres.Seeder(db)
 
 	// Store
 	technicalServiceStore := repositories.NewTechnicalServiceStore(db)
@@ -80,43 +66,9 @@ func main() {
 	deviceTypeHandler := handler.NewDeviceTypeHandler(deviceTypeService)
 	reservationHandler := handler.NewReservationHandler(reservationService)
 
-	// CORS Policy
-	//corsConfig := cors.DefaultConfig()
-	//corsConfig.AllowOrigins = []string{"*"}
-	//corsConfig.AllowCredentials = true
-	//corsConfig.AllowHeaders = []string{"Origin", "Content-Length", "Content-Type", "Authorization"}
-	//corsConfig.AddAllowHeaders("Access-Control-Allow-Origin", "*")
-	/*w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Origin", r.Header.Get("Origin"))
-	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")*/
-	//corsConfig.AddAllowMethods("OPTIONS", "GET", "PUT", "PATCH", "POST")
-	//router.Use(cors.New(corsConfig))
-
-	// gin server
+	// Gin Server
 	router := gin.Default()
 	router.Use(gin.Logger())
-
-	router.GET("/line", func(c *gin.Context) {
-		// Note: During front-end and back-end separation, attention should be paid to cross-domain issues, so request headers need to be set up.
-		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
-		legendData := []string{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"}
-		c.JSON(200, gin.H{
-			"legend_data": legendData,
-		})
-	})
-
-	/*corsConfig := cors.DefaultConfig()
-	corsConfig.AllowOrigins = []string{"http://localhost:8081/", "http://localhost:8081"}
-	corsConfig.AllowCredentials = true
-	corsConfig.AddAllowMethods("OPTIONS", "GET", "PUT", "PATCH", "POST")
-	corsConfig.AddExposeHeaders("Access-Control-Allow-Origin", "*")
-	corsConfig.AddAllowHeaders("Access-Control-Allow-Origin", "*")
-	corsConfig.AddAllowHeaders("Access-Control-Allow-Origin", "http://localhost:8081/")
-	corsConfig.AddAllowHeaders("Access-Control-Allow-Origin", "http://localhost:8081")
-	corsConfig.AddAllowHeaders("Access-Control-Allow-Methods: GET")
-	corsConfig.AddAllowHeaders("Access-Control-Allow-Methods: OPTIONS")
-
-	router.Use(cors.New(corsConfig))*/
 
 	corsConfig := cors.DefaultConfig()
 	corsConfig.AllowOrigins = []string{"*"}
