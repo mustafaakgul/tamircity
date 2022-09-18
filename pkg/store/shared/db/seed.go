@@ -16,7 +16,8 @@ func Seeder(db *gorm.DB) error {
 	fixTypeStore := repositories.NewFixTypeStore(db)
 	/*serviceTypeStore := repositories.NewServiceTypeStore(db)
 	extraServiceStore := repositories.NewExtraServiceStore(db)
-	deviceTypeStore := repositories.NewDeviceTypeStore(db)*/
+	deviceTypeStore := repositories.NewDeviceTypeStore(db)
+	*/
 	technicalServiceStore.Seed()
 	brandStore.Seed()
 	modelStore.Seed()
