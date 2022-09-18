@@ -60,7 +60,7 @@ func (r *reservationStore) UpdateReservationStatus(reservationId int, status db.
 		return err
 	}
 	if status == 2 { // TO DO : Enum
-		if err := tx.Create(&db.TechnicalServiceReservation{TechnicalServiceId: reservation.ID, Day: reservation.ReservationDate.Weekday(), DateofDay: reservation.ReservationDate, StartOfShift: reservation.ReservationDate, EndOfShift: reservation.ReservationDate}).Error; err != nil {
+		if err := tx.Create(&db.TechnicalServiceReservation{TechnicalServiceId: reservation.ID, Day: reservation.ReservationDate.Weekday(), DateofDay: reservation.ReservationDate, StartOfShift: reservation.StartOfHour, EndOfShift: reservation.EndOfHour}).Error; err != nil {
 			tx.Rollback()
 			return err
 		}

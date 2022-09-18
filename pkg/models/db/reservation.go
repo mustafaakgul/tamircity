@@ -22,6 +22,8 @@ type Reservation struct {
 	TechnicalServiceId int
 	TechnicalService   TechnicalService `gorm:"foreignkey:TechnicalServiceId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	ReservationDate    time.Time
+	StartOfHour        int
+	EndOfHour          int
 	Price              int
 	Status             ReservationStatus
 	FullName           string `gorm:"not null"`
