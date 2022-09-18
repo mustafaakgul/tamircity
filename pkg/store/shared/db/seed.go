@@ -1,7 +1,7 @@
 package postgres
 
 import (
-	"github.com/mustafakocatepe/Tamircity/pkg/store/repositories"
+	"github.com/anthophora/tamircity/pkg/store/repositories"
 	"gorm.io/gorm"
 	"log"
 )

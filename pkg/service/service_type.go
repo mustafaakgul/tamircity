@@ -1,8 +1,8 @@
 package service
 
 import (
-	"github.com/mustafakocatepe/Tamircity/pkg/models/db"
-	"github.com/mustafakocatepe/Tamircity/pkg/store/repositories"
+	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/store/repositories"
 )
 
 type serviceTypeService struct {

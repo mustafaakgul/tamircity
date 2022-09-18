@@ -1,8 +1,8 @@
 package routes
 
 import (
+	"github.com/anthophora/tamircity/api/handler"
 	"github.com/gin-gonic/gin"
-	"github.com/mustafakocatepe/Tamircity/api/handler"
 )
 
 func BrandRouter(router *gin.Engine, brandHandler handler.BrandHandler) {

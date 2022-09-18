@@ -1,20 +1,20 @@
 package main
 
 import (
+	"github.com/anthophora/tamircity/api/handler"
+	"github.com/anthophora/tamircity/api/routes"
+	"github.com/anthophora/tamircity/pkg/service"
+	"github.com/anthophora/tamircity/pkg/store/repositories"
+	postgres "github.com/anthophora/tamircity/pkg/store/shared/db"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"github.com/mustafakocatepe/Tamircity/api/handler"
-	"github.com/mustafakocatepe/Tamircity/api/routes"
-	"github.com/mustafakocatepe/Tamircity/pkg/service"
-	"github.com/mustafakocatepe/Tamircity/pkg/store/repositories"
-	postgres "github.com/mustafakocatepe/Tamircity/pkg/store/shared/db"
 	"log"
 )
 
 func main() {
 	// Set Enviroment Variables
-	err := godotenv.Load(".env")
+	err := godotenv.Load("../../.env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}

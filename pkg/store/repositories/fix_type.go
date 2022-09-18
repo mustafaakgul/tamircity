@@ -1,7 +1,7 @@
 package repositories
 
 import (
-	"github.com/mustafakocatepe/Tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/models/db"
 	"gorm.io/gorm"
 )
 

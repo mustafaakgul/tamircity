@@ -1,6 +1,6 @@
 package repositories
 
-import "github.com/mustafakocatepe/Tamircity/pkg/models/db"
+import "github.com/anthophora/tamircity/pkg/models/db"
 
 var deviceTypePc = &db.DeviceType{
 	Name:             "Personel Computer",

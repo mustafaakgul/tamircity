@@ -1,4 +1,4 @@
-module github.com/mustafakocatepe/Tamircity
+module github.com/anthophora/tamircity
 
 go 1.18
 

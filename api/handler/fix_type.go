@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/anthophora/tamircity/pkg/service"
+	"github.com/anthophora/tamircity/pkg/utils"
 	"github.com/gin-gonic/gin"
-	"github.com/mustafakocatepe/Tamircity/pkg/service"
-	"github.com/mustafakocatepe/Tamircity/pkg/utils"
 )
 
 type fixTypeHandler struct {

@@ -1,8 +1,8 @@
 package routes
 
 import (
+	"github.com/anthophora/tamircity/api/handler"
 	"github.com/gin-gonic/gin"
-	"github.com/mustafakocatepe/Tamircity/api/handler"
 )
 
 func ExtraServiceRouter(router *gin.Engine, extraServiceHandler handler.ExtraServiceHandler) {

@@ -1,7 +1,7 @@
 package postgres
 
 import (
-	dbModels "github.com/mustafakocatepe/Tamircity/pkg/models/db"
+	dbModels "github.com/anthophora/tamircity/pkg/models/db"
 	"gorm.io/gorm"
 	"log"
 )

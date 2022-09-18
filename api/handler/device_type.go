@@ -1,14 +1,14 @@
 package handler
 
 import (
-	"github.com/mustafakocatepe/Tamircity/pkg/models/db"
-	"github.com/mustafakocatepe/Tamircity/pkg/models/web"
+	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/models/web"
 	"net/http"
 	"strconv"
 
+	"github.com/anthophora/tamircity/pkg/service"
+	"github.com/anthophora/tamircity/pkg/utils"
 	"github.com/gin-gonic/gin"
-	"github.com/mustafakocatepe/Tamircity/pkg/service"
-	"github.com/mustafakocatepe/Tamircity/pkg/utils"
 )
 
 type deviceTypeHandler struct {

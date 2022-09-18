@@ -1,9 +1,9 @@
 package service
 
 import (
-	"github.com/mustafakocatepe/Tamircity/pkg/models/db"
-	"github.com/mustafakocatepe/Tamircity/pkg/models/web"
-	"github.com/mustafakocatepe/Tamircity/pkg/store/repositories"
+	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/models/web"
+	"github.com/anthophora/tamircity/pkg/store/repositories"
 )
 
 type BrandService interface {
