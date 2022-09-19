@@ -2,6 +2,7 @@ package service
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/models/web"
 	"github.com/anthophora/tamircity/pkg/store/repositories"
 )
 
@@ -13,7 +14,7 @@ type ExtraServiceService interface {
 	Create(model *db.ExtraService) error
 	Update(model *db.ExtraService) error
 	Delete(model *db.ExtraService) error
-	FindAll() ([]db.ExtraService, error)
+	FindAll() (response []web.ExtraServiceResponse, err error)
 	FindByID(id int) (db.ExtraService, error)
 	FindBy(column string, value interface{}) ([]db.ExtraService, error)
 	Search(query string) ([]db.ExtraService, error)
@@ -37,8 +38,26 @@ func (e *extraServiceService) Delete(model *db.ExtraService) error {
 	return e.extraServiceStore.Delete(model)
 }
 
-func (e *extraServiceService) FindAll() ([]db.ExtraService, error) {
-	return e.extraServiceStore.FindAll()
+func (e *extraServiceService) FindAll() (response []web.ExtraServiceResponse, err error) {
+	extraServices, err := e.extraServiceStore.FindAll()
+
+	if err != nil {
+		return nil, err
+	}
+
+	if err != nil {
+		return nil, err
+	}
+	for _, extraService := range extraServices {
+		var extraServiceResponse web.ExtraServiceResponse
+		extraServiceResponse.Id = int(extraService.ID)
+		extraServiceResponse.Description = extraService.Description
+		extraServiceResponse.Price = extraService.Price
+
+		response = append(response, extraServiceResponse)
+	}
+
+	return response, nil
 }
 
 func (e *extraServiceService) FindByID(id int) (db.ExtraService, error) {

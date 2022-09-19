@@ -45,7 +45,7 @@ func main() {
 	// Service
 	technicalServiceService := service.NewTechnicalServiceService(technicalServiceStore)
 	serviceTypeService := service.NewServiceTypeService(serviceTypeStore)
-	extraServiceService := service.ExtraServiceService(extraServiceStore)
+	extraServiceService := service.NewExtraServiceService(extraServiceStore)
 	brandService := service.NewBrandService(brandStore)
 	modelService := service.NewModelService(modelStore)
 	fixTypeService := service.NewFixTypeService(fixTypeStore)

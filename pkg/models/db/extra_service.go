@@ -9,9 +9,3 @@ type ExtraService struct {
 	IsActive     bool `gorm:"type:boolean;default:true;not null"`
 	Reservations []*Reservation
 }
-
-/*
-cihaz bakım paketi
-ekran korucu
-ekran koruma standart
-*/
