@@ -1,8 +1,9 @@
 package repositories
 
 import (
-	"github.com/anthophora/tamircity/pkg/models/db"
 	"time"
+
+	"github.com/anthophora/tamircity/pkg/models/db"
 )
 
 var deviceTypePc = &db.DeviceType{
@@ -91,7 +92,7 @@ var fixType4 = &db.FixType{
 	DeviceTypes: []*db.DeviceType{deviceTypePc, deviceTypePhone, deviceTypeTablet},
 }
 
-//Models
+// Models
 var modelIphone11 = &db.Model{
 	Name:              "iPhone 11",
 	ShortDescription:  "iPhone 11",
@@ -196,7 +197,7 @@ var serviceType4 = &db.ServiceType{
 	Price:       75,
 }
 
-//Technical Service
+// Technical Service
 var technicalService1 = &db.TechnicalService{
 
 	ServiceName:            "Teknik Servis 1",
@@ -236,7 +237,7 @@ var technicalService3 = &db.TechnicalService{
 	TechnicalServiceShifts: []*db.TechnicalServiceShift{technicalService3ShiftMonday, technicalService3ShiftTuesday, technicalService3ShiftWednesday, technicalService3ShiftThursday, technicalService3ShiftFriday},
 }
 
-//Technical Service Shifts
+// Technical Service Shifts
 var technicalService1ShiftMonday = &db.TechnicalServiceShift{
 	Day:          time.Monday,
 	StartOfShift: 9,
@@ -340,4 +341,24 @@ var technicalService3ShiftFriday = &db.TechnicalServiceShift{
 	StartOfShift: 10,
 	EndOfShift:   19,
 	Status:       true,
+}
+
+var extraServiceFirst = &db.ExtraService{
+	Description: "Cihaz Bakım Paketi",
+	Price:       150,
+}
+
+var extraServiceSecond = &db.ExtraService{
+	Description: "Cihaz Temizlik Paketi",
+	Price:       75,
+}
+
+var extraServiceThird = &db.ExtraService{
+	Description: "Cihaz Kılıfı",
+	Price:       50,
+}
+
+var extraServiceFourth = &db.ExtraService{
+	Description: "Cihaz Ekran Koruma",
+	Price:       25,
 }

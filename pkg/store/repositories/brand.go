@@ -9,7 +9,7 @@ type brandStore struct {
 	db *gorm.DB
 }
 
-//interface
+// interface
 type BrandStore interface {
 	Migration()
 	Create(model *db.Brand) error

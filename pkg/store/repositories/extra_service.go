@@ -17,6 +17,7 @@ type ExtraServiceStore interface {
 	FindByID(id int) (db.ExtraService, error)
 	FindBy(column string, value interface{}) ([]db.ExtraService, error)
 	Search(query string) ([]db.ExtraService, error)
+	Seed() error
 }
 
 func NewExtraServiceStore(db *gorm.DB) ExtraServiceStore {
@@ -57,4 +58,12 @@ func (e *extraServiceStore) Search(query string) ([]db.ExtraService, error) {
 	var models []db.ExtraService
 	err := e.db.Where("name LIKE ?", "%"+query+"%").Find(&models).Error
 	return models, err
+}
+func (e *extraServiceStore) Seed() error {
+	e.db.Create(&extraServiceFirst)
+	e.db.Create(&extraServiceSecond)
+	e.db.Create(&extraServiceThird)
+	e.db.Create(&extraServiceFourth)
+
+	return nil
 }
