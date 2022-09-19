@@ -10,6 +10,7 @@ type TechnicalService struct {
 	Email                        string        `gorm:"type:varchar(50);not null"`
 	Iban                         string        `gorm:"type:varchar(25);"`
 	IsActive                     bool          `gorm:"type:boolean;default:true;not null"`
+	Address                      string        `gorm:"type:varchar(50);not null"`
 	DeviceTypes                  []*DeviceType `gorm:"many2many:technical_services_device_types;"`
 	Brands                       []*Brand      `gorm:"many2many:technical_services_brands;"`
 	Models                       []*Model      `gorm:"many2many:technical_services_models;"`
