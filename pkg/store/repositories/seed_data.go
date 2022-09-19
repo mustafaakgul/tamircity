@@ -203,10 +203,11 @@ var technicalService1 = &db.TechnicalService{
 	IdentityNumber:         "123456789",
 	PhoneNumber:            "123456789",
 	Email:                  "email1@email.com",
+	Adress:                 "Basaksehir/ISTANBUL",
 	Iban:                   "123456789",
 	IsActive:               true,
 	DeviceTypes:            []*db.DeviceType{deviceTypePc},
-	TechnicalServiceShifts: []*db.TechnicalServiceShift{technicalServiceShift1, technicalServiceShift2, technicalServiceShift3},
+	TechnicalServiceShifts: []*db.TechnicalServiceShift{technicalService1ShiftMonday, technicalService1ShiftTuesday, technicalService1ShiftWednesday, technicalService1ShiftThursday, technicalService1ShiftFriday},
 }
 
 var technicalService2 = &db.TechnicalService{
@@ -215,10 +216,11 @@ var technicalService2 = &db.TechnicalService{
 	IdentityNumber:         "123456789",
 	PhoneNumber:            "123456789",
 	Email:                  "email1@email.com",
+	Adress:                 "Bahcelievler/ISTANBUL",
 	Iban:                   "123456789",
 	IsActive:               true,
 	DeviceTypes:            []*db.DeviceType{deviceTypePc},
-	TechnicalServiceShifts: []*db.TechnicalServiceShift{technicalServiceShift4, technicalServiceShift2, technicalServiceShift3},
+	TechnicalServiceShifts: []*db.TechnicalServiceShift{technicalService2ShiftMonday, technicalService2ShiftTuesday, technicalService2ShiftWednesday, technicalService2ShiftThursday, technicalService2ShiftFriday},
 }
 
 var technicalService3 = &db.TechnicalService{
@@ -227,37 +229,115 @@ var technicalService3 = &db.TechnicalService{
 	IdentityNumber:         "123456789",
 	PhoneNumber:            "123456789",
 	Email:                  "email1@email.com",
+	Adress:                 "Beylikduzu/ISTANBUL",
 	Iban:                   "123456789",
 	IsActive:               true,
 	DeviceTypes:            []*db.DeviceType{deviceTypePc},
-	TechnicalServiceShifts: []*db.TechnicalServiceShift{technicalServiceShift4, technicalServiceShift2, technicalServiceShift3},
+	TechnicalServiceShifts: []*db.TechnicalServiceShift{technicalService3ShiftMonday, technicalService3ShiftTuesday, technicalService3ShiftWednesday, technicalService3ShiftThursday, technicalService3ShiftFriday},
 }
 
 //Technical Service Shifts
-var technicalServiceShift1 = &db.TechnicalServiceShift{
+var technicalService1ShiftMonday = &db.TechnicalServiceShift{
 	Day:          time.Monday,
 	StartOfShift: 9,
 	EndOfShift:   18,
 	Status:       true,
 }
 
-var technicalServiceShift4 = &db.TechnicalServiceShift{
-	Day:          time.Monday,
+var technicalService1ShiftTuesday = &db.TechnicalServiceShift{
+	Day:          time.Tuesday,
 	StartOfShift: 10,
 	EndOfShift:   17,
 	Status:       true,
 }
 
-var technicalServiceShift2 = &db.TechnicalServiceShift{
-	Day:          time.Friday,
+var technicalService1ShiftWednesday = &db.TechnicalServiceShift{
+	Day:          time.Wednesday,
 	StartOfShift: 9,
 	EndOfShift:   19,
 	Status:       true,
 }
 
-var technicalServiceShift3 = &db.TechnicalServiceShift{
+var technicalService1ShiftThursday = &db.TechnicalServiceShift{
 	Day:          time.Thursday,
 	StartOfShift: 8,
 	EndOfShift:   16,
+	Status:       true,
+}
+
+var technicalService1ShiftFriday = &db.TechnicalServiceShift{
+	Day:          time.Friday,
+	StartOfShift: 8,
+	EndOfShift:   16,
+	Status:       true,
+}
+
+var technicalService2ShiftMonday = &db.TechnicalServiceShift{
+	Day:          time.Monday,
+	StartOfShift: 10,
+	EndOfShift:   16,
+	Status:       true,
+}
+
+var technicalService2ShiftTuesday = &db.TechnicalServiceShift{
+	Day:          time.Tuesday,
+	StartOfShift: 8,
+	EndOfShift:   19,
+	Status:       true,
+}
+
+var technicalService2ShiftWednesday = &db.TechnicalServiceShift{
+	Day:          time.Wednesday,
+	StartOfShift: 9,
+	EndOfShift:   20,
+	Status:       true,
+}
+
+var technicalService2ShiftThursday = &db.TechnicalServiceShift{
+	Day:          time.Thursday,
+	StartOfShift: 9,
+	EndOfShift:   21,
+	Status:       true,
+}
+
+var technicalService2ShiftFriday = &db.TechnicalServiceShift{
+	Day:          time.Friday,
+	StartOfShift: 12,
+	EndOfShift:   22,
+	Status:       true,
+}
+
+var technicalService3ShiftMonday = &db.TechnicalServiceShift{
+	Day:          time.Monday,
+	StartOfShift: 12,
+	EndOfShift:   13,
+	Status:       true,
+}
+
+var technicalService3ShiftTuesday = &db.TechnicalServiceShift{
+	Day:          time.Tuesday,
+	StartOfShift: 14,
+	EndOfShift:   15,
+	Status:       true,
+}
+
+var technicalService3ShiftWednesday = &db.TechnicalServiceShift{
+	Day:          time.Wednesday,
+	StartOfShift: 15,
+	EndOfShift:   22,
+	Status:       true,
+}
+
+var technicalService3ShiftThursday = &db.TechnicalServiceShift{
+	Day:          time.Thursday,
+	StartOfShift: 6,
+	EndOfShift:   15,
+	Status:       true,
+}
+
+var technicalService3ShiftFriday = &db.TechnicalServiceShift{
+	Day:          time.Friday,
+	StartOfShift: 10,
+	EndOfShift:   19,
 	Status:       true,
 }
