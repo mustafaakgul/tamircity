@@ -58,7 +58,7 @@ func (t *technicalServiceService) FindByModelId(modelId int) (response []web.Tec
 		var technicalServiceResponse web.TechnicalServiceSearchResponse
 		technicalServiceResponse.Id = int(technicalService.ID)
 		technicalServiceResponse.Name = technicalService.ServiceName
-		technicalServiceResponse.Address = "" // TO DO
+		technicalServiceResponse.Address = technicalService.Address
 
 		for _, shift := range technicalService.TechnicalServiceShifts {
 			technicalServiceResponse.TechnicalServiceShift.Day = shift.Day
