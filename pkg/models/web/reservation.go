@@ -11,6 +11,8 @@ type ReservationCreateRequest struct {
 	ExtraServiceId     int       `json:"extra_service_id"`
 	TechnicalServiceId int       `json:"technical_service_id"`
 	ReservationDate    time.Time `json:"reservation_date"`
+	StartOfHour        int       `json:"start_of_hour"`
+	EndOfHour          int       `json:"end_of_hour"`
 	Price              int       `json:"price"`
 	FullName           string    `json:"full_name"`
 	PhoneNumber        string    `json:"phone_number"`

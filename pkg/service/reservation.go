@@ -27,7 +27,7 @@ func NewReservationService(reservationStore repositories.ReservationStore) Reser
 
 // TO DO : Gerekli kontroller sağlanmalı her alan için.
 func (r *reservationService) Create(reservationReq *web.ReservationCreateRequest) error {
-	var reservation *db.Reservation
+	var reservation db.Reservation
 	reservation.DeviceTypeId = reservationReq.DeviceTypeId
 	reservation.BrandId = reservationReq.BrandId
 	reservation.ModelId = reservationReq.ModelId
@@ -36,13 +36,15 @@ func (r *reservationService) Create(reservationReq *web.ReservationCreateRequest
 	reservation.ExtraServiceId = reservationReq.ExtraServiceId
 	reservation.TechnicalServiceId = reservationReq.TechnicalServiceId
 	reservation.ReservationDate = reservationReq.ReservationDate
+	reservation.StartOfHour = reservationReq.StartOfHour
+	reservation.EndOfHour = reservationReq.EndOfHour
 	reservation.Price = reservationReq.Price
 	reservation.FullName = reservationReq.FullName
 	reservation.PhoneNumber = reservationReq.PhoneNumber
 	reservation.SecondPhoneNumber = reservationReq.SecondPhoneNumber
 	reservation.Description = reservationReq.Description
 
-	return r.reservationStore.Create(reservation)
+	return r.reservationStore.Create(&reservation)
 }
 
 func (r *reservationService) GetPendingListByTechnicalServiceId(technicalServiceId int) (response []web.ReservationPendingResponse, err error) {
