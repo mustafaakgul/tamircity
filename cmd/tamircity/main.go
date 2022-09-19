@@ -82,5 +82,5 @@ func main() {
 	routes.TechnicalServiceRouter(router, technicalServiceHandler)
 	routes.ReservationRouter(router, reservationHandler)
 
-	router.Run(":8000")
+	router.Run(":8888")
 }
