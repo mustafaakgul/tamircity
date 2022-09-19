@@ -56,9 +56,10 @@ func (t *technicalServiceStore) FindBy(column string, value interface{}) ([]db.T
 	return models, err
 }
 
+// TODO : day alani su an icin time.Monday (1) olarak sabit gonderilemektedir. Yeterli data eklendiginde time.Now().Weekday()
 func (t *technicalServiceStore) FindByModelId(modelId int) ([]db.TechnicalService, error) {
 	var technicalServices []db.TechnicalService
-	err := t.db.Joins("INNER JOIN technical_services_models on technical_services.id = technical_services_models.technical_service_id").Where("technical_services_models.model_id = ?", modelId).Preload("TechnicalServiceShifts", "day = ?", time.Now().Day()).Preload("TechnicalServiceReservations").Find(&technicalServices).Error
+	err := t.db.Joins("INNER JOIN technical_services_models on technical_services.id = technical_services_models.technical_service_id").Where("technical_services_models.model_id = ?", modelId).Preload("TechnicalServiceShifts", "day = ?", time.Monday).Preload("TechnicalServiceReservations").Find(&technicalServices).Error
 	return technicalServices, err
 }
 
@@ -83,41 +84,17 @@ func (t *technicalServiceStore) Search(query string) ([]db.TechnicalService, err
 
 func (t *technicalServiceStore) Seed() error {
 
-	technicalServices := []db.TechnicalService{
-		{
-			ServiceName:    "service1",
-			IdentityNumber: "123456789",
-			PhoneNumber:    "123456789",
-			Email:          "email1@email.com",
-			Iban:           "123456789",
-			IsActive:       true,
-			DeviceTypes:    []*db.DeviceType{deviceTypePc},
-		},
-		{
-			ServiceName:    "service2",
-			IdentityNumber: "123456789",
-			PhoneNumber:    "123456789",
-			Email:          "email2@email.com",
-			Iban:           "123456789",
-			IsActive:       true,
-			DeviceTypes:    []*db.DeviceType{deviceTypePhone},
-		},
-		{
-			ServiceName:    "service3",
-			IdentityNumber: "123456789",
-			PhoneNumber:    "123456789",
-			Email:          "email3@email.com",
-			Iban:           "123456789",
-			IsActive:       true,
-			DeviceTypes:    []*db.DeviceType{deviceTypeTablet},
-		},
-	}
+	t.db.Create(&technicalService1)
+	t.db.Create(&technicalService2)
+	t.db.Create(&technicalService3)
+
+	/*technicalServices := []*db.TechnicalService{technicalService1, technicalService2, technicalService3}
 
 	for _, technicalService := range technicalServices {
 		if err := t.db.Create(&technicalService).Error; err != nil {
 			return err
 		}
-	}
+	}*/
 
 	return nil
 }

@@ -34,13 +34,13 @@ type TechnicalServiceSearchResponse struct {
 
 type TechnicalServiceShift struct {
 	Day          time.Weekday `json:"day"`
-	StartOfShift time.Time    `json:"start_of_shift"`
-	EndOfShift   time.Time    `json:"end_of_shift"`
+	StartOfShift int          `json:"start_of_shift"`
+	EndOfShift   int          `json:"end_of_shift"`
 }
 
 type TechnicalServiceReservation struct {
 	Day          time.Weekday `json:"day"`
 	DateOfDay    time.Time    `json:"date_of_day"`
-	StartOfShift time.Time    `json:"start_of_shift"`
-	EndOfShift   time.Time    `json:"end_of_shift"`
+	StartOfShift int          `json:"start_of_shift"`
+	EndOfShift   int          `json:"end_of_shift"`
 }

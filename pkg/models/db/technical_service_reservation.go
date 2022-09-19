@@ -11,6 +11,6 @@ type TechnicalServiceReservation struct {
 	TechnicalService   TechnicalService `gorm:"foreignkey:TechnicalServiceId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	Day                time.Weekday     // Enum (Pazartesi, Salı, Çarşamba vs.)
 	DateofDay          time.Time
-	StartOfShift       time.Time
-	EndOfShift         time.Time
+	StartOfShift       int
+	EndOfShift         int
 }
