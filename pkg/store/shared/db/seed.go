@@ -17,6 +17,7 @@ func Seeder(db *gorm.DB) error {
 	fixTypeStore := repositories.NewFixTypeStore(db)
 	serviceTypeStore := repositories.NewServiceTypeStore(db)
 	extraServiceStore := repositories.NewExtraServiceStore(db)
+	reservationStore := repositories.NewReservationStore(db)
 	/*deviceTypeStore := repositories.NewDeviceTypeStore(db)
 	 */
 	technicalServiceStore.Seed()
@@ -25,6 +26,7 @@ func Seeder(db *gorm.DB) error {
 	fixTypeStore.Seed()
 	serviceTypeStore.Seed()
 	extraServiceStore.Seed()
+	reservationStore.Seed()
 
 	log.Printf("Seeding done")
 
