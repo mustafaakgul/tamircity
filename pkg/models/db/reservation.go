@@ -8,19 +8,19 @@ import (
 type Reservation struct {
 	gorm.Model
 	DeviceTypeId       int         `gorm:"not null"`
-	DeviceType         DeviceType  `gorm:"foreignkey:DeviceTypeId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	DeviceType         *DeviceType  `gorm:"foreignkey:DeviceTypeId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	BrandId            int         `gorm:"not null"`
-	Brand              Brand       `gorm:"foreignkey:BrandId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	Brand              *Brand       `gorm:"foreignkey:BrandId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	ModelId            int         `gorm:"not null"`
-	ModelEntity        Model       `gorm:"foreignkey:ModelId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	ModelEntity        *Model       `gorm:"foreignkey:ModelId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	FixTypeId          int         `gorm:"not null"`
-	FixType            FixType     `gorm:"foreignkey:FixTypeId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	FixType            *FixType     `gorm:"foreignkey:FixTypeId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	ServiceTypeId      int         `gorm:"not null"`
-	ServiceType        ServiceType `gorm:"foreignkey:ServiceTypeId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	ServiceType        *ServiceType `gorm:"foreignkey:ServiceTypeId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	ExtraServiceId     int
-	ExtraService       ExtraService `gorm:"foreignkey:ExtraServiceId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	ExtraService       *ExtraService `gorm:"foreignkey:ExtraServiceId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	TechnicalServiceId int
-	TechnicalService   TechnicalService `gorm:"foreignkey:TechnicalServiceId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	TechnicalService   *TechnicalService `gorm:"foreignkey:TechnicalServiceId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	ReservationDate    time.Time
 	StartOfHour        int
 	EndOfHour          int

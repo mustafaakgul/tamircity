@@ -16,6 +16,7 @@ type ReservationStore interface {
 	GetCancelledListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error)
 	GetReservationCountWithStatus(technicalServiceId int, status db.ReservationStatus) (count int64, err error)
 	UpdateReservationStatus(reservationId int, status db.ReservationStatus) error
+	Seed() error
 }
 
 func NewReservationStore(db *gorm.DB) ReservationStore {
@@ -74,4 +75,11 @@ func (r *reservationStore) GetReservationCountWithStatus(technicalServiceId int,
 		return 0, err
 	}
 	return count, nil
+}
+
+func (r *reservationStore) Seed() error {
+	r.db.Create(&reservation1)
+	r.db.Create(&reservation2)
+	r.db.Create(&reservation3)
+	return nil
 }

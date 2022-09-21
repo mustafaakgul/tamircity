@@ -362,3 +362,85 @@ var extraServiceFourth = &db.ExtraService{
 	Description: "Cihaz Ekran Koruma",
 	Price:       25,
 }
+
+// Reservation
+var reservation1 = &db.Reservation{
+	ReservationDate : time.Now(),
+	StartOfHour : 13,
+	EndOfHour : 14,
+	Price : 100,
+	Status : 0, // TODO
+	FullName : "Kullanıcı 1",
+	Email : "msk@test.com",
+	PhoneNumber : "05555555555",
+	SecondPhoneNumber : "05555555555",
+	Description : "Güzel hizmet",
+	DeviceType: deviceTypePhone,
+	Brand : brandsApple,
+	ModelEntity: modelIphone12,
+	FixType : fixType1,
+	ServiceType : serviceType1,
+	ExtraService : extraServiceFirst,
+	TechnicalService : technicalService1,
+}
+
+var reservation2 = &db.Reservation{
+	ReservationDate : time.Now(),
+	StartOfHour : 15,
+	EndOfHour : 16,
+	Price : 150,
+	Status : 1, // TODO
+	FullName : "Kullanıcı 2",
+	Email : "msk@test.com",
+	PhoneNumber : "05555555555",
+	SecondPhoneNumber : "05555555555",
+	Description : "Güzel hizmet",
+	DeviceType: deviceTypePhone,
+	Brand : brandsApple,
+	ModelEntity: modelIphone12Pro,
+	FixType : fixType1,
+	ServiceType : serviceType1,
+	ExtraService : extraServiceFirst,
+	TechnicalService : technicalService1,
+}
+
+var reservation3 = &db.Reservation{
+	ReservationDate : time.Now(),
+	StartOfHour : 17,
+	EndOfHour : 18,
+	Price : 150,
+	Status : 0, // TODO
+	FullName : "Kullanıcı 3",
+	Email : "msk@test.com",
+	PhoneNumber : "05555555555",
+	SecondPhoneNumber : "05555555555",
+	Description : "Güzel hizmet",
+	DeviceType: deviceTypePhone,
+	Brand : brandsApple,
+	ModelEntity: modelIphone11,
+	FixType : fixType1,
+	ServiceType : serviceType1,
+	ExtraService : extraServiceFirst,
+	TechnicalService : technicalService1,
+}
+
+var reservation4 = &db.Reservation{
+	ReservationDate : time.Now(),
+	StartOfHour : 12,
+	EndOfHour : 13,
+	Price : 200,
+	Status : 3, // TODO
+	FullName : "Kullanıcı 4",
+	Email : "msk@test.com",
+	PhoneNumber : "05555555555",
+	SecondPhoneNumber : "05555555555",
+	Description : "Güzel hizmet",
+	DeviceType: deviceTypePhone,
+	Brand : brandsApple,
+	ModelEntity: modelLenovoM7,
+	FixType : fixType1,
+	ServiceType : serviceType1,
+	ExtraService : extraServiceFirst,
+	TechnicalService : technicalService1,
+}
+
