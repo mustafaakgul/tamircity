@@ -1,39 +1,20 @@
 package middleware
 
 import (
-	"net/http"
-	"time"
-
-	"github.com/sirupsen/logrus"
+	"github.com/getsentry/sentry-go"
+	"log"
 )
 
-func Logger(next http.Handler) http.Handler {
-
-	fn := func(w http.ResponseWriter, r *http.Request) {
-		logStartOfRequest(r)
-		then := time.Now()
-		next.ServeHTTP(w, r)
-		duration := time.Now().Sub(then)
-		logEndOfRequest(duration)
+func SentryLogger() {
+	err_sentry := sentry.Init(sentry.ClientOptions{
+		Dsn: "https://c23b897606e945f1aaa3f0440f523d34@o1418275.ingest.sentry.io/6766496",
+		// Set TracesSampleRate to 1.0 to capture 100%
+		// of transactions for performance monitoring.
+		// We recommend adjusting this value in production,
+		TracesSampleRate: 1.0,
+	})
+	if err_sentry != nil {
+		log.Fatalf("sentry.Init: %s", err_sentry)
 	}
-	return http.HandlerFunc(fn)
-}
-
-func logStartOfRequest(r *http.Request) {
-	fields := logrus.Fields{
-		"path":   r.Host + r.URL.String(),
-		"method": r.Method,
-	}
-
-	logrus.WithFields(fields).Info("Starting request")
-}
-
-func logEndOfRequest(duration time.Duration) {
-	fields := logrus.Fields{
-		"status":   " mw.Status()",
-		"bytes":    "mw.BytesWritten()",
-		"duration": duration,
-	}
-
-	logrus.WithFields(fields).Info("Finished request")
+	sentry.CaptureMessage("It works!")
 }

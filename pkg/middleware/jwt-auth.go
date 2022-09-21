@@ -1,5 +1,22 @@
 package middleware
 
+import (
+	"fmt"
+	"github.com/anthophora/tamircity/pkg/utils/token"
+	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v4"
+	"gorm.io/gorm"
+	"net/http"
+	"os"
+	"time"
+)
+
+type dbStore struct {
+	db *gorm.DB
+}
+
+var dbInstance *gorm.DB
+
 /*
 import (
 	"errors"
@@ -72,3 +89,51 @@ func ValidateJWT(next http.Handler) http.Handler {
 	return http.HandlerFunc(fn)
 }
 */
+
+func RequireAuth(ctx *gin.Context) {
+	tokenString, err := ctx.Cookie("Authorization")
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized"})
+		return
+	}
+
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
+		}
+
+		return []byte(os.Getenv("JWT_SECRET")), nil
+	})
+
+	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+		if float64(time.Now().Unix()) > claims["exp"].(float64) {
+			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Something went wrong"})
+		}
+
+		/*var user db.User
+		test := dbInstance.First(&user, claims["sub"])
+		fmt.Println(test)*/
+
+		/*if user.ID == 0 {
+			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
+		}
+
+		ctx.Set("user", user)*/
+
+		ctx.Next()
+	} else {
+		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized"})
+	}
+}
+
+func JwtAuthMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		err := token.TokenValid(c)
+		if err != nil {
+			c.String(http.StatusUnauthorized, "Unauthorized")
+			c.Abort()
+			return
+		}
+		c.Next()
+	}
+}
