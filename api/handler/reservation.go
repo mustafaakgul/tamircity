@@ -47,7 +47,7 @@ func (r *reservationHandler) Create(ctx *gin.Context) {
 }
 
 func (r *reservationHandler) GetPendingList(ctx *gin.Context) {
-	technicalServiceId, err := strconv.Atoi(ctx.Param("technical_service_id"))
+	technicalServiceId, err := strconv.Atoi(ctx.Query("technical_service_id"))
 	if err != nil {
 		responseErr := utils.HandleResponseModel(false, "", err, nil)
 		ctx.JSON(http.StatusBadRequest, responseErr)
@@ -66,7 +66,7 @@ func (r *reservationHandler) GetPendingList(ctx *gin.Context) {
 }
 
 func (r *reservationHandler) GetCompletedList(ctx *gin.Context) {
-	technicalServiceId, err := strconv.Atoi(ctx.Param("technical_service_id"))
+	technicalServiceId, err := strconv.Atoi(ctx.Query("technical_service_id"))
 	if err != nil {
 		responseErr := utils.HandleResponseModel(false, "", err, nil)
 		ctx.JSON(http.StatusBadRequest, responseErr)
@@ -85,7 +85,7 @@ func (r *reservationHandler) GetCompletedList(ctx *gin.Context) {
 }
 
 func (r *reservationHandler) GetCancelledList(ctx *gin.Context) {
-	technicalServiceId, err := strconv.Atoi(ctx.Param("technical_service_id"))
+	technicalServiceId, err := strconv.Atoi(ctx.Query("technical_service_id"))
 	if err != nil {
 		responseErr := utils.HandleResponseModel(false, "", err, nil)
 		ctx.JSON(http.StatusBadRequest, responseErr)
@@ -103,7 +103,7 @@ func (r *reservationHandler) GetCancelledList(ctx *gin.Context) {
 }
 
 func (r *reservationHandler) UpdateReservationStatus(ctx *gin.Context) {
-	reservationId, err := strconv.Atoi(ctx.Param("reservation_id"))
+	reservationId, err := strconv.Atoi(ctx.Query("reservation_id"))
 	if err != nil {
 		responseErr := utils.HandleResponseModel(false, "", err, nil)
 		ctx.JSON(http.StatusBadRequest, responseErr)
@@ -127,7 +127,7 @@ func (r *reservationHandler) UpdateReservationStatus(ctx *gin.Context) {
 }
 
 func (r *reservationHandler) GetPendingAndCompletedReservationCount(ctx *gin.Context) {
-	technicalServiceId, err := strconv.Atoi(ctx.Param("technical_service_id"))
+	technicalServiceId, err := strconv.Atoi(ctx.Query("technical_service_id"))
 	if err != nil {
 		responseErr := utils.HandleResponseModel(false, "", err, nil)
 		ctx.JSON(http.StatusBadRequest, responseErr)
