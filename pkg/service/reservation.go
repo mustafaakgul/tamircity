@@ -15,7 +15,7 @@ type ReservationService interface {
 	GetPendingListByTechnicalServiceId(technicalServiceId int) (response []web.ReservationPendingResponse, err error)
 	GetCompletedListByTechnicalServiceId(technicalServiceId int) (response []web.ReservationCompletedResponse, err error)
 	GetCancelledListByTechnicalServiceId(technicalServiceId int) (response []web.ReservationCancelledResponse, err error)
-	GetPendingAndCompletedReservationCount(technicalServiceId int) (*web.ReservationPendingAndCompletedCountResponse, error)
+	GetPendingAndCompletedReservationCount(technicalServiceId int) (web.ReservationPendingAndCompletedCountResponse, error)
 	UpdateReservationStatus(int, db.ReservationStatus) error
 }
 
@@ -132,14 +132,18 @@ func (r *reservationService) UpdateReservationStatus(reservationId int, status d
 	return r.reservationStore.UpdateReservationStatus(reservationId, status)
 }
 
-func (r *reservationService) GetPendingAndCompletedReservationCount(technicalServiceId int) (res *web.ReservationPendingAndCompletedCountResponse, err error) {
-	res.PendingCount, err = r.reservationStore.GetReservationCountWithStatus(technicalServiceId, db.ReservationStatus(0))
+func (r *reservationService) GetPendingAndCompletedReservationCount(technicalServiceId int) (web.ReservationPendingAndCompletedCountResponse, error) {
+	var response web.ReservationPendingAndCompletedCountResponse
+	a, err := r.reservationStore.GetReservationCountWithStatus(technicalServiceId, db.ReservationStatus(0))
 	if err != nil {
-		return res, err
+		return response, err
 	}
-	res.CompletedCount, err = r.reservationStore.GetReservationCountWithStatus(technicalServiceId, db.ReservationStatus(1))
+	response.PendingCount = a
+	b, err := r.reservationStore.GetReservationCountWithStatus(technicalServiceId, db.ReservationStatus(1))
 	if err != nil {
-		return res, err
+		return response, err
 	}
-	return res, nil
+
+	response.CompletedCount = b
+	return response, nil
 }
