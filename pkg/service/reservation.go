@@ -103,7 +103,7 @@ func (r *reservationService) GetCompletedListByTechnicalServiceId(technicalServi
 }
 
 func (r *reservationService) GetApprovedListByTechnicalServiceId(technicalServiceId int) (response []web.ReservationApprovedResponse, err error) {
-	reservations, err := r.reservationStore.GetCancelledListByTechnicalServiceId(technicalServiceId)
+	reservations, err := r.reservationStore.GetApprovedListByTechnicalServiceId(technicalServiceId)
 
 	if err != nil {
 		return nil, err

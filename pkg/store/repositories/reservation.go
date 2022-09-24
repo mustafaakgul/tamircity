@@ -88,5 +88,8 @@ func (r *reservationStore) Seed() error {
 	r.db.Create(&reservation1)
 	r.db.Create(&reservation2)
 	r.db.Create(&reservation3)
+	r.db.Create(&reservation4)
+	r.db.Create(&reservation5)
+	r.db.Create(&reservation6)
 	return nil
 }
