@@ -12,7 +12,6 @@ type brandStore struct {
 
 // interface
 type BrandStore interface {
-	Migration()
 	Create(model *db.Brand) error
 	Update(model *db.Brand) error
 	Delete(model *db.Brand) error
@@ -24,12 +23,8 @@ type BrandStore interface {
 	Seed() error
 }
 
-func NewBrandStore(db *gorm.DB) *brandStore {
+func NewBrandStore(db *gorm.DB) BrandStore {
 	return &brandStore{db: db}
-}
-
-func (b *brandStore) Migration() {
-	b.db.AutoMigrate(&db.Brand{})
 }
 
 func (b *brandStore) Create(model *db.Brand) error {

@@ -19,7 +19,7 @@ func main() {
 	middleware.SentryLogger()
 
 	// Set Enviroment Variables
-	err := godotenv.Load("../../.env")
+	err := godotenv.Load(".env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
@@ -45,6 +45,7 @@ func main() {
 	fixTypeStore := repositories.NewFixTypeStore(db)
 	deviceTypeStore := repositories.NewDeviceTypeStore(db)
 	userStore := repositories.NewUserStore(db)
+	technicalServiceShiftStore := repositories.NewTechnicalServiceShiftStore(db)
 
 	// Clients
 	// This one need to be integrated systems
@@ -60,6 +61,7 @@ func main() {
 	deviceTypeService := service.NewDeviceTypeService(deviceTypeStore)
 	reservationService := service.NewReservationService(reservationStore)
 	userService := service.NewUserService(userStore)
+	technicalServiceShiftService := service.NewTechnicalServiceShiftService(technicalServiceShiftStore)
 
 	// Handler
 	technicalServiceHandler := handler.NewTechnicalServiceHandler(technicalServiceService)
@@ -72,6 +74,7 @@ func main() {
 	deviceTypeHandler := handler.NewDeviceTypeHandler(deviceTypeService)
 	reservationHandler := handler.NewReservationHandler(reservationService)
 	userHandler := handler.NewUserHandler(userService)
+	technicalServiceShiftHandler := handler.NewTechnicalServiceShiftHandler(technicalServiceShiftService)
 
 	// Gin Server
 	router := gin.Default()
@@ -94,6 +97,7 @@ func main() {
 	routes.TechnicalServiceCandidateRouter(router, technicalServiceCandidateHandler)
 	routes.ReservationRouter(router, reservationHandler)
 	routes.UserRouter(router, userHandler)
+	routes.TechnicalServiceShiftRouter(router, technicalServiceShiftHandler)
 
 	port := os.Getenv("API_PORT")
 	router.Run(":" + port)
