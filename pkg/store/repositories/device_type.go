@@ -2,6 +2,7 @@ package repositories
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/store/seed_data"
 	"gorm.io/gorm"
 )
 
@@ -73,7 +74,7 @@ func (d *deviceTypeStore) Search(query string) ([]db.DeviceType, error) {
 }
 
 func (d *deviceTypeStore) Seed() error {
-	deviceTypes := []*db.DeviceType{deviceTypePc, deviceTypePhone, deviceTypeTablet}
+	deviceTypes := []*db.DeviceType{seed_data.DeviceTypePc, seed_data.DeviceTypePhone, seed_data.DeviceTypeTablet}
 	for _, deviceType := range deviceTypes {
 		if err := d.db.Create(&deviceType).Error; err != nil {
 			return err

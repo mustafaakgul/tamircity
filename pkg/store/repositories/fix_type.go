@@ -2,6 +2,7 @@ package repositories
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/store/seed_data"
 	"gorm.io/gorm"
 )
 
@@ -74,7 +75,7 @@ func (f *fixTypeStore) Search(query string) ([]db.FixType, error) {
 
 func (f *fixTypeStore) Seed() error {
 
-	fixTypes := []*db.FixType{fixType1, fixType2, fixType3, fixType4}
+	fixTypes := []*db.FixType{seed_data.FixType1, seed_data.FixType2, seed_data.FixType3, seed_data.FixType4}
 
 	for _, fixType := range fixTypes {
 		if err := f.db.Create(&fixType).Error; err != nil {

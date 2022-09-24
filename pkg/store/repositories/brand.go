@@ -2,6 +2,7 @@ package repositories
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/store/seed_data"
 	"gorm.io/gorm"
 )
 
@@ -80,12 +81,12 @@ func (b *brandStore) FindByDeviceTypeId(deviceTypeId int) ([]db.Brand, error) {
 
 func (b *brandStore) Seed() error {
 
-	b.db.Create(&brandsApple)
-	b.db.Create(&brandsSamsung)
-	b.db.Create(&brandsLenovo)
-	b.db.Create(&brandNokia)
-	b.db.Create(&brandOppo)
-	b.db.Create(&brandHometech)
+	b.db.Create(&seed_data.BrandsApple)
+	b.db.Create(&seed_data.BrandsSamsung)
+	b.db.Create(&seed_data.BrandsLenovo)
+	b.db.Create(&seed_data.BrandNokia)
+	b.db.Create(&seed_data.BrandOppo)
+	b.db.Create(&seed_data.BrandHometech)
 
 	return nil
 }
