@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/anthophora/tamircity/api/handler"
 	"github.com/anthophora/tamircity/api/routes"
+	"github.com/anthophora/tamircity/pkg/middleware"
 	"github.com/anthophora/tamircity/pkg/service"
 	"github.com/anthophora/tamircity/pkg/store/repositories"
 	postgres "github.com/anthophora/tamircity/pkg/store/shared/db"
@@ -10,11 +11,15 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"log"
+	"os"
 )
 
 func main() {
+	// Logger initiliazation
+	middleware.SentryLogger()
+
 	// Set Enviroment Variables
-	err := godotenv.Load("../../.env")
+	err := godotenv.Load(".env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
@@ -38,6 +43,7 @@ func main() {
 	reservationStore := repositories.NewReservationStore(db)
 	fixTypeStore := repositories.NewFixTypeStore(db)
 	deviceTypeStore := repositories.NewDeviceTypeStore(db)
+	userStore := repositories.NewUserStore(db)
 
 	// Clients
 	// This one need to be integrated systems
@@ -51,6 +57,7 @@ func main() {
 	fixTypeService := service.NewFixTypeService(fixTypeStore)
 	deviceTypeService := service.NewDeviceTypeService(deviceTypeStore)
 	reservationService := service.NewReservationService(reservationStore)
+	userService := service.NewUserService(userStore)
 
 	// Handler
 	technicalServiceHandler := handler.NewTechnicalServiceHandler(technicalServiceService)
@@ -61,6 +68,7 @@ func main() {
 	fixTypeHandler := handler.NewFixTypeHandler(fixTypeService)
 	deviceTypeHandler := handler.NewDeviceTypeHandler(deviceTypeService)
 	reservationHandler := handler.NewReservationHandler(reservationService)
+	userHandler := handler.NewUserHandler(userService)
 
 	// Gin Server
 	router := gin.Default()
@@ -81,6 +89,8 @@ func main() {
 	routes.ServiceTypeRouter(router, serviceTypeHandler)
 	routes.TechnicalServiceRouter(router, technicalServiceHandler)
 	routes.ReservationRouter(router, reservationHandler)
+	routes.UserRouter(router, userHandler)
 
-	router.Run(":8888")
+	port := os.Getenv("API_PORT")
+	router.Run(":" + port)
 }
