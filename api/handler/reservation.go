@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
+	"time"
 )
 
 type reservationHandler struct {
@@ -20,6 +21,7 @@ type ReservationHandler interface {
 	GetCompletedList(ctx *gin.Context)
 	GetCancelledList(ctx *gin.Context)
 	GetApprovedList(ctx *gin.Context)
+	GetApprovedListByTechnicalServiceIdAndDatetime(ctx *gin.Context)
 	UpdateReservationStatus(ctx *gin.Context)
 	GetPendingAndCompletedReservationCount(ctx *gin.Context)
 }
@@ -112,6 +114,33 @@ func (r *reservationHandler) GetApprovedList(ctx *gin.Context) {
 	}
 
 	reservations, err := r.reservationService.GetApprovedListByTechnicalServiceId(technicalServiceId)
+	if err != nil {
+		responseErr := utils.HandleResponseModel(false, "", err, nil)
+		ctx.JSON(http.StatusBadRequest, responseErr)
+		return
+	}
+	response := utils.HandleResponseModel(true, "", nil, reservations)
+	ctx.JSON(http.StatusOK, response)
+}
+
+func (r *reservationHandler) GetApprovedListByTechnicalServiceIdAndDatetime(ctx *gin.Context) {
+	technicalServiceId, err := strconv.Atoi(ctx.Query("technical_service_id"))
+	if err != nil {
+		responseErr := utils.HandleResponseModel(false, "", err, nil)
+		ctx.JSON(http.StatusBadRequest, responseErr)
+		return
+	}
+
+	reservationDateQuery := ctx.Query("reservation_date") + " " + "00:00"
+	//reservationDateQuery := "2018-01-20 04:35"
+	reservationDate, err := time.Parse("2006-01-02 15:04", reservationDateQuery)
+	if err != nil {
+		responseErr := utils.HandleResponseModel(false, "", err, nil)
+		ctx.JSON(http.StatusBadRequest, responseErr)
+		return
+	}
+
+	reservations, err := r.reservationService.GetApprovedListByTechnicalServiceIdAndDatetime(technicalServiceId, reservationDate)
 	if err != nil {
 		responseErr := utils.HandleResponseModel(false, "", err, nil)
 		ctx.JSON(http.StatusBadRequest, responseErr)
