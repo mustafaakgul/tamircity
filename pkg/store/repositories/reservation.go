@@ -14,6 +14,7 @@ type ReservationStore interface {
 	GetPendingListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error)
 	GetCompletedListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error)
 	GetCancelledListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error)
+	GetApprovedListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error)
 	GetReservationCountWithStatus(technicalServiceId int, status db.ReservationStatus) (count int64, err error)
 	UpdateReservationStatus(reservationId int, status db.ReservationStatus) error
 	Seed() error
@@ -36,6 +37,12 @@ func (r *reservationStore) GetPendingListByTechnicalServiceId(technicalServiceId
 func (r *reservationStore) GetCompletedListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error) {
 	var reservations []db.Reservation
 	err := r.db.Where("technical_service_id  = ? AND status = ? ", technicalServiceId, db.Completed).Preload("DeviceType").Preload("Brand").Preload("ModelEntity").Preload("FixType").Preload("ServiceType").Preload("ExtraService").Preload("TechnicalService").Find(&reservations).Error
+	return reservations, err
+}
+
+func (r *reservationStore) GetApprovedListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error) {
+	var reservations []db.Reservation
+	err := r.db.Where("technical_service_id  = ? AND status = ? ", technicalServiceId, db.Approved).Preload("DeviceType").Preload("Brand").Preload("ModelEntity").Preload("FixType").Preload("ServiceType").Preload("ExtraService").Preload("TechnicalService").Find(&reservations).Error
 	return reservations, err
 }
 
