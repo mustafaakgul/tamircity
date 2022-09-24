@@ -2,6 +2,7 @@ package repositories
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/store/seed_data"
 	"gorm.io/gorm"
 )
 
@@ -14,6 +15,7 @@ type ReservationStore interface {
 	GetPendingListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error)
 	GetCompletedListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error)
 	GetCancelledListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error)
+	GetApprovedListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error)
 	GetReservationCountWithStatus(technicalServiceId int, status db.ReservationStatus) (count int64, err error)
 	UpdateReservationStatus(reservationId int, status db.ReservationStatus) error
 	Seed() error
@@ -29,44 +31,59 @@ func (r *reservationStore) Create(reservation *db.Reservation) error {
 
 func (r *reservationStore) GetPendingListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error) {
 	var reservations []db.Reservation
-	err := r.db.Where("technical_service_id  = ? AND status = ? ", technicalServiceId, 0).Preload("DeviceType").Preload("Brand").Preload("Model").Preload("FixType").Preload("ServiceType").Preload("ExtraService").Preload("TechnicalService").Find(&reservations).Error // TO DO : 0 olan yer ReservationStatus.Pending olmalı
+	err := r.db.Where("technical_service_id  = ? AND status = ? ", technicalServiceId, db.Pending).Preload("DeviceType").Preload("Brand").Preload("ModelEntity").Preload("FixType").Preload("ServiceType").Preload("ExtraService").Preload("TechnicalService").Find(&reservations).Error
 	return reservations, err
 }
 
 func (r *reservationStore) GetCompletedListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error) {
 	var reservations []db.Reservation
-	err := r.db.Where("technical_service_id  = ? AND status = ? ", technicalServiceId, 3).Preload("DeviceType").Preload("Brand").Preload("Model").Preload("FixType").Preload("ServiceType").Preload("ExtraService").Preload("TechnicalService").Find(&reservations).Error // TO DO : 3 olan yer ReservationStatus.Comleted olmalı
+	err := r.db.Where("technical_service_id  = ? AND status = ? ", technicalServiceId, db.Completed).Preload("DeviceType").Preload("Brand").Preload("ModelEntity").Preload("FixType").Preload("ServiceType").Preload("ExtraService").Preload("TechnicalService").Find(&reservations).Error
+	return reservations, err
+}
+
+func (r *reservationStore) GetApprovedListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error) {
+	var reservations []db.Reservation
+	err := r.db.Where("technical_service_id  = ? AND status = ? ", technicalServiceId, db.Approved).Preload("DeviceType").Preload("Brand").Preload("ModelEntity").Preload("FixType").Preload("ServiceType").Preload("ExtraService").Preload("TechnicalService").Find(&reservations).Error
 	return reservations, err
 }
 
 func (r *reservationStore) GetCancelledListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error) {
 	var reservations []db.Reservation
-	err := r.db.Where("technical_service_id  = ? AND status = ? ", technicalServiceId, 1).Preload("DeviceType").Preload("Brand").Preload("Model").Preload("FixType").Preload("ServiceType").Preload("ExtraService").Preload("TechnicalService").Find(&reservations).Error // TO DO : 1 olan yer ReservationStatus.Cancelled olmalı
+	err := r.db.Where("technical_service_id  = ? AND status = ? ", technicalServiceId, db.Cancelled).Preload("DeviceType").Preload("Brand").Preload("ModelEntity").Preload("FixType").Preload("ServiceType").Preload("ExtraService").Preload("TechnicalService").Find(&reservations).Error
 	return reservations, err
 }
 
 func (r *reservationStore) UpdateReservationStatus(reservationId int, status db.ReservationStatus) error {
-	var reservation db.Reservation
-	if err := r.db.First(&reservation, reservationId).Error; err != nil {
-		return err
-	}
-	tx := r.db.Begin()
-	defer func() {
-		if r := recover(); r != nil {
-			tx.Rollback()
+
+	//TODO: TechnicalServiceReservation tablosu incelenip kaldirilacak.
+	/*
+		var reservation db.Reservation
+		if err := r.db.First(&reservation, reservationId).Error; err != nil {
+			return err
 		}
-	}()
-	if err := tx.Model(&db.Reservation{}).Where("id = ?", reservationId).Update("status", status).Error; err != nil {
-		tx.Rollback()
-		return err
-	}
-	if status == 2 { // TO DO : Enum
-		if err := tx.Create(&db.TechnicalServiceReservation{TechnicalServiceId: reservation.ID, Day: reservation.ReservationDate.Weekday(), DateofDay: reservation.ReservationDate, StartOfShift: reservation.StartOfHour, EndOfShift: reservation.EndOfHour}).Error; err != nil {
+		tx := r.db.Begin()
+		defer func() {
+			if r := recover(); r != nil {
+				tx.Rollback()
+			}
+		}()
+		if err := tx.Model(&db.Reservation{}).Where("id = ?", reservationId).Update("status", status).Error; err != nil {
 			tx.Rollback()
 			return err
 		}
+		if status == 2 { // TO DO : Enum
+			if err := tx.Create(&db.TechnicalServiceReservation{TechnicalServiceId: reservation.ID, Day: reservation.ReservationDate.Weekday(), DateofDay: reservation.ReservationDate, StartOfShift: reservation.StartOfHour, EndOfShift: reservation.EndOfHour}).Error; err != nil {
+				tx.Rollback()
+				return err
+			}
+		}
+		tx.Commit()
+		return nil
+	*/
+
+	if err := r.db.Model(&db.Reservation{}).Where("id = ?", reservationId).Update("status", status).Error; err != nil {
+		return err
 	}
-	tx.Commit()
 	return nil
 }
 
@@ -78,8 +95,11 @@ func (r *reservationStore) GetReservationCountWithStatus(technicalServiceId int,
 }
 
 func (r *reservationStore) Seed() error {
-	r.db.Create(&reservation1)
-	r.db.Create(&reservation2)
-	r.db.Create(&reservation3)
+	r.db.Create(&seed_data.Reservation1)
+	r.db.Create(&seed_data.Reservation2)
+	r.db.Create(&seed_data.Reservation3)
+	r.db.Create(&seed_data.Reservation4)
+	r.db.Create(&seed_data.Reservation5)
+	r.db.Create(&seed_data.Reservation6)
 	return nil
 }

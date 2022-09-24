@@ -2,6 +2,7 @@ package repositories
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/store/seed_data"
 	"gorm.io/gorm"
 )
 
@@ -60,10 +61,10 @@ func (e *extraServiceStore) Search(query string) ([]db.ExtraService, error) {
 	return models, err
 }
 func (e *extraServiceStore) Seed() error {
-	e.db.Create(&extraServiceFirst)
-	e.db.Create(&extraServiceSecond)
-	e.db.Create(&extraServiceThird)
-	e.db.Create(&extraServiceFourth)
+	e.db.Create(&seed_data.ExtraServiceFirst)
+	e.db.Create(&seed_data.ExtraServiceSecond)
+	e.db.Create(&seed_data.ExtraServiceThird)
+	e.db.Create(&seed_data.ExtraServiceFourth)
 
 	return nil
 }

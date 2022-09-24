@@ -19,6 +19,7 @@ type ReservationHandler interface {
 	GetPendingList(ctx *gin.Context)
 	GetCompletedList(ctx *gin.Context)
 	GetCancelledList(ctx *gin.Context)
+	GetApprovedList(ctx *gin.Context)
 	UpdateReservationStatus(ctx *gin.Context)
 	GetPendingAndCompletedReservationCount(ctx *gin.Context)
 }
@@ -102,6 +103,24 @@ func (r *reservationHandler) GetCancelledList(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, response)
 }
 
+func (r *reservationHandler) GetApprovedList(ctx *gin.Context) {
+	technicalServiceId, err := strconv.Atoi(ctx.Query("technical_service_id"))
+	if err != nil {
+		responseErr := utils.HandleResponseModel(false, "", err, nil)
+		ctx.JSON(http.StatusBadRequest, responseErr)
+		return
+	}
+
+	reservations, err := r.reservationService.GetApprovedListByTechnicalServiceId(technicalServiceId)
+	if err != nil {
+		responseErr := utils.HandleResponseModel(false, "", err, nil)
+		ctx.JSON(http.StatusBadRequest, responseErr)
+		return
+	}
+	response := utils.HandleResponseModel(true, "", nil, reservations)
+	ctx.JSON(http.StatusOK, response)
+}
+
 func (r *reservationHandler) UpdateReservationStatus(ctx *gin.Context) {
 	reservationId, err := strconv.Atoi(ctx.Query("reservation_id"))
 	if err != nil {
@@ -110,7 +129,7 @@ func (r *reservationHandler) UpdateReservationStatus(ctx *gin.Context) {
 		return
 	}
 
-	reservationStatus, err := strconv.Atoi(ctx.Param("reservation_status"))
+	reservationStatus, err := strconv.Atoi(ctx.Query("reservation_status"))
 	if err != nil {
 		responseErr := utils.HandleResponseModel(false, "", err, nil)
 		ctx.JSON(http.StatusBadRequest, responseErr)

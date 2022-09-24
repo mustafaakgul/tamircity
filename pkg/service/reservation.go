@@ -15,6 +15,7 @@ type ReservationService interface {
 	GetPendingListByTechnicalServiceId(technicalServiceId int) (response []web.ReservationPendingResponse, err error)
 	GetCompletedListByTechnicalServiceId(technicalServiceId int) (response []web.ReservationCompletedResponse, err error)
 	GetCancelledListByTechnicalServiceId(technicalServiceId int) (response []web.ReservationCancelledResponse, err error)
+	GetApprovedListByTechnicalServiceId(technicalServiceId int) (response []web.ReservationApprovedResponse, err error)
 	GetPendingAndCompletedReservationCount(technicalServiceId int) (web.ReservationPendingAndCompletedCountResponse, error)
 	UpdateReservationStatus(int, db.ReservationStatus) error
 }
@@ -83,6 +84,33 @@ func (r *reservationService) GetCompletedListByTechnicalServiceId(technicalServi
 
 	for _, reservation := range reservations {
 		var reservationResponse web.ReservationCompletedResponse
+		reservationResponse.ReservationId = int(reservation.ID)
+		reservationResponse.ReservationDate = reservation.ReservationDate
+		reservationResponse.DeviceTypeName = reservation.DeviceType.Name
+		reservationResponse.BrandName = reservation.Brand.Name
+		reservationResponse.ModelName = reservation.ModelEntity.Name
+		reservationResponse.FixTypeName = reservation.FixType.Description // ?
+		reservationResponse.ServiceTypeName = reservation.ServiceType.Description
+		reservationResponse.ExtraServiceName = reservation.ExtraService.Description
+		reservationResponse.FullName = reservation.FullName
+		reservationResponse.Email = reservation.Email
+		reservationResponse.PhoneNumber = reservation.PhoneNumber
+
+		response = append(response, reservationResponse)
+	}
+
+	return response, nil
+}
+
+func (r *reservationService) GetApprovedListByTechnicalServiceId(technicalServiceId int) (response []web.ReservationApprovedResponse, err error) {
+	reservations, err := r.reservationStore.GetApprovedListByTechnicalServiceId(technicalServiceId)
+
+	if err != nil {
+		return nil, err
+	}
+
+	for _, reservation := range reservations {
+		var reservationResponse web.ReservationApprovedResponse
 		reservationResponse.ReservationId = int(reservation.ID)
 		reservationResponse.ReservationDate = reservation.ReservationDate
 		reservationResponse.DeviceTypeName = reservation.DeviceType.Name

@@ -2,6 +2,7 @@ package repositories
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/store/seed_data"
 	"gorm.io/gorm"
 )
 
@@ -80,13 +81,7 @@ func (m *modelStore) Search(query string) ([]db.Model, error) {
 }
 
 func (m *modelStore) Seed() error {
-
-	/*model := &db.Brand{}
-	m.db.Where("id = ?", 1).First(model)
-	test := model.Name
-	println(test)*/
-
-	models := []*db.Model{modelIphone11, modelIphone12, modelIphone12Pro, modelSamsungGalaxyS7, modelSamsungGalaxyS9, modelLenovoM7, modelLenovoM8, modeliPad6, modeliPad9}
+	models := []*db.Model{seed_data.ModelIphone11, seed_data.ModelIphone12, seed_data.ModelIphone12Pro, seed_data.ModelSamsungGalaxyS7, seed_data.ModelSamsungGalaxyS9, seed_data.ModelLenovoM7, seed_data.ModelLenovoM8, seed_data.ModeliPad6, seed_data.ModeliPad9}
 
 	for _, model := range models {
 		if err := m.db.Create(&model).Error; err != nil {
