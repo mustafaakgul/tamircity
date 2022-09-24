@@ -53,6 +53,7 @@ func (t *technicalServiceHandler) Create(ctx *gin.Context) {
 		response := utils.HandleResponseModel(false, "", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)
 	}
+
 	response := utils.HandleResponseModel(true, "", nil, technicalServiceModel)
 	ctx.JSON(http.StatusOK, response)
 }

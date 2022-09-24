@@ -36,6 +36,7 @@ func main() {
 
 	// Store
 	technicalServiceStore := repositories.NewTechnicalServiceStore(db)
+	technicalServiceCandidateStore := repositories.NewTechnicalServiceCandidateStore(db)
 	serviceTypeStore := repositories.NewServiceTypeStore(db)
 	extraServiceStore := repositories.NewExtraServiceStore(db)
 	brandStore := repositories.NewBrandStore(db)
@@ -50,6 +51,7 @@ func main() {
 
 	// Service
 	technicalServiceService := service.NewTechnicalServiceService(technicalServiceStore)
+	technicalServiceCandidateService := service.NewTechnicalServiceCandidateService(technicalServiceCandidateStore)
 	serviceTypeService := service.NewServiceTypeService(serviceTypeStore)
 	extraServiceService := service.NewExtraServiceService(extraServiceStore)
 	brandService := service.NewBrandService(brandStore)
@@ -61,6 +63,7 @@ func main() {
 
 	// Handler
 	technicalServiceHandler := handler.NewTechnicalServiceHandler(technicalServiceService)
+	technicalServiceCandidateHandler := handler.NewTechnicalServiceCandidateHandler(technicalServiceCandidateService)
 	serviceTypeHandler := handler.NewServiceTypeHandler(serviceTypeService)
 	extraServiceHandler := handler.NewExtraServiceHandler(extraServiceService)
 	brandHandler := handler.NewBrandHandler(brandService)
@@ -88,6 +91,7 @@ func main() {
 	routes.ModelRouter(router, modelHandler)
 	routes.ServiceTypeRouter(router, serviceTypeHandler)
 	routes.TechnicalServiceRouter(router, technicalServiceHandler)
+	routes.TechnicalServiceCandidateRouter(router, technicalServiceCandidateHandler)
 	routes.ReservationRouter(router, reservationHandler)
 	routes.UserRouter(router, userHandler)
 

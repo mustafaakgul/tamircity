@@ -23,6 +23,7 @@ func Migrate(db *gorm.DB) error {
 			&dbModels.Reservation{},
 			&dbModels.ServiceType{},
 			&dbModels.TechnicalService{},
+			&dbModels.TechnicalServiceCandidate{},
 			&dbModels.User{},
 			&dbModels.TechnicalServiceReservation{},
 			&dbModels.TechnicalServiceShift{},
