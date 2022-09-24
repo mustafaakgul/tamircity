@@ -29,19 +29,19 @@ func (r *reservationStore) Create(reservation *db.Reservation) error {
 
 func (r *reservationStore) GetPendingListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error) {
 	var reservations []db.Reservation
-	err := r.db.Where("technical_service_id  = ? AND status = ? ", technicalServiceId, 0).Preload("DeviceType").Preload("Brand").Preload("Model").Preload("FixType").Preload("ServiceType").Preload("ExtraService").Preload("TechnicalService").Find(&reservations).Error // TO DO : 0 olan yer ReservationStatus.Pending olmalı
+	err := r.db.Where("technical_service_id  = ? AND status = ? ", technicalServiceId, db.Pending).Preload("DeviceType").Preload("Brand").Preload("ModelEntity").Preload("FixType").Preload("ServiceType").Preload("ExtraService").Preload("TechnicalService").Find(&reservations).Error
 	return reservations, err
 }
 
 func (r *reservationStore) GetCompletedListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error) {
 	var reservations []db.Reservation
-	err := r.db.Where("technical_service_id  = ? AND status = ? ", technicalServiceId, 3).Preload("DeviceType").Preload("Brand").Preload("Model").Preload("FixType").Preload("ServiceType").Preload("ExtraService").Preload("TechnicalService").Find(&reservations).Error // TO DO : 3 olan yer ReservationStatus.Comleted olmalı
+	err := r.db.Where("technical_service_id  = ? AND status = ? ", technicalServiceId, db.Completed).Preload("DeviceType").Preload("Brand").Preload("ModelEntity").Preload("FixType").Preload("ServiceType").Preload("ExtraService").Preload("TechnicalService").Find(&reservations).Error
 	return reservations, err
 }
 
 func (r *reservationStore) GetCancelledListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error) {
 	var reservations []db.Reservation
-	err := r.db.Where("technical_service_id  = ? AND status = ? ", technicalServiceId, 1).Preload("DeviceType").Preload("Brand").Preload("Model").Preload("FixType").Preload("ServiceType").Preload("ExtraService").Preload("TechnicalService").Find(&reservations).Error // TO DO : 1 olan yer ReservationStatus.Cancelled olmalı
+	err := r.db.Where("technical_service_id  = ? AND status = ? ", technicalServiceId, db.Cancelled).Preload("DeviceType").Preload("Brand").Preload("ModelEntity").Preload("FixType").Preload("ServiceType").Preload("ExtraService").Preload("TechnicalService").Find(&reservations).Error
 	return reservations, err
 }
 
