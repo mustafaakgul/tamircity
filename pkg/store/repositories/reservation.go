@@ -54,27 +54,36 @@ func (r *reservationStore) GetCancelledListByTechnicalServiceId(technicalService
 }
 
 func (r *reservationStore) UpdateReservationStatus(reservationId int, status db.ReservationStatus) error {
-	var reservation db.Reservation
-	if err := r.db.First(&reservation, reservationId).Error; err != nil {
-		return err
-	}
-	tx := r.db.Begin()
-	defer func() {
-		if r := recover(); r != nil {
-			tx.Rollback()
+
+	//TODO: TechnicalServiceReservation tablosu incelenip kaldirilacak.
+	/*
+		var reservation db.Reservation
+		if err := r.db.First(&reservation, reservationId).Error; err != nil {
+			return err
 		}
-	}()
-	if err := tx.Model(&db.Reservation{}).Where("id = ?", reservationId).Update("status", status).Error; err != nil {
-		tx.Rollback()
-		return err
-	}
-	if status == 2 { // TO DO : Enum
-		if err := tx.Create(&db.TechnicalServiceReservation{TechnicalServiceId: reservation.ID, Day: reservation.ReservationDate.Weekday(), DateofDay: reservation.ReservationDate, StartOfShift: reservation.StartOfHour, EndOfShift: reservation.EndOfHour}).Error; err != nil {
+		tx := r.db.Begin()
+		defer func() {
+			if r := recover(); r != nil {
+				tx.Rollback()
+			}
+		}()
+		if err := tx.Model(&db.Reservation{}).Where("id = ?", reservationId).Update("status", status).Error; err != nil {
 			tx.Rollback()
 			return err
 		}
+		if status == 2 { // TO DO : Enum
+			if err := tx.Create(&db.TechnicalServiceReservation{TechnicalServiceId: reservation.ID, Day: reservation.ReservationDate.Weekday(), DateofDay: reservation.ReservationDate, StartOfShift: reservation.StartOfHour, EndOfShift: reservation.EndOfHour}).Error; err != nil {
+				tx.Rollback()
+				return err
+			}
+		}
+		tx.Commit()
+		return nil
+	*/
+
+	if err := r.db.Model(&db.Reservation{}).Where("id = ?", reservationId).Update("status", status).Error; err != nil {
+		return err
 	}
-	tx.Commit()
 	return nil
 }
 

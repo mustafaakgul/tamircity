@@ -129,7 +129,7 @@ func (r *reservationHandler) UpdateReservationStatus(ctx *gin.Context) {
 		return
 	}
 
-	reservationStatus, err := strconv.Atoi(ctx.Param("reservation_status"))
+	reservationStatus, err := strconv.Atoi(ctx.Query("reservation_status"))
 	if err != nil {
 		responseErr := utils.HandleResponseModel(false, "", err, nil)
 		ctx.JSON(http.StatusBadRequest, responseErr)
