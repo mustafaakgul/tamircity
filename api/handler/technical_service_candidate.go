@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"github.com/anthophora/tamircity/pkg/middleware"
 	"github.com/anthophora/tamircity/pkg/models/db"
 	"github.com/anthophora/tamircity/pkg/models/web"
 	"github.com/anthophora/tamircity/pkg/service"
@@ -15,6 +16,7 @@ type technicalServiceCandidateHandler struct {
 
 type TechnicalServiceCandidateHandler interface {
 	Create(ctx *gin.Context)
+	PrepareAndSendAgreement(ctx *gin.Context)
 }
 
 func NewTechnicalServiceCandidateHandler(technicalServiceCandidateService service.TechnicalServiceCandidateService) TechnicalServiceCandidateHandler {
@@ -51,4 +53,18 @@ func (c *technicalServiceCandidateHandler) Create(ctx *gin.Context) {
 
 	response := utils.HandleResponseModel(true, "Technical Service Candidate created successfully", nil, technicalServiceCandidateModel)
 	ctx.JSON(http.StatusOK, response)
+}
+
+func (c *technicalServiceCandidateHandler) PrepareAndSendAgreement(ctx *gin.Context) {
+	var emailRequest web.EmailRequest
+	if err := ctx.ShouldBindJSON(&emailRequest); err != nil {
+		response := utils.HandleResponseModel(false, "Incorrect JSON Format", err, nil)
+		ctx.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	// TODO: Prepare Agreement as PDF
+	// TODO: Save PDF
+
+	middleware.SendEmail4Agreement(emailRequest.Email)
 }

@@ -9,5 +9,6 @@ func TechnicalServiceCandidateRouter(router *gin.Engine, technicalServiceCandida
 	technicalServiceCandidateRoute := router.Group("api/v1/technical-services-candidate")
 	{
 		technicalServiceCandidateRoute.POST("/apply", technicalServiceCandidateHandler.Create)
+		technicalServiceCandidateRoute.POST("/send-agreement", technicalServiceCandidateHandler.PrepareAndSendAgreement)
 	}
 }
