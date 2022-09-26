@@ -11,3 +11,7 @@ type TechnicalServiceCandidateRequest struct {
 	Email               string `json:"email"`
 	PhoneNumber         string `json:"phone_number"`
 }
+
+type EmailRequest struct {
+	Email string `json:"email"`
+}
