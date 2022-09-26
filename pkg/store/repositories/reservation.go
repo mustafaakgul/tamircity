@@ -4,6 +4,7 @@ import (
 	"github.com/anthophora/tamircity/pkg/models/db"
 	"github.com/anthophora/tamircity/pkg/store/seed_data"
 	"gorm.io/gorm"
+	"time"
 )
 
 type reservationStore struct {
@@ -16,6 +17,7 @@ type ReservationStore interface {
 	GetCompletedListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error)
 	GetCancelledListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error)
 	GetApprovedListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error)
+	GetApprovedListByTechnicalServiceIdAndDatetime(technicalServiceId int, reservationDate time.Time) ([]db.Reservation, error)
 	GetReservationCountWithStatus(technicalServiceId int, status db.ReservationStatus) (count int64, err error)
 	UpdateReservationStatus(reservationId int, status db.ReservationStatus) error
 	Seed() error
@@ -44,6 +46,12 @@ func (r *reservationStore) GetCompletedListByTechnicalServiceId(technicalService
 func (r *reservationStore) GetApprovedListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error) {
 	var reservations []db.Reservation
 	err := r.db.Where("technical_service_id  = ? AND status = ? ", technicalServiceId, db.Approved).Preload("DeviceType").Preload("Brand").Preload("ModelEntity").Preload("FixType").Preload("ServiceType").Preload("ExtraService").Preload("TechnicalService").Find(&reservations).Error
+	return reservations, err
+}
+
+func (r *reservationStore) GetApprovedListByTechnicalServiceIdAndDatetime(technicalServiceId int, reservationDate time.Time) ([]db.Reservation, error) {
+	var reservations []db.Reservation
+	err := r.db.Where("technical_service_id  = ? AND reservation_date > ? AND reservation_date < ?  AND status = ?  ", technicalServiceId, reservationDate, reservationDate.Add(time.Hour*24), db.Approved).Preload("DeviceType").Preload("Brand").Preload("ModelEntity").Preload("FixType").Preload("ServiceType").Preload("ExtraService").Preload("TechnicalService").Find(&reservations).Error
 	return reservations, err
 }
 
