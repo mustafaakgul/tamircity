@@ -19,7 +19,7 @@ func NewTechnicalServiceShiftStore(db *gorm.DB) TechnicalServiceShiftStore {
 }
 
 func (t *technicalServiceShiftStore) CreateOrUpdate(technicalServiceId int, technicalServiceShift db.TechnicalServiceShift) error {
-	tx := t.db.Where(db.TechnicalServiceShift{TechnicalServiceId: technicalServiceId, Day: technicalServiceShift.Day, Status: true}).Assign(db.TechnicalServiceShift{StartOfShift: technicalServiceShift.StartOfShift, EndOfShift: technicalServiceShift.EndOfShift, Status: true}).FirstOrCreate(&technicalServiceShift)
+	tx := t.db.Where(db.TechnicalServiceShift{TechnicalServiceId: uint(technicalServiceId), Day: technicalServiceShift.Day, Status: true}).Assign(db.TechnicalServiceShift{StartOfShift: technicalServiceShift.StartOfShift, EndOfShift: technicalServiceShift.EndOfShift, Status: true}).FirstOrCreate(&technicalServiceShift)
 	if tx.Error != nil {
 		return tx.Error
 	}

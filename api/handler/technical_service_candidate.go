@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"github.com/anthophora/tamircity/pkg/middleware"
 	"github.com/anthophora/tamircity/pkg/models/db"
 	"github.com/anthophora/tamircity/pkg/models/web"
@@ -17,6 +18,7 @@ type technicalServiceCandidateHandler struct {
 type TechnicalServiceCandidateHandler interface {
 	Create(ctx *gin.Context)
 	PrepareAndSendAgreement(ctx *gin.Context)
+	ChangeStatusAndCreateTechnicalService(ctx *gin.Context)
 }
 
 func NewTechnicalServiceCandidateHandler(technicalServiceCandidateService service.TechnicalServiceCandidateService) TechnicalServiceCandidateHandler {
@@ -67,4 +69,26 @@ func (c *technicalServiceCandidateHandler) PrepareAndSendAgreement(ctx *gin.Cont
 	// TODO: Save PDF
 
 	middleware.SendEmail4Agreement(emailRequest.Email)
+}
+
+func (c *technicalServiceCandidateHandler) ChangeStatusAndCreateTechnicalService(ctx *gin.Context) {
+	status, err := ctx.GetQuery("status")
+
+	if status != "approved" && status != "cancelled" {
+		response := utils.HandleResponseModel(false, "Incorrect Query Parameters", err, nil)
+		ctx.JSON(http.StatusBadRequest, response)
+		return
+	} else if status == "approved" {
+		CreateApprovedFlow(ctx, c)
+	} else if status == "cancelled" {
+		CreateCancelledFlow(ctx, c)
+	}
+}
+
+func CreateApprovedFlow(ctx *gin.Context, c *technicalServiceCandidateHandler) {
+	fmt.Println("CreateApprovedFlow")
+}
+
+func CreateCancelledFlow(ctx *gin.Context, c *technicalServiceCandidateHandler) {
+	fmt.Println("CreateCancelledFlow")
 }

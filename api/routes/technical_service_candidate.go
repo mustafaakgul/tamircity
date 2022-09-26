@@ -10,5 +10,6 @@ func TechnicalServiceCandidateRouter(router *gin.Engine, technicalServiceCandida
 	{
 		technicalServiceCandidateRoute.POST("/apply", technicalServiceCandidateHandler.Create)
 		technicalServiceCandidateRoute.POST("/send-agreement", technicalServiceCandidateHandler.PrepareAndSendAgreement)
+		technicalServiceCandidateRoute.GET("/change-status/query", technicalServiceCandidateHandler.ChangeStatusAndCreateTechnicalService)
 	}
 }
