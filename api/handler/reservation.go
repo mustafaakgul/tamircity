@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"github.com/anthophora/tamircity/pkg/models/db"
 	"github.com/anthophora/tamircity/pkg/models/web"
 	"github.com/anthophora/tamircity/pkg/service"
@@ -24,6 +25,7 @@ type ReservationHandler interface {
 	GetApprovedListByTechnicalServiceIdAndDatetime(ctx *gin.Context)
 	UpdateReservationStatus(ctx *gin.Context)
 	GetPendingAndCompletedReservationCount(ctx *gin.Context)
+	ChangeOperationStatus(ctx *gin.Context)
 }
 
 func NewReservationHandler(reservationService service.ReservationService) ReservationHandler {
@@ -189,5 +191,33 @@ func (r *reservationHandler) GetPendingAndCompletedReservationCount(ctx *gin.Con
 		return
 	}
 	response := utils.HandleResponseModel(true, "", nil, res)
+	ctx.JSON(http.StatusOK, response)
+}
+
+func (r *reservationHandler) ChangeOperationStatus(ctx *gin.Context) {
+	id, err := ctx.GetQuery("id")
+	if err != true {
+		responseErr := utils.HandleResponseModel(false, "", err, nil)
+		ctx.JSON(http.StatusBadRequest, responseErr)
+		return
+	}
+
+	operationStatus, err := ctx.GetQuery("operation_status")
+	if err != true {
+		responseErr := utils.HandleResponseModel(false, "", err, nil)
+		ctx.JSON(http.StatusBadRequest, responseErr)
+		return
+	}
+
+	idInt, _ := strconv.Atoi(id)
+
+	fmt.Println(idInt, operationStatus)
+
+	if err := r.reservationService.ChangeOperationStatus(idInt, db.OperationStatus(operationStatus)); err != nil {
+		responseErr := utils.HandleResponseModel(false, "", err, nil)
+		ctx.JSON(http.StatusBadRequest, responseErr)
+		return
+	}
+	response := utils.HandleResponseModel(true, "İşlem başarıyla gerçekleşmiştir.", nil, nil)
 	ctx.JSON(http.StatusOK, response)
 }

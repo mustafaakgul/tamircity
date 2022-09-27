@@ -20,6 +20,7 @@ type ReservationService interface {
 	GetApprovedListByTechnicalServiceIdAndDatetime(technicalServiceId int, reservationDate time.Time) (response []web.ReservationApprovedResponse, err error)
 	GetPendingAndCompletedReservationCount(technicalServiceId int) (web.ReservationPendingAndCompletedCountResponse, error)
 	UpdateReservationStatus(int, db.ReservationStatus) error
+	ChangeOperationStatus(int, db.OperationStatus) error
 }
 
 func NewReservationService(reservationStore repositories.ReservationStore) ReservationService {
@@ -187,6 +188,10 @@ func (r *reservationService) GetCancelledListByTechnicalServiceId(technicalServi
 
 func (r *reservationService) UpdateReservationStatus(reservationId int, status db.ReservationStatus) error {
 	return r.reservationStore.UpdateReservationStatus(reservationId, status)
+}
+
+func (r *reservationService) ChangeOperationStatus(reservationId int, operationStatus db.OperationStatus) error {
+	return r.reservationStore.ChangeOperationStatus(reservationId, operationStatus)
 }
 
 func (r *reservationService) GetPendingAndCompletedReservationCount(technicalServiceId int) (web.ReservationPendingAndCompletedCountResponse, error) {

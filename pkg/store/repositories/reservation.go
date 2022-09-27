@@ -20,6 +20,7 @@ type ReservationStore interface {
 	GetApprovedListByTechnicalServiceIdAndDatetime(technicalServiceId int, reservationDate time.Time) ([]db.Reservation, error)
 	GetReservationCountWithStatus(technicalServiceId int, status db.ReservationStatus) (count int64, err error)
 	UpdateReservationStatus(reservationId int, status db.ReservationStatus) error
+	ChangeOperationStatus(reservationId int, operationStatus db.OperationStatus) error
 	Seed() error
 }
 
@@ -93,6 +94,10 @@ func (r *reservationStore) UpdateReservationStatus(reservationId int, status db.
 		return err
 	}
 	return nil
+}
+
+func (r *reservationStore) ChangeOperationStatus(reservationId int, operationStatus db.OperationStatus) error {
+	return r.db.Model(&db.Reservation{}).Where("id = ?", reservationId).Update("operational_status", operationStatus).Error
 }
 
 func (r *reservationStore) GetReservationCountWithStatus(technicalServiceId int, status db.ReservationStatus) (count int64, err error) {

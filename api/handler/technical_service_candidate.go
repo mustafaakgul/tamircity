@@ -79,7 +79,7 @@ func (c *technicalServiceCandidateHandler) ChangeStatusAndCreateTechnicalService
 		response := utils.HandleResponseModel(false, "Status could not be found", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)
 	}
-	id, _ := ctx.GetQuery("id")
+	id, err := ctx.GetQuery("id")
 	if err != true {
 		response := utils.HandleResponseModel(false, "Id could not be found", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)
@@ -154,6 +154,17 @@ func CreateApprovedFlow(ctx *gin.Context, c *technicalServiceCandidateHandler, i
 		response := utils.HandleResponseModel(false, "Technical Service Candidate could not be updated", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)
 	}
+
+	var technicalService db.TechnicalService
+	technicalService.ServiceName = technicalServiceCandidate.ServiceName
+	technicalService.IdentityNumber = "123"
+	technicalService.PhoneNumber = technicalServiceCandidate.PhoneNumber
+	technicalService.Email = technicalServiceCandidate.Email
+	technicalService.Iban = "987"
+	technicalService.Address = technicalServiceCandidate.Address
+
+	// TODO: Create Technical Service
+	// err = c.technicalServiceService.Create(&technicalService)
 }
 
 func CreateCancelledFlow(ctx *gin.Context, c *technicalServiceCandidateHandler, id int) {
