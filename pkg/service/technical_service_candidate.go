@@ -11,6 +11,8 @@ type technicalServiceCandidateService struct {
 
 type TechnicalServiceCandidateService interface {
 	Create(model *db.TechnicalServiceCandidate) error
+	Update(model *db.TechnicalServiceCandidate) error
+	FindByID(id int) (db.TechnicalServiceCandidate, error)
 }
 
 func NewTechnicalServiceCandidateService(technicalServiceCandidateStore repositories.TechnicalServiceCandidateStore) TechnicalServiceCandidateService {
@@ -21,4 +23,12 @@ func NewTechnicalServiceCandidateService(technicalServiceCandidateStore reposito
 
 func (c *technicalServiceCandidateService) Create(model *db.TechnicalServiceCandidate) error {
 	return c.technicalServiceCandidateStore.Create(model)
+}
+
+func (c *technicalServiceCandidateService) Update(model *db.TechnicalServiceCandidate) error {
+	return c.technicalServiceCandidateStore.Update(model)
+}
+
+func (c *technicalServiceCandidateService) FindByID(id int) (db.TechnicalServiceCandidate, error) {
+	return c.technicalServiceCandidateStore.FindByID(id)
 }

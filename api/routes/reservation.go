@@ -16,5 +16,6 @@ func ReservationRouter(router *gin.Engine, reservationHandler handler.Reservatio
 		route.GET("/cancelled", reservationHandler.GetCancelledList)
 		route.GET("/approved", reservationHandler.GetApprovedList)
 		route.GET("/approved/query", reservationHandler.GetApprovedListByTechnicalServiceIdAndDatetime)
+		route.GET("/change-operation-status/query", reservationHandler.ChangeOperationStatus)
 	}
 }

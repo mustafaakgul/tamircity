@@ -12,7 +12,7 @@ func TechnicalServiceRouter(router *gin.Engine, technicalServiceHandler handler.
 		technicalServiceRoute.GET("/query", technicalServiceHandler.GetAllByFilter)
 		technicalServiceRoute.POST("", technicalServiceHandler.Create)
 		technicalServiceRoute.GET("/:id", technicalServiceHandler.Get)
-		technicalServiceRoute.PUT("/:id", technicalServiceHandler.Get)
+		technicalServiceRoute.PUT("/:id", technicalServiceHandler.Update)
 		technicalServiceRoute.DELETE("/:id", technicalServiceHandler.Delete)
 	}
 }
