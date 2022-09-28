@@ -10,6 +10,16 @@ type TechnicalServiceRequest struct {
 	Iban           string `json:"iban"`
 }
 
+type TechnicalServiceUpdateRequest struct {
+	ServiceName string `json:"service_name"`
+	Name        string `json:"name"`
+	Surname     string `json:"surname"`
+	Email       string `json:"email"`
+	PhoneNumber string `json:"phone_number"`
+	About       string `json:"about"`
+	Address     string `json:"address"`
+}
+
 type TechnicalServiceResponse struct {
 	ServiceName    string `json:"service_name"`
 	IdentityNumber string `json:"identity_number"`

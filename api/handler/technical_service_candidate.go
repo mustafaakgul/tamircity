@@ -129,12 +129,13 @@ func (c *technicalServiceCandidateHandler) Update(ctx *gin.Context) {
 
 func (c *technicalServiceCandidateHandler) FindByID(ctx *gin.Context) {
 	id := ctx.Param("id")
-
 	idInt, _ := strconv.Atoi(id)
+
 	technicalServiceCandidate, err := c.technicalServiceCandidateService.FindByID(idInt)
 	if err != nil {
 		response := utils.HandleResponseModel(false, "Technical Service Candidate could not be found", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)
+		return
 	}
 
 	response := utils.HandleResponseModel(true, "Technical Service Candidate found successfully", nil, technicalServiceCandidate)

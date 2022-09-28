@@ -19,6 +19,7 @@ type TechnicalServiceHandler interface {
 	GetAllByFilter(ctx *gin.Context)
 	Get(ctx *gin.Context)
 	Create(ctx *gin.Context)
+	Update(ctx *gin.Context)
 	Delete(ctx *gin.Context)
 }
 
@@ -29,8 +30,18 @@ func NewTechnicalServiceHandler(technicalServiceService service.TechnicalService
 }
 
 func (t *technicalServiceHandler) Get(ctx *gin.Context) {
-	//TODO implement me
-	panic("implement me")
+	id := ctx.Param("id")
+	idInt, _ := strconv.Atoi(id)
+
+	technicalService, err := t.technicalServiceService.FindByID(idInt)
+	if err != nil {
+		responseErr := utils.HandleResponseModel(false, "Technical Service could not be found", err, nil)
+		ctx.JSON(http.StatusBadRequest, responseErr)
+		return
+	}
+
+	response := utils.HandleResponseModel(true, "Technical Service Candidate found successfully", nil, technicalService)
+	ctx.JSON(http.StatusOK, response)
 }
 
 func (t *technicalServiceHandler) Create(ctx *gin.Context) {
@@ -55,6 +66,42 @@ func (t *technicalServiceHandler) Create(ctx *gin.Context) {
 	}
 
 	response := utils.HandleResponseModel(true, "", nil, technicalServiceModel)
+	ctx.JSON(http.StatusOK, response)
+}
+
+func (t *technicalServiceHandler) Update(ctx *gin.Context) {
+	id := ctx.Param("id")
+	idInt, _ := strconv.Atoi(id)
+
+	var technicalService web.TechnicalServiceUpdateRequest
+	if err := ctx.ShouldBindJSON(&technicalService); err != nil {
+		response := utils.HandleResponseModel(false, "Incorrect JSON Format", err, nil)
+		ctx.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	technicalServiceModel, err := t.technicalServiceService.FindByID(idInt)
+	if err != nil {
+		responseErr := utils.HandleResponseModel(false, "Technical Service could not be found", err, nil)
+		ctx.JSON(http.StatusBadRequest, responseErr)
+		return
+	}
+
+	technicalServiceModel.ServiceName = technicalService.ServiceName
+	technicalServiceModel.Name = technicalService.Name
+	technicalServiceModel.Surname = technicalService.Surname
+	technicalServiceModel.Email = technicalService.Email
+	technicalServiceModel.PhoneNumber = technicalService.PhoneNumber
+	technicalServiceModel.About = technicalService.About
+	technicalServiceModel.Address = technicalService.Address
+
+	err = t.technicalServiceService.Update(&technicalServiceModel)
+	if err != nil {
+		response := utils.HandleResponseModel(false, "Technical Service could not be updated", err, nil)
+		ctx.JSON(http.StatusBadRequest, response)
+	}
+
+	response := utils.HandleResponseModel(true, "Technical Service updated successfully", nil, technicalServiceModel)
 	ctx.JSON(http.StatusOK, response)
 }
 
