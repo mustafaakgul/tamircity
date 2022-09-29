@@ -4,6 +4,8 @@ import (
 	"github.com/anthophora/tamircity/pkg/models/db"
 	"github.com/anthophora/tamircity/pkg/models/web"
 	"github.com/anthophora/tamircity/pkg/store/repositories"
+	"strconv"
+	"strings"
 )
 
 type TechnicalServiceShiftService interface {
@@ -25,7 +27,14 @@ func (t *technicalServiceShiftService) FindByTechnicalServiceId(technicalService
 		return nil, err
 	}
 	for _, technicalServiceShift := range technicalServiceShifts {
-		res = append(res, web.TechnicalServiceShiftResponse{Id: technicalServiceShift.ID, Day: technicalServiceShift.Day, StartOfShift: technicalServiceShift.StartOfShift, EndOfShift: technicalServiceShift.EndOfShift})
+		res = append(res, web.TechnicalServiceShiftResponse{
+			Id:           technicalServiceShift.ID,
+			Day:          technicalServiceShift.Day,
+			StartOfShift: strings.Join([]string{strconv.Itoa(technicalServiceShift.StartOfShift), "00"}, ":"),
+			EndOfShift:   strings.Join([]string{strconv.Itoa(technicalServiceShift.EndOfShift), "00"}, ":"),
+			//StartOfShift: technicalServiceShift.StartOfShift,
+			//EndOfShift:   technicalServiceShift.EndOfShift,
+		})
 	}
 	return res, nil
 }
@@ -35,8 +44,10 @@ func (t *technicalServiceShiftService) Create(technicalServiceId int, req []web.
 	for _, technicalServiceShift := range req {
 		var technicalServiceShiftEntity db.TechnicalServiceShift
 		technicalServiceShiftEntity.Day = technicalServiceShift.Day
-		technicalServiceShiftEntity.StartOfShift = technicalServiceShift.StartOfShift
-		technicalServiceShiftEntity.EndOfShift = technicalServiceShift.EndOfShift
+		//technicalServiceShiftEntity.StartOfShift = technicalServiceShift.StartOfShift.Split(":")[0]
+		//technicalServiceShiftEntity.EndOfShift = technicalServiceShift.EndOfShift.Split(":")[0]
+		technicalServiceShiftEntity.StartOfShift, _ = strconv.Atoi(strings.Split(technicalServiceShift.StartOfShift, ":")[0])
+		technicalServiceShiftEntity.EndOfShift, _ = strconv.Atoi(strings.Split(technicalServiceShift.EndOfShift, ":")[0])
 
 		t.technicalServiceShiftStore.CreateOrUpdate(technicalServiceId, technicalServiceShiftEntity)
 	}

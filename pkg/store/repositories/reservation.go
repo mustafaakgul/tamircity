@@ -13,6 +13,7 @@ type reservationStore struct {
 
 type ReservationStore interface {
 	Create(reservation *db.Reservation) error
+	FindByID(id int) (*db.Reservation, error)
 	GetPendingListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error)
 	GetCompletedListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error)
 	GetCancelledListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error)
@@ -30,6 +31,13 @@ func NewReservationStore(db *gorm.DB) ReservationStore {
 
 func (r *reservationStore) Create(reservation *db.Reservation) error {
 	return r.db.Create(reservation).Error
+}
+
+func (r *reservationStore) FindByID(id int) (*db.Reservation, error) {
+	var reservation db.Reservation
+	err := r.db.First(&reservation, id).Error
+	//err := r.db.Where("id = ?", id).Preload("DeviceType").Preload("Brand").Preload("ModelEntity").Preload("FixType").Preload("ServiceType").Preload("ExtraService").Preload("TechnicalService").Find(&reservation).Error
+	return &reservation, err
 }
 
 func (r *reservationStore) GetPendingListByTechnicalServiceId(technicalServiceId int) ([]db.Reservation, error) {

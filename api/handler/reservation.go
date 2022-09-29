@@ -18,6 +18,7 @@ type reservationHandler struct {
 
 type ReservationHandler interface {
 	Create(ctx *gin.Context)
+	FindByID(ctx *gin.Context)
 	GetPendingList(ctx *gin.Context)
 	GetCompletedList(ctx *gin.Context)
 	GetCancelledList(ctx *gin.Context)
@@ -48,6 +49,25 @@ func (r *reservationHandler) Create(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, response)
 	}
 	response := utils.HandleResponseModel(true, "Rezervasyon başarı ile oluşturulmuştur.", nil, nil)
+	ctx.JSON(http.StatusOK, response)
+}
+
+func (r *reservationHandler) FindByID(ctx *gin.Context) {
+	id, err := strconv.Atoi(ctx.Param("id"))
+	if err != nil {
+		response := utils.HandleResponseModel(false, "Wrong Params", err, nil)
+		ctx.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	reservation, err := r.reservationService.FindByID(id)
+	if err != nil {
+		response := utils.HandleResponseModel(false, "Reservation could not be found", err, nil)
+		ctx.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	response := utils.HandleResponseModel(true, "Reservation Candidate found successfully", nil, reservation)
 	ctx.JSON(http.StatusOK, response)
 }
 

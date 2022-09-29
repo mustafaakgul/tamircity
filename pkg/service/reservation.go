@@ -13,6 +13,7 @@ type reservationService struct {
 
 type ReservationService interface {
 	Create(*web.ReservationCreateRequest) error
+	FindByID(id int) (*db.Reservation, error)
 	GetPendingListByTechnicalServiceId(technicalServiceId int) (response []web.ReservationPendingResponse, err error)
 	GetCompletedListByTechnicalServiceId(technicalServiceId int) (response []web.ReservationCompletedResponse, err error)
 	GetCancelledListByTechnicalServiceId(technicalServiceId int) (response []web.ReservationCancelledResponse, err error)
@@ -49,6 +50,10 @@ func (r *reservationService) Create(reservationReq *web.ReservationCreateRequest
 	reservation.Description = reservationReq.Description
 
 	return r.reservationStore.Create(&reservation)
+}
+
+func (r *reservationService) FindByID(id int) (*db.Reservation, error) {
+	return r.reservationStore.FindByID(id)
 }
 
 func (r *reservationService) GetPendingListByTechnicalServiceId(technicalServiceId int) (response []web.ReservationPendingResponse, err error) {
