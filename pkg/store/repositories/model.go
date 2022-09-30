@@ -81,7 +81,39 @@ func (m *modelStore) Search(query string) ([]db.Model, error) {
 }
 
 func (m *modelStore) Seed() error {
-	models := []*db.Model{seed_data.ModelIphone11, seed_data.ModelIphone12, seed_data.ModelIphone12Pro, seed_data.ModelSamsungGalaxyS7, seed_data.ModelSamsungGalaxyS9, seed_data.ModelLenovoM7, seed_data.ModelLenovoM8, seed_data.ModeliPad6, seed_data.ModeliPad9}
+	models := []*db.Model{
+		seed_data.ModelSamsungPC,
+		seed_data.ModelApplePC,
+		seed_data.ModelLenovoPC,
+		seed_data.ModelHpPC,
+		seed_data.ModelAsusPC,
+		seed_data.ModelAcerPC,
+		seed_data.ModelToshibaPC,
+		seed_data.ModelDellPC,
+		seed_data.ModelCasperPC,
+		seed_data.ModelHuaweiPC,
+		seed_data.ModelMSIPC,
+		seed_data.ModelMicrosoftPC,
+		seed_data.ModelMonsterPC,
+		seed_data.ModelAsusRogPC,
+		seed_data.ModelGpad7,
+		seed_data.ModelGpad8,
+		seed_data.ModelLGOther,
+		seed_data.ModelGMTAB,
+		seed_data.ModelGMTAB4,
+		seed_data.ModelGMTAB5,
+		seed_data.ModelGMTAB10,
+		seed_data.ModelGMTAB8,
+		seed_data.ModelIphone11,
+		seed_data.ModelIphone12,
+		seed_data.ModelIphone12Pro,
+		seed_data.ModelSamsungGalaxyS7,
+		seed_data.ModelSamsungGalaxyS9,
+		seed_data.ModelLenovoM7,
+		seed_data.ModelLenovoM8,
+		seed_data.ModeliPad6,
+		seed_data.ModeliPad9,
+	}
 
 	for _, model := range models {
 		if err := m.db.Create(&model).Error; err != nil {
