@@ -45,6 +45,7 @@ func (r *reservationService) Create(reservationReq *web.ReservationCreateRequest
 	reservation.EndOfHour = reservationReq.EndOfHour
 	reservation.Price = reservationReq.Price
 	reservation.FullName = reservationReq.FullName
+	reservation.Email = reservationReq.Email
 	reservation.PhoneNumber = reservationReq.PhoneNumber
 	reservation.SecondPhoneNumber = reservationReq.SecondPhoneNumber
 	reservation.Description = reservationReq.Description
