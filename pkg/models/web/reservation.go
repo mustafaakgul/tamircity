@@ -15,9 +15,10 @@ type ReservationCreateRequest struct {
 	EndOfHour          int       `json:"end_of_hour"`
 	Price              int       `json:"price"`
 	FullName           string    `json:"full_name"`
+	Email              string    `json:"email"`
 	PhoneNumber        string    `json:"phone_number"`
 	SecondPhoneNumber  string    `json:"second_phone_number"`
-	Description        string    `json:"second_phone"`
+	Description        string    `json:"description"`
 }
 
 type ReservationPendingResponse struct {
