@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/anthophora/tamircity/api/handler"
+	tech_service4 "github.com/anthophora/tamircity/api/handler/tech_service"
 	"github.com/anthophora/tamircity/api/routes"
 	tech_service2 "github.com/anthophora/tamircity/api/routes/tech_service"
 	"github.com/anthophora/tamircity/pkg/middleware"
@@ -67,17 +68,17 @@ func main() {
 	technicalServiceShiftService := tech_service3.NewTechnicalServiceShiftService(technicalServiceShiftStore)
 
 	// Handler
-	technicalServiceHandler := handler.NewTechnicalServiceHandler(technicalServiceService)
-	technicalServiceCandidateHandler := handler.NewTechnicalServiceCandidateHandler(technicalServiceCandidateService)
-	serviceTypeHandler := handler.NewServiceTypeHandler(serviceTypeService)
-	extraServiceHandler := handler.NewExtraServiceHandler(extraServiceService)
-	brandHandler := handler.NewBrandHandler(brandService)
-	modelHandler := handler.NewModelHandler(modelService)
-	fixTypeHandler := handler.NewFixTypeHandler(fixTypeService)
-	deviceTypeHandler := handler.NewDeviceTypeHandler(deviceTypeService)
-	reservationHandler := handler.NewReservationHandler(reservationService)
+	technicalServiceHandler := tech_service4.NewTechnicalServiceHandler(technicalServiceService)
+	technicalServiceCandidateHandler := tech_service4.NewTechnicalServiceCandidateHandler(technicalServiceCandidateService)
+	serviceTypeHandler := tech_service4.NewServiceTypeHandler(serviceTypeService)
+	extraServiceHandler := tech_service4.NewExtraServiceHandler(extraServiceService)
+	brandHandler := tech_service4.NewBrandHandler(brandService)
+	modelHandler := tech_service4.NewModelHandler(modelService)
+	fixTypeHandler := tech_service4.NewFixTypeHandler(fixTypeService)
+	deviceTypeHandler := tech_service4.NewDeviceTypeHandler(deviceTypeService)
+	reservationHandler := tech_service4.NewReservationHandler(reservationService)
 	userHandler := handler.NewUserHandler(userService)
-	technicalServiceShiftHandler := handler.NewTechnicalServiceShiftHandler(technicalServiceShiftService)
+	technicalServiceShiftHandler := tech_service4.NewTechnicalServiceShiftHandler(technicalServiceShiftService)
 
 	// Gin Server
 	router := gin.Default()

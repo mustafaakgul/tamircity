@@ -1,4 +1,4 @@
-package handler
+package tech_service
 
 import (
 	"github.com/anthophora/tamircity/pkg/service/tech_service"

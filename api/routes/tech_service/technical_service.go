@@ -1,11 +1,11 @@
 package tech_service
 
 import (
-	"github.com/anthophora/tamircity/api/handler"
+	"github.com/anthophora/tamircity/api/handler/tech_service"
 	"github.com/gin-gonic/gin"
 )
 
-func TechnicalServiceRouter(router *gin.Engine, technicalServiceHandler handler.TechnicalServiceHandler) {
+func TechnicalServiceRouter(router *gin.Engine, technicalServiceHandler tech_service.TechnicalServiceHandler) {
 	technicalServiceRoute := router.Group("api/v1/tech/technical-services")
 	{
 		technicalServiceRoute.GET("", technicalServiceHandler.GetAll)

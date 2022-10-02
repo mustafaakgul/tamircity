@@ -1,11 +1,11 @@
 package tech_service
 
 import (
-	"github.com/anthophora/tamircity/api/handler"
+	"github.com/anthophora/tamircity/api/handler/tech_service"
 	"github.com/gin-gonic/gin"
 )
 
-func TechnicalServiceCandidateRouter(router *gin.Engine, technicalServiceCandidateHandler handler.TechnicalServiceCandidateHandler) {
+func TechnicalServiceCandidateRouter(router *gin.Engine, technicalServiceCandidateHandler tech_service.TechnicalServiceCandidateHandler) {
 	technicalServiceCandidateRoute := router.Group("api/v1/tech/technical-services-candidate")
 	{
 		technicalServiceCandidateRoute.POST("/apply", technicalServiceCandidateHandler.Create)
