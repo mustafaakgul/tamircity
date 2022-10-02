@@ -1,11 +1,11 @@
 package routes
 
 import (
-	"github.com/anthophora/tamircity/api/handler/tech_service"
+	"github.com/anthophora/tamircity/api/handler"
 	"github.com/gin-gonic/gin"
 )
 
-func ReservationRouter(router *gin.Engine, reservationHandler tech_service.ReservationHandler) {
+func ReservationRouter(router *gin.Engine, reservationHandler handler.ReservationHandler) {
 	route := router.Group("api/v1/reservations")
 	{
 		route.POST("", reservationHandler.Create)

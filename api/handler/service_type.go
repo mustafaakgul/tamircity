@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"github.com/anthophora/tamircity/pkg/service/tech_service"
+	"github.com/anthophora/tamircity/pkg/service"
 	"github.com/anthophora/tamircity/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -12,10 +12,10 @@ type ServiceTypeHandler interface {
 }
 
 type serviceTypeHandler struct {
-	serviceTypeService tech_service.ServiceTypeService
+	serviceTypeService service.ServiceTypeService
 }
 
-func NewServiceTypeHandler(serviceTypeService tech_service.ServiceTypeService) ServiceTypeHandler {
+func NewServiceTypeHandler(serviceTypeService service.ServiceTypeService) ServiceTypeHandler {
 	return &serviceTypeHandler{
 		serviceTypeService: serviceTypeService,
 	}

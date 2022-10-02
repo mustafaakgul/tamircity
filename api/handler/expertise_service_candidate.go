@@ -2,65 +2,65 @@ package handler
 
 import (
 	"github.com/anthophora/tamircity/pkg/middleware"
-	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
-	tech_service3 "github.com/anthophora/tamircity/pkg/models/web/tech_service"
-	tech_service2 "github.com/anthophora/tamircity/pkg/service/tech_service"
+	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/models/web"
+	"github.com/anthophora/tamircity/pkg/service"
 	"github.com/anthophora/tamircity/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
 )
 
-type technicalServiceCandidateHandler struct {
-	technicalServiceCandidateService tech_service2.TechnicalServiceCandidateService
+type expertiseServiceCandidateHandler struct {
+	expertiseServiceCandidateService service.ExpertiseServiceCandidateService
 }
 
-type TechnicalServiceCandidateHandler interface {
+type ExpertiseServiceCandidateHandler interface {
 	Create(ctx *gin.Context)
 	Update(ctx *gin.Context)
 	FindByID(ctx *gin.Context)
 	PrepareAndSendAgreement(ctx *gin.Context)
-	ChangeStatusAndCreateTechnicalService(ctx *gin.Context)
+	ChangeStatusAndCreateExpertiseService(ctx *gin.Context)
 }
 
-func NewTechnicalServiceCandidateHandler(technicalServiceCandidateService tech_service2.TechnicalServiceCandidateService) TechnicalServiceCandidateHandler {
-	return &technicalServiceCandidateHandler{
-		technicalServiceCandidateService: technicalServiceCandidateService,
+func NewExpertiseServiceCandidateHandler(expertiseServiceCandidateService service.ExpertiseServiceCandidateService) ExpertiseServiceCandidateHandler {
+	return &expertiseServiceCandidateHandler{
+		expertiseServiceCandidateService: expertiseServiceCandidateService,
 	}
 }
 
-func (c *technicalServiceCandidateHandler) Create(ctx *gin.Context) {
-	var technicalServiceCandidate tech_service3.TechnicalServiceCandidateRequest
-	if err := ctx.ShouldBindJSON(&technicalServiceCandidate); err != nil {
+func (c *expertiseServiceCandidateHandler) Create(ctx *gin.Context) {
+	var expertiseServiceCandidate web.ExpertiseServiceCandidateRequest
+	if err := ctx.ShouldBindJSON(&expertiseServiceCandidate); err != nil {
 		response := utils.HandleResponseModel(false, "Incorrect JSON Format", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)
 		return
 	}
 
-	var technicalServiceCandidateModel tech_service.TechnicalServiceCandidate
-	technicalServiceCandidateModel.ServiceName = technicalServiceCandidate.ServiceName
-	technicalServiceCandidateModel.BusinessType = technicalServiceCandidate.BusinessType
-	technicalServiceCandidateModel.Address = technicalServiceCandidate.Address
-	technicalServiceCandidateModel.NumberofBranches = technicalServiceCandidate.NumberofBranches
-	technicalServiceCandidateModel.NumberofTechnicians = technicalServiceCandidate.NumberofTechnicians
-	technicalServiceCandidateModel.Name = technicalServiceCandidate.Name
-	technicalServiceCandidateModel.Surname = technicalServiceCandidate.Surname
-	technicalServiceCandidateModel.Email = technicalServiceCandidate.Email
-	technicalServiceCandidateModel.PhoneNumber = technicalServiceCandidate.PhoneNumber
-	technicalServiceCandidateModel.Status = tech_service.TechnicalServiceCandidateStatus_PENDING
+	var expertiseServiceCandidateModel db.ExpertiseServiceCandidate
+	expertiseServiceCandidateModel.ServiceName = expertiseServiceCandidate.ServiceName
+	expertiseServiceCandidateModel.BusinessType = expertiseServiceCandidate.BusinessType
+	expertiseServiceCandidateModel.Address = expertiseServiceCandidate.Address
+	expertiseServiceCandidateModel.NumberofBranches = expertiseServiceCandidate.NumberofBranches
+	expertiseServiceCandidateModel.NumberofTechnicians = expertiseServiceCandidate.NumberofTechnicians
+	expertiseServiceCandidateModel.Name = expertiseServiceCandidate.Name
+	expertiseServiceCandidateModel.Surname = expertiseServiceCandidate.Surname
+	expertiseServiceCandidateModel.Email = expertiseServiceCandidate.Email
+	expertiseServiceCandidateModel.PhoneNumber = expertiseServiceCandidate.PhoneNumber
+	expertiseServiceCandidateModel.Status = db.ExpertiseServiceCandidateStatus_PENDING
 
-	err := c.technicalServiceCandidateService.Create(&technicalServiceCandidateModel)
+	err := c.expertiseServiceCandidateService.Create(&expertiseServiceCandidateModel)
 	if err != nil {
-		response := utils.HandleResponseModel(false, "Technical Service Candidate could not be created", err, nil)
+		response := utils.HandleResponseModel(false, "Expertise Service Candidate could not be created", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)
 	}
 
-	response := utils.HandleResponseModel(true, "Technical Service Candidate created successfully", nil, technicalServiceCandidateModel)
+	response := utils.HandleResponseModel(true, "Expertise Service Candidate created successfully", nil, expertiseServiceCandidateModel)
 	ctx.JSON(http.StatusOK, response)
 }
 
-func (c *technicalServiceCandidateHandler) PrepareAndSendAgreement(ctx *gin.Context) {
-	var emailRequest tech_service3.EmailRequest
+func (c *expertiseServiceCandidateHandler) PrepareAndSendAgreement(ctx *gin.Context) {
+	var emailRequest web.EmailRequest
 	if err := ctx.ShouldBindJSON(&emailRequest); err != nil {
 		response := utils.HandleResponseModel(false, "Incorrect JSON Format", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)
@@ -73,7 +73,7 @@ func (c *technicalServiceCandidateHandler) PrepareAndSendAgreement(ctx *gin.Cont
 	middleware.SendEmail4Agreement(emailRequest.Email)
 }
 
-func (c *technicalServiceCandidateHandler) ChangeStatusAndCreateTechnicalService(ctx *gin.Context) {
+func (c *expertiseServiceCandidateHandler) ChangeStatusAndCreateExpertiseService(ctx *gin.Context) {
 	status, err := ctx.GetQuery("status")
 	if err != true {
 		response := utils.HandleResponseModel(false, "Status could not be found", err, nil)
@@ -97,88 +97,88 @@ func (c *technicalServiceCandidateHandler) ChangeStatusAndCreateTechnicalService
 	}
 }
 
-func (c *technicalServiceCandidateHandler) Update(ctx *gin.Context) {
-	var technicalServiceCandidate tech_service3.TechnicalServiceCandidateRequest
-	if err := ctx.ShouldBindJSON(&technicalServiceCandidate); err != nil {
+func (c *expertiseServiceCandidateHandler) Update(ctx *gin.Context) {
+	var expertiseServiceCandidate web.ExpertiseServiceCandidateRequest
+	if err := ctx.ShouldBindJSON(&expertiseServiceCandidate); err != nil {
 		response := utils.HandleResponseModel(false, "Incorrect JSON Format", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)
 		return
 	}
 
-	var technicalServiceCandidateModel tech_service.TechnicalServiceCandidate
-	technicalServiceCandidateModel.ServiceName = technicalServiceCandidate.ServiceName
-	technicalServiceCandidateModel.BusinessType = technicalServiceCandidate.BusinessType
-	technicalServiceCandidateModel.Address = technicalServiceCandidate.Address
-	technicalServiceCandidateModel.NumberofBranches = technicalServiceCandidate.NumberofBranches
-	technicalServiceCandidateModel.NumberofTechnicians = technicalServiceCandidate.NumberofTechnicians
-	technicalServiceCandidateModel.Name = technicalServiceCandidate.Name
-	technicalServiceCandidateModel.Surname = technicalServiceCandidate.Surname
-	technicalServiceCandidateModel.Email = technicalServiceCandidate.Email
-	technicalServiceCandidateModel.PhoneNumber = technicalServiceCandidate.PhoneNumber
-	technicalServiceCandidateModel.Status = tech_service.TechnicalServiceCandidateStatus_PENDING
+	var expertiseServiceCandidateModel db.ExpertiseServiceCandidate
+	expertiseServiceCandidateModel.ServiceName = expertiseServiceCandidate.ServiceName
+	expertiseServiceCandidateModel.BusinessType = expertiseServiceCandidate.BusinessType
+	expertiseServiceCandidateModel.Address = expertiseServiceCandidate.Address
+	expertiseServiceCandidateModel.NumberofBranches = expertiseServiceCandidate.NumberofBranches
+	expertiseServiceCandidateModel.NumberofTechnicians = expertiseServiceCandidate.NumberofTechnicians
+	expertiseServiceCandidateModel.Name = expertiseServiceCandidate.Name
+	expertiseServiceCandidateModel.Surname = expertiseServiceCandidate.Surname
+	expertiseServiceCandidateModel.Email = expertiseServiceCandidate.Email
+	expertiseServiceCandidateModel.PhoneNumber = expertiseServiceCandidate.PhoneNumber
+	expertiseServiceCandidateModel.Status = db.ExpertiseServiceCandidateStatus_PENDING
 
-	err := c.technicalServiceCandidateService.Update(&technicalServiceCandidateModel)
+	err := c.expertiseServiceCandidateService.Update(&expertiseServiceCandidateModel)
 	if err != nil {
-		response := utils.HandleResponseModel(false, "Technical Service Candidate could not be updated", err, nil)
+		response := utils.HandleResponseModel(false, "Expertise Service Candidate could not be updated", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)
 	}
 
-	response := utils.HandleResponseModel(true, "Technical Service Candidate updated successfully", nil, technicalServiceCandidateModel)
+	response := utils.HandleResponseModel(true, "Expertise Service Candidate updated successfully", nil, expertiseServiceCandidateModel)
 	ctx.JSON(http.StatusOK, response)
 }
 
-func (c *technicalServiceCandidateHandler) FindByID(ctx *gin.Context) {
+func (c *expertiseServiceCandidateHandler) FindByID(ctx *gin.Context) {
 	id := ctx.Param("id")
 	idInt, _ := strconv.Atoi(id)
 
-	technicalServiceCandidate, err := c.technicalServiceCandidateService.FindByID(idInt)
+	expertiseServiceCandidate, err := c.expertiseServiceCandidateService.FindByID(idInt)
 	if err != nil {
-		response := utils.HandleResponseModel(false, "Technical Service Candidate could not be found", err, nil)
+		response := utils.HandleResponseModel(false, "Expertise Service Candidate could not be found", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)
 		return
 	}
 
-	response := utils.HandleResponseModel(true, "Technical Service Candidate found successfully", nil, technicalServiceCandidate)
+	response := utils.HandleResponseModel(true, "Expertise Service Candidate found successfully", nil, expertiseServiceCandidate)
 	ctx.JSON(http.StatusOK, response)
 }
 
-func CreateApprovedFlow(ctx *gin.Context, c *technicalServiceCandidateHandler, id int) {
-	technicalServiceCandidate, err := c.technicalServiceCandidateService.FindByID(id)
+func CreateApprovedFlow(ctx *gin.Context, c *expertiseServiceCandidateHandler, id int) {
+	expertiseServiceCandidate, err := c.expertiseServiceCandidateService.FindByID(id)
 	if err != nil {
-		response := utils.HandleResponseModel(false, "Technical Service Candidate could not be found", err, nil)
+		response := utils.HandleResponseModel(false, "Expertise Service Candidate could not be found", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)
 	}
 
-	technicalServiceCandidate.Status = tech_service.TechnicalServiceCandidateStatus_APPROVED
-	err = c.technicalServiceCandidateService.Update(&technicalServiceCandidate)
+	expertiseServiceCandidate.Status = db.ExpertiseServiceCandidateStatus_APPROVED
+	err = c.expertiseServiceCandidateService.Update(&expertiseServiceCandidate)
 	if err != nil {
-		response := utils.HandleResponseModel(false, "Technical Service Candidate could not be updated", err, nil)
+		response := utils.HandleResponseModel(false, "Expertise Service Candidate could not be updated", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)
 	}
 
-	var technicalService tech_service.TechnicalService
-	technicalService.ServiceName = technicalServiceCandidate.ServiceName
-	technicalService.IdentityNumber = "123"
-	technicalService.PhoneNumber = technicalServiceCandidate.PhoneNumber
-	technicalService.Email = technicalServiceCandidate.Email
-	technicalService.Iban = "987"
-	technicalService.Address = technicalServiceCandidate.Address
+	var expertiseService db.ExpertiseService
+	expertiseService.ServiceName = expertiseServiceCandidate.ServiceName
+	expertiseService.IdentityNumber = "123"
+	expertiseService.PhoneNumber = expertiseServiceCandidate.PhoneNumber
+	expertiseService.Email = expertiseServiceCandidate.Email
+	expertiseService.Iban = "987"
+	expertiseService.Address = expertiseServiceCandidate.Address
 
-	// TODO: Create Technical Service
-	// err = c.technicalServiceService.Create(&technicalService)
+	// TODO: Create Expertise Service
+	// err = c.expertiseServiceService.Create(&expertiseService)
 }
 
-func CreateCancelledFlow(ctx *gin.Context, c *technicalServiceCandidateHandler, id int) {
-	technicalServiceCandidate, err := c.technicalServiceCandidateService.FindByID(id)
+func CreateCancelledFlow(ctx *gin.Context, c *expertiseServiceCandidateHandler, id int) {
+	expertiseServiceCandidate, err := c.expertiseServiceCandidateService.FindByID(id)
 	if err != nil {
-		response := utils.HandleResponseModel(false, "Technical Service Candidate could not be found", err, nil)
+		response := utils.HandleResponseModel(false, "Expertise Service Candidate could not be found", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)
 	}
 
-	technicalServiceCandidate.Status = tech_service.TechnicalServiceCandidateStatus_CANCELLED
-	err = c.technicalServiceCandidateService.Update(&technicalServiceCandidate)
+	expertiseServiceCandidate.Status = db.ExpertiseServiceCandidateStatus_CANCELLED
+	err = c.expertiseServiceCandidateService.Update(&expertiseServiceCandidate)
 	if err != nil {
-		response := utils.HandleResponseModel(false, "Technical Service Candidate could not be updated", err, nil)
+		response := utils.HandleResponseModel(false, "Expertise Service Candidate could not be updated", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)
 	}
 }

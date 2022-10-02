@@ -1,11 +1,11 @@
 package routes
 
 import (
-	"github.com/anthophora/tamircity/api/handler/tech_service"
+	"github.com/anthophora/tamircity/api/handler"
 	"github.com/gin-gonic/gin"
 )
 
-func BrandRouter(router *gin.Engine, brandHandler tech_service.BrandHandler) {
+func BrandRouter(router *gin.Engine, brandHandler handler.BrandHandler) {
 	route := router.Group("api/v1/brands")
 	{
 		route.GET("", brandHandler.GetAll)

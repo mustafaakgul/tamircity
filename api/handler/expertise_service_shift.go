@@ -1,35 +1,35 @@
 package handler
 
 import (
-	tech_service2 "github.com/anthophora/tamircity/pkg/models/web/tech_service"
-	"github.com/anthophora/tamircity/pkg/service/tech_service"
+	"github.com/anthophora/tamircity/pkg/models/web"
+	"github.com/anthophora/tamircity/pkg/service"
 	"github.com/anthophora/tamircity/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
 )
 
-type technicalServiceShiftHandler struct {
-	technicalServiceShiftService tech_service.TechnicalServiceShiftService
+type expertiseServiceShiftHandler struct {
+	expertiseServiceShiftService service.ExpertiseServiceShiftService
 }
 
-type TechnicalServiceShiftHandler interface {
-	GetByTechnicalServiceId(ctx *gin.Context)
+type ExpertiseServiceShiftHandler interface {
+	GetByExpertiseServiceId(ctx *gin.Context)
 	Create(ctx *gin.Context)
 }
 
-func NewTechnicalServiceShiftHandler(technicalServiceShiftService tech_service.TechnicalServiceShiftService) TechnicalServiceShiftHandler {
-	return &technicalServiceShiftHandler{technicalServiceShiftService: technicalServiceShiftService}
+func NewExpertiseServiceShiftHandler(expertiseServiceShiftService service.ExpertiseServiceShiftService) ExpertiseServiceShiftHandler {
+	return &expertiseServiceShiftHandler{expertiseServiceShiftService: expertiseServiceShiftService}
 }
-func (t *technicalServiceShiftHandler) GetByTechnicalServiceId(ctx *gin.Context) {
-	technicalServiceId, err := strconv.Atoi(ctx.Query("technical_service_id"))
+func (t *expertiseServiceShiftHandler) GetByExpertiseServiceId(ctx *gin.Context) {
+	expertiseServiceId, err := strconv.Atoi(ctx.Query("expertise_service_id"))
 	if err != nil {
 		responseErr := utils.HandleResponseModel(false, "", err, nil)
 		ctx.JSON(http.StatusBadRequest, responseErr)
 		return
 	}
-	//var technicalServices []web.TechnicalServiceSearchResponse
-	technicalServices, err := t.technicalServiceShiftService.FindByTechnicalServiceId(technicalServiceId)
+	//var expertiseServices []web.ExpertiseServiceSearchResponse
+	expertiseServices, err := t.expertiseServiceShiftService.FindByExpertiseServiceId(expertiseServiceId)
 
 	if err != nil {
 		responseErr := utils.HandleResponseModel(false, "", err, nil)
@@ -37,26 +37,26 @@ func (t *technicalServiceShiftHandler) GetByTechnicalServiceId(ctx *gin.Context)
 		return
 	}
 
-	response := utils.HandleResponseModel(true, "", nil, technicalServices)
+	response := utils.HandleResponseModel(true, "", nil, expertiseServices)
 	ctx.JSON(http.StatusOK, response)
 }
 
-func (t *technicalServiceShiftHandler) Create(ctx *gin.Context) {
-	technicalServiceId, err := strconv.Atoi(ctx.Query("technical_service_id"))
+func (t *expertiseServiceShiftHandler) Create(ctx *gin.Context) {
+	expertiseServiceId, err := strconv.Atoi(ctx.Query("expertise_service_id"))
 	if err != nil {
 		responseErr := utils.HandleResponseModel(false, "", err, nil)
 		ctx.JSON(http.StatusBadRequest, responseErr)
 		return
 	}
 
-	var technicalServiceShiftRequest []tech_service2.TechnicalServiceShiftRequest
-	if err := ctx.ShouldBindJSON(&technicalServiceShiftRequest); err != nil {
+	var expertiseServiceShiftRequest []web.ExpertiseServiceShiftRequest
+	if err := ctx.ShouldBindJSON(&expertiseServiceShiftRequest); err != nil {
 		response := utils.HandleResponseModel(false, "", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)
 		return
 	}
 
-	t.technicalServiceShiftService.Create(technicalServiceId, technicalServiceShiftRequest)
+	t.expertiseServiceShiftService.Create(expertiseServiceId, expertiseServiceShiftRequest)
 
 	if err != nil {
 		responseErr := utils.HandleResponseModel(false, "", err, nil)
