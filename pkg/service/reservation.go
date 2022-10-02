@@ -2,7 +2,7 @@ package service
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db"
-	"github.com/anthophora/tamircity/pkg/models/web/tech_service"
+	"github.com/anthophora/tamircity/pkg/models/web"
 	"github.com/anthophora/tamircity/pkg/store/repositories"
 	"time"
 )
@@ -12,14 +12,14 @@ type reservationService struct {
 }
 
 type ReservationService interface {
-	Create(*tech_service.ReservationCreateRequest) error
+	Create(*web.ReservationCreateRequest) error
 	FindByID(id int) (*db.Reservation, error)
-	GetPendingListByTechnicalServiceId(technicalServiceId int) (response []tech_service.ReservationPendingResponse, err error)
-	GetCompletedListByTechnicalServiceId(technicalServiceId int) (response []tech_service.ReservationCompletedResponse, err error)
-	GetCancelledListByTechnicalServiceId(technicalServiceId int) (response []tech_service.ReservationCancelledResponse, err error)
-	GetApprovedListByTechnicalServiceId(technicalServiceId int) (response []tech_service.ReservationApprovedResponse, err error)
-	GetApprovedListByTechnicalServiceIdAndDatetime(technicalServiceId int, reservationDate time.Time) (response []tech_service.ReservationApprovedResponse, err error)
-	GetPendingAndCompletedReservationCount(technicalServiceId int) (tech_service.ReservationPendingAndCompletedCountResponse, error)
+	GetPendingListByExpertiseServiceId(expertiseServiceId int) (response []web.ReservationPendingResponse, err error)
+	GetCompletedListByExpertiseServiceId(expertiseServiceId int) (response []web.ReservationCompletedResponse, err error)
+	GetCancelledListByExpertiseServiceId(expertiseServiceId int) (response []web.ReservationCancelledResponse, err error)
+	GetApprovedListByExpertiseServiceId(expertiseServiceId int) (response []web.ReservationApprovedResponse, err error)
+	GetApprovedListByExpertiseServiceIdAndDatetime(expertiseServiceId int, reservationDate time.Time) (response []web.ReservationApprovedResponse, err error)
+	GetPendingAndCompletedReservationCount(expertiseServiceId int) (web.ReservationPendingAndCompletedCountResponse, error)
 	UpdateReservationStatus(int, db.ReservationStatus) error
 	ChangeOperationStatus(int, db.OperationStatus) error
 }
@@ -31,15 +31,13 @@ func NewReservationService(reservationStore repositories.ReservationStore) Reser
 }
 
 // TO DO : Gerekli kontroller sağlanmalı her alan için.
-func (r *reservationService) Create(reservationReq *tech_service.ReservationCreateRequest) error {
+func (r *reservationService) Create(reservationReq *web.ReservationCreateRequest) error {
 	var reservation db.Reservation
 	reservation.DeviceTypeId = reservationReq.DeviceTypeId
 	reservation.BrandId = reservationReq.BrandId
 	reservation.ModelId = reservationReq.ModelId
-	reservation.FixTypeId = reservationReq.FixTypeId
 	reservation.ServiceTypeId = reservationReq.ServiceTypeId
-	reservation.ExtraServiceId = reservationReq.ExtraServiceId
-	reservation.TechnicalServiceId = reservationReq.TechnicalServiceId
+	reservation.ExpertiseServiceId = reservationReq.ExpertiseServiceId
 	reservation.ReservationDate = reservationReq.ReservationDate
 	reservation.StartOfHour = reservationReq.StartOfHour
 	reservation.EndOfHour = reservationReq.EndOfHour
@@ -57,23 +55,21 @@ func (r *reservationService) FindByID(id int) (*db.Reservation, error) {
 	return r.reservationStore.FindByID(id)
 }
 
-func (r *reservationService) GetPendingListByTechnicalServiceId(technicalServiceId int) (response []tech_service.ReservationPendingResponse, err error) {
-	reservations, err := r.reservationStore.GetPendingListByTechnicalServiceId(technicalServiceId)
+func (r *reservationService) GetPendingListByExpertiseServiceId(expertiseServiceId int) (response []web.ReservationPendingResponse, err error) {
+	reservations, err := r.reservationStore.GetPendingListByExpertiseServiceId(expertiseServiceId)
 
 	if err != nil {
 		return nil, err
 	}
 
 	for _, reservation := range reservations {
-		var reservationResponse tech_service.ReservationPendingResponse
+		var reservationResponse web.ReservationPendingResponse
 		reservationResponse.ReservationId = int(reservation.ID)
 		reservationResponse.ReservationDate = reservation.ReservationDate
 		reservationResponse.DeviceTypeName = reservation.DeviceType.Name
 		reservationResponse.BrandName = reservation.Brand.Name
 		reservationResponse.ModelName = reservation.ModelEntity.Name
-		reservationResponse.FixTypeName = reservation.FixType.Description // ?
 		reservationResponse.ServiceTypeName = reservation.ServiceType.Description
-		reservationResponse.ExtraServiceName = reservation.ExtraService.Description
 		reservationResponse.FullName = reservation.FullName
 		reservationResponse.Email = reservation.Email
 		reservationResponse.PhoneNumber = reservation.PhoneNumber
@@ -84,23 +80,21 @@ func (r *reservationService) GetPendingListByTechnicalServiceId(technicalService
 	return response, nil
 }
 
-func (r *reservationService) GetCompletedListByTechnicalServiceId(technicalServiceId int) (response []tech_service.ReservationCompletedResponse, err error) {
-	reservations, err := r.reservationStore.GetCompletedListByTechnicalServiceId(technicalServiceId)
+func (r *reservationService) GetCompletedListByExpertiseServiceId(expertiseServiceId int) (response []web.ReservationCompletedResponse, err error) {
+	reservations, err := r.reservationStore.GetCompletedListByExpertiseServiceId(expertiseServiceId)
 
 	if err != nil {
 		return nil, err
 	}
 
 	for _, reservation := range reservations {
-		var reservationResponse tech_service.ReservationCompletedResponse
+		var reservationResponse web.ReservationCompletedResponse
 		reservationResponse.ReservationId = int(reservation.ID)
 		reservationResponse.ReservationDate = reservation.ReservationDate
 		reservationResponse.DeviceTypeName = reservation.DeviceType.Name
 		reservationResponse.BrandName = reservation.Brand.Name
 		reservationResponse.ModelName = reservation.ModelEntity.Name
-		reservationResponse.FixTypeName = reservation.FixType.Description // ?
 		reservationResponse.ServiceTypeName = reservation.ServiceType.Description
-		reservationResponse.ExtraServiceName = reservation.ExtraService.Description
 		reservationResponse.FullName = reservation.FullName
 		reservationResponse.Email = reservation.Email
 		reservationResponse.PhoneNumber = reservation.PhoneNumber
@@ -111,23 +105,21 @@ func (r *reservationService) GetCompletedListByTechnicalServiceId(technicalServi
 	return response, nil
 }
 
-func (r *reservationService) GetApprovedListByTechnicalServiceId(technicalServiceId int) (response []tech_service.ReservationApprovedResponse, err error) {
-	reservations, err := r.reservationStore.GetApprovedListByTechnicalServiceId(technicalServiceId)
+func (r *reservationService) GetApprovedListByExpertiseServiceId(expertiseServiceId int) (response []web.ReservationApprovedResponse, err error) {
+	reservations, err := r.reservationStore.GetApprovedListByExpertiseServiceId(expertiseServiceId)
 
 	if err != nil {
 		return nil, err
 	}
 
 	for _, reservation := range reservations {
-		var reservationResponse tech_service.ReservationApprovedResponse
+		var reservationResponse web.ReservationApprovedResponse
 		reservationResponse.ReservationId = int(reservation.ID)
 		reservationResponse.ReservationDate = reservation.ReservationDate
 		reservationResponse.DeviceTypeName = reservation.DeviceType.Name
 		reservationResponse.BrandName = reservation.Brand.Name
 		reservationResponse.ModelName = reservation.ModelEntity.Name
-		reservationResponse.FixTypeName = reservation.FixType.Description // ?
 		reservationResponse.ServiceTypeName = reservation.ServiceType.Description
-		reservationResponse.ExtraServiceName = reservation.ExtraService.Description
 		reservationResponse.FullName = reservation.FullName
 		reservationResponse.Email = reservation.Email
 		reservationResponse.PhoneNumber = reservation.PhoneNumber
@@ -138,23 +130,21 @@ func (r *reservationService) GetApprovedListByTechnicalServiceId(technicalServic
 	return response, nil
 }
 
-func (r *reservationService) GetApprovedListByTechnicalServiceIdAndDatetime(technicalServiceId int, reservationDate time.Time) (response []tech_service.ReservationApprovedResponse, err error) {
-	reservations, err := r.reservationStore.GetApprovedListByTechnicalServiceIdAndDatetime(technicalServiceId, reservationDate)
+func (r *reservationService) GetApprovedListByExpertiseServiceIdAndDatetime(expertiseServiceId int, reservationDate time.Time) (response []web.ReservationApprovedResponse, err error) {
+	reservations, err := r.reservationStore.GetApprovedListByExpertiseServiceIdAndDatetime(expertiseServiceId, reservationDate)
 
 	if err != nil {
 		return nil, err
 	}
 
 	for _, reservation := range reservations {
-		var reservationResponse tech_service.ReservationApprovedResponse
+		var reservationResponse web.ReservationApprovedResponse
 		reservationResponse.ReservationId = int(reservation.ID)
 		reservationResponse.ReservationDate = reservation.ReservationDate
 		reservationResponse.DeviceTypeName = reservation.DeviceType.Name
 		reservationResponse.BrandName = reservation.Brand.Name
 		reservationResponse.ModelName = reservation.ModelEntity.Name
-		reservationResponse.FixTypeName = reservation.FixType.Description // ?
 		reservationResponse.ServiceTypeName = reservation.ServiceType.Description
-		reservationResponse.ExtraServiceName = reservation.ExtraService.Description
 		reservationResponse.FullName = reservation.FullName
 		reservationResponse.Email = reservation.Email
 		reservationResponse.PhoneNumber = reservation.PhoneNumber
@@ -165,23 +155,21 @@ func (r *reservationService) GetApprovedListByTechnicalServiceIdAndDatetime(tech
 	return response, nil
 }
 
-func (r *reservationService) GetCancelledListByTechnicalServiceId(technicalServiceId int) (response []tech_service.ReservationCancelledResponse, err error) {
-	reservations, err := r.reservationStore.GetCancelledListByTechnicalServiceId(technicalServiceId)
+func (r *reservationService) GetCancelledListByExpertiseServiceId(expertiseServiceId int) (response []web.ReservationCancelledResponse, err error) {
+	reservations, err := r.reservationStore.GetCancelledListByExpertiseServiceId(expertiseServiceId)
 
 	if err != nil {
 		return nil, err
 	}
 
 	for _, reservation := range reservations {
-		var reservationResponse tech_service.ReservationCancelledResponse
+		var reservationResponse web.ReservationCancelledResponse
 		reservationResponse.ReservationId = int(reservation.ID)
 		reservationResponse.ReservationDate = reservation.ReservationDate
 		reservationResponse.DeviceTypeName = reservation.DeviceType.Name
 		reservationResponse.BrandName = reservation.Brand.Name
 		reservationResponse.ModelName = reservation.ModelEntity.Name
-		reservationResponse.FixTypeName = reservation.FixType.Description // ?
 		reservationResponse.ServiceTypeName = reservation.ServiceType.Description
-		reservationResponse.ExtraServiceName = reservation.ExtraService.Description
 		reservationResponse.FullName = reservation.FullName
 		reservationResponse.Email = reservation.Email
 		reservationResponse.PhoneNumber = reservation.PhoneNumber
@@ -200,14 +188,14 @@ func (r *reservationService) ChangeOperationStatus(reservationId int, operationS
 	return r.reservationStore.ChangeOperationStatus(reservationId, operationStatus)
 }
 
-func (r *reservationService) GetPendingAndCompletedReservationCount(technicalServiceId int) (tech_service.ReservationPendingAndCompletedCountResponse, error) {
-	var response tech_service.ReservationPendingAndCompletedCountResponse
-	a, err := r.reservationStore.GetReservationCountWithStatus(technicalServiceId, db.ReservationStatus(0))
+func (r *reservationService) GetPendingAndCompletedReservationCount(expertiseServiceId int) (web.ReservationPendingAndCompletedCountResponse, error) {
+	var response web.ReservationPendingAndCompletedCountResponse
+	a, err := r.reservationStore.GetReservationCountWithStatus(expertiseServiceId, db.ReservationStatus(0))
 	if err != nil {
 		return response, err
 	}
 	response.PendingCount = a
-	b, err := r.reservationStore.GetReservationCountWithStatus(technicalServiceId, db.ReservationStatus(1))
+	b, err := r.reservationStore.GetReservationCountWithStatus(expertiseServiceId, db.ReservationStatus(1))
 	if err != nil {
 		return response, err
 	}
