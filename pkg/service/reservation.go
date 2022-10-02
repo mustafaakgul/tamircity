@@ -38,7 +38,7 @@ func (r *reservationService) Create(reservationReq *web.ReservationCreateRequest
 	reservation.ModelId = reservationReq.ModelId
 	reservation.ServiceTypeId = reservationReq.ServiceTypeId
 	reservation.ExpertiseServiceId = reservationReq.ExpertiseServiceId
-	reservation.ReservationDate = reservationReq.ReservationDate
+	reservation.Date = reservationReq.ReservationDate
 	reservation.StartOfHour = reservationReq.StartOfHour
 	reservation.EndOfHour = reservationReq.EndOfHour
 	reservation.Price = reservationReq.Price
@@ -65,7 +65,7 @@ func (r *reservationService) GetPendingListByExpertiseServiceId(expertiseService
 	for _, reservation := range reservations {
 		var reservationResponse web.ReservationPendingResponse
 		reservationResponse.ReservationId = int(reservation.ID)
-		reservationResponse.ReservationDate = reservation.ReservationDate
+		reservationResponse.ReservationDate = reservation.Date
 		reservationResponse.DeviceTypeName = reservation.DeviceType.Name
 		reservationResponse.BrandName = reservation.Brand.Name
 		reservationResponse.ModelName = reservation.ModelEntity.Name
@@ -90,7 +90,7 @@ func (r *reservationService) GetCompletedListByExpertiseServiceId(expertiseServi
 	for _, reservation := range reservations {
 		var reservationResponse web.ReservationCompletedResponse
 		reservationResponse.ReservationId = int(reservation.ID)
-		reservationResponse.ReservationDate = reservation.ReservationDate
+		reservationResponse.ReservationDate = reservation.Date
 		reservationResponse.DeviceTypeName = reservation.DeviceType.Name
 		reservationResponse.BrandName = reservation.Brand.Name
 		reservationResponse.ModelName = reservation.ModelEntity.Name
@@ -115,7 +115,7 @@ func (r *reservationService) GetApprovedListByExpertiseServiceId(expertiseServic
 	for _, reservation := range reservations {
 		var reservationResponse web.ReservationApprovedResponse
 		reservationResponse.ReservationId = int(reservation.ID)
-		reservationResponse.ReservationDate = reservation.ReservationDate
+		reservationResponse.ReservationDate = reservation.Date
 		reservationResponse.DeviceTypeName = reservation.DeviceType.Name
 		reservationResponse.BrandName = reservation.Brand.Name
 		reservationResponse.ModelName = reservation.ModelEntity.Name
@@ -140,7 +140,7 @@ func (r *reservationService) GetApprovedListByExpertiseServiceIdAndDatetime(expe
 	for _, reservation := range reservations {
 		var reservationResponse web.ReservationApprovedResponse
 		reservationResponse.ReservationId = int(reservation.ID)
-		reservationResponse.ReservationDate = reservation.ReservationDate
+		reservationResponse.ReservationDate = reservation.Date
 		reservationResponse.DeviceTypeName = reservation.DeviceType.Name
 		reservationResponse.BrandName = reservation.Brand.Name
 		reservationResponse.ModelName = reservation.ModelEntity.Name
@@ -165,7 +165,7 @@ func (r *reservationService) GetCancelledListByExpertiseServiceId(expertiseServi
 	for _, reservation := range reservations {
 		var reservationResponse web.ReservationCancelledResponse
 		reservationResponse.ReservationId = int(reservation.ID)
-		reservationResponse.ReservationDate = reservation.ReservationDate
+		reservationResponse.ReservationDate = reservation.Date
 		reservationResponse.DeviceTypeName = reservation.DeviceType.Name
 		reservationResponse.BrandName = reservation.Brand.Name
 		reservationResponse.ModelName = reservation.ModelEntity.Name

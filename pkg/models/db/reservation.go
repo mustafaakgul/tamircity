@@ -17,7 +17,8 @@ type Reservation struct {
 	ServiceType        *ServiceType `gorm:"foreignkey:ServiceTypeId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	ExpertiseServiceId int
 	ExpertiseService   *ExpertiseService `gorm:"foreignkey:ExpertiseServiceId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
-	ReservationDate    time.Time
+	Date               time.Time
+	WeekDay            time.Weekday
 	StartOfHour        int
 	EndOfHour          int
 	Price              int
