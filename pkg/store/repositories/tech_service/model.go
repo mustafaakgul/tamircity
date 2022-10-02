@@ -2,7 +2,7 @@ package tech_service
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
-	"github.com/anthophora/tamircity/pkg/store/seed_data"
+	tech_service2 "github.com/anthophora/tamircity/pkg/store/seed_data/tech_service"
 	"gorm.io/gorm"
 )
 
@@ -82,37 +82,37 @@ func (m *modelStore) Search(query string) ([]tech_service.Model, error) {
 
 func (m *modelStore) Seed() error {
 	models := []*tech_service.Model{
-		seed_data.ModelSamsungPC,
-		seed_data.ModelApplePC,
-		seed_data.ModelLenovoPC,
-		seed_data.ModelHpPC,
-		seed_data.ModelAsusPC,
-		seed_data.ModelAcerPC,
-		seed_data.ModelToshibaPC,
-		seed_data.ModelDellPC,
-		seed_data.ModelCasperPC,
-		seed_data.ModelHuaweiPC,
-		seed_data.ModelMSIPC,
-		seed_data.ModelMicrosoftPC,
-		seed_data.ModelMonsterPC,
-		seed_data.ModelAsusRogPC,
-		seed_data.ModelGpad7,
-		seed_data.ModelGpad8,
-		seed_data.ModelLGOther,
-		seed_data.ModelGMTAB,
-		seed_data.ModelGMTAB4,
-		seed_data.ModelGMTAB5,
-		seed_data.ModelGMTAB10,
-		seed_data.ModelGMTAB8,
-		seed_data.ModelIphone11,
-		seed_data.ModelIphone12,
-		seed_data.ModelIphone12Pro,
-		seed_data.ModelSamsungGalaxyS7,
-		seed_data.ModelSamsungGalaxyS9,
-		seed_data.ModelLenovoM7,
-		seed_data.ModelLenovoM8,
-		seed_data.ModeliPad6,
-		seed_data.ModeliPad9,
+		tech_service2.ModelSamsungPC,
+		tech_service2.ModelApplePC,
+		tech_service2.ModelLenovoPC,
+		tech_service2.ModelHpPC,
+		tech_service2.ModelAsusPC,
+		tech_service2.ModelAcerPC,
+		tech_service2.ModelToshibaPC,
+		tech_service2.ModelDellPC,
+		tech_service2.ModelCasperPC,
+		tech_service2.ModelHuaweiPC,
+		tech_service2.ModelMSIPC,
+		tech_service2.ModelMicrosoftPC,
+		tech_service2.ModelMonsterPC,
+		tech_service2.ModelAsusRogPC,
+		tech_service2.ModelGpad7,
+		tech_service2.ModelGpad8,
+		tech_service2.ModelLGOther,
+		tech_service2.ModelGMTAB,
+		tech_service2.ModelGMTAB4,
+		tech_service2.ModelGMTAB5,
+		tech_service2.ModelGMTAB10,
+		tech_service2.ModelGMTAB8,
+		tech_service2.ModelIphone11,
+		tech_service2.ModelIphone12,
+		tech_service2.ModelIphone12Pro,
+		tech_service2.ModelSamsungGalaxyS7,
+		tech_service2.ModelSamsungGalaxyS9,
+		tech_service2.ModelLenovoM7,
+		tech_service2.ModelLenovoM8,
+		tech_service2.ModeliPad6,
+		tech_service2.ModeliPad9,
 	}
 
 	for _, model := range models {

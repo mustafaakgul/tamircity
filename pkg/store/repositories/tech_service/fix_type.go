@@ -2,7 +2,7 @@ package tech_service
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
-	"github.com/anthophora/tamircity/pkg/store/seed_data"
+	tech_service2 "github.com/anthophora/tamircity/pkg/store/seed_data/tech_service"
 	"gorm.io/gorm"
 )
 
@@ -75,7 +75,7 @@ func (f *fixTypeStore) Search(query string) ([]tech_service.FixType, error) {
 
 func (f *fixTypeStore) Seed() error {
 
-	fixTypes := []*tech_service.FixType{seed_data.FixType1, seed_data.FixType2, seed_data.FixType3, seed_data.FixType4}
+	fixTypes := []*tech_service.FixType{tech_service2.FixType1, tech_service2.FixType2, tech_service2.FixType3, tech_service2.FixType4}
 
 	for _, fixType := range fixTypes {
 		if err := f.db.Create(&fixType).Error; err != nil {

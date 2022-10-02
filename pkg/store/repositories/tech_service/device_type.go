@@ -2,7 +2,7 @@ package tech_service
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
-	"github.com/anthophora/tamircity/pkg/store/seed_data"
+	tech_service2 "github.com/anthophora/tamircity/pkg/store/seed_data/tech_service"
 	"gorm.io/gorm"
 )
 
@@ -74,7 +74,7 @@ func (d *deviceTypeStore) Search(query string) ([]tech_service.DeviceType, error
 }
 
 func (d *deviceTypeStore) Seed() error {
-	deviceTypes := []*tech_service.DeviceType{seed_data.DeviceTypePc, seed_data.DeviceTypePhone, seed_data.DeviceTypeTablet}
+	deviceTypes := []*tech_service.DeviceType{tech_service2.DeviceTypePc, tech_service2.DeviceTypePhone, tech_service2.DeviceTypeTablet}
 	for _, deviceType := range deviceTypes {
 		if err := d.db.Create(&deviceType).Error; err != nil {
 			return err

@@ -2,7 +2,7 @@ package tech_service
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
-	"github.com/anthophora/tamircity/pkg/store/seed_data"
+	tech_service2 "github.com/anthophora/tamircity/pkg/store/seed_data/tech_service"
 	"gorm.io/gorm"
 	"time"
 )
@@ -85,9 +85,9 @@ func (t *technicalServiceStore) Search(query string) ([]tech_service.TechnicalSe
 
 func (t *technicalServiceStore) Seed() error {
 
-	t.db.Create(&seed_data.TechnicalService1)
-	t.db.Create(&seed_data.TechnicalService2)
-	t.db.Create(&seed_data.TechnicalService3)
+	t.db.Create(&tech_service2.TechnicalService1)
+	t.db.Create(&tech_service2.TechnicalService2)
+	t.db.Create(&tech_service2.TechnicalService3)
 
 	return nil
 }

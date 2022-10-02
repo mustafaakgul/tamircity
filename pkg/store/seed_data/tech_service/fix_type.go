@@ -1,4 +1,4 @@
-package seed_data
+package tech_service
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db/tech_service"

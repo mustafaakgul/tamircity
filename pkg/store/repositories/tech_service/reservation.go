@@ -2,7 +2,7 @@ package tech_service
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
-	"github.com/anthophora/tamircity/pkg/store/seed_data"
+	tech_service2 "github.com/anthophora/tamircity/pkg/store/seed_data/tech_service"
 	"gorm.io/gorm"
 	"time"
 )
@@ -116,11 +116,11 @@ func (r *reservationStore) GetReservationCountWithStatus(technicalServiceId int,
 }
 
 func (r *reservationStore) Seed() error {
-	r.db.Create(&seed_data.Reservation1)
-	r.db.Create(&seed_data.Reservation2)
-	r.db.Create(&seed_data.Reservation3)
-	r.db.Create(&seed_data.Reservation4)
-	r.db.Create(&seed_data.Reservation5)
-	r.db.Create(&seed_data.Reservation6)
+	r.db.Create(&tech_service2.Reservation1)
+	r.db.Create(&tech_service2.Reservation2)
+	r.db.Create(&tech_service2.Reservation3)
+	r.db.Create(&tech_service2.Reservation4)
+	r.db.Create(&tech_service2.Reservation5)
+	r.db.Create(&tech_service2.Reservation6)
 	return nil
 }
