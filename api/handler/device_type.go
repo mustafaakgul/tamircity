@@ -1,9 +1,9 @@
-package tech_service
+package handler
 
 import (
-	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
-	tech_service3 "github.com/anthophora/tamircity/pkg/models/web/tech_service"
-	tech_service2 "github.com/anthophora/tamircity/pkg/service/tech_service"
+	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/models/web"
+	"github.com/anthophora/tamircity/pkg/service"
 	"net/http"
 	"strconv"
 
@@ -12,7 +12,7 @@ import (
 )
 
 type deviceTypeHandler struct {
-	deviceTypeService tech_service2.DeviceTypeService
+	deviceTypeService service.DeviceTypeService
 }
 
 type DeviceTypeHandler interface {
@@ -22,7 +22,7 @@ type DeviceTypeHandler interface {
 	GetById(ctx *gin.Context)
 }
 
-func NewDeviceTypeHandler(deviceTypeService tech_service2.DeviceTypeService) DeviceTypeHandler {
+func NewDeviceTypeHandler(deviceTypeService service.DeviceTypeService) DeviceTypeHandler {
 	return &deviceTypeHandler{
 		deviceTypeService: deviceTypeService,
 	}
@@ -42,14 +42,13 @@ func (d *deviceTypeHandler) GetAll(ctx *gin.Context) {
 }
 
 func (d *deviceTypeHandler) GetAllByActive(ctx *gin.Context) {
-
 	active, err := strconv.Atoi(ctx.Query("active"))
 	if err != nil {
 		responseErr := utils.HandleResponseModel(false, "", err, nil)
 		ctx.JSON(http.StatusBadRequest, responseErr)
 		return
 	}
-	var deviceTypes []tech_service3.DeviceTypeResponse
+	var deviceTypes []web.DeviceTypeResponse
 	if active == 1 {
 		deviceTypes, err = d.deviceTypeService.FindAllByActive()
 	}
@@ -65,14 +64,14 @@ func (d *deviceTypeHandler) GetAllByActive(ctx *gin.Context) {
 }
 
 func (d *deviceTypeHandler) Create(ctx *gin.Context) {
-	var deviceType tech_service3.DeviceTypeRequest
+	var deviceType web.DeviceTypeRequest
 	if err := ctx.ShouldBindJSON(&deviceType); err != nil {
 		response := utils.HandleResponseModel(false, "", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)
 		return
 	}
 
-	var deviceTypeModel tech_service.DeviceType
+	var deviceTypeModel db.DeviceType
 	deviceTypeModel.Name = deviceType.Name
 	deviceTypeModel.ShortDescription = deviceType.ShortDescription
 	deviceTypeModel.IsActive = deviceType.IsActive

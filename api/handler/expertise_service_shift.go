@@ -1,4 +1,4 @@
-package tech_service
+package handler
 
 import (
 	tech_service2 "github.com/anthophora/tamircity/pkg/models/web/tech_service"

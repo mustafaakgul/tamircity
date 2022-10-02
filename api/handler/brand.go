@@ -1,9 +1,9 @@
-package tech_service
+package handler
 
 import (
-	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
-	tech_service3 "github.com/anthophora/tamircity/pkg/models/web/tech_service"
-	tech_service2 "github.com/anthophora/tamircity/pkg/service/tech_service"
+	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/models/web"
+	"github.com/anthophora/tamircity/pkg/service"
 	"net/http"
 	"strconv"
 
@@ -12,7 +12,7 @@ import (
 )
 
 type brandHandler struct {
-	brandService tech_service2.BrandService
+	brandService service.BrandService
 }
 
 type BrandHandler interface {
@@ -21,7 +21,7 @@ type BrandHandler interface {
 	Create(ctx *gin.Context)
 }
 
-func NewBrandHandler(brandService tech_service2.BrandService) BrandHandler {
+func NewBrandHandler(brandService service.BrandService) BrandHandler {
 	return &brandHandler{
 		brandService: brandService,
 	}
@@ -58,14 +58,14 @@ func (b *brandHandler) GetAllByDeviceTypeId(ctx *gin.Context) {
 }
 
 func (b *brandHandler) Create(ctx *gin.Context) {
-	var brand tech_service3.BrandRequest
+	var brand web.BrandRequest
 	if err := ctx.ShouldBindJSON(&brand); err != nil {
 		response := utils.HandleResponseModel(false, "", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)
 		return
 	}
 
-	var brandModel tech_service.Brand
+	var brandModel db.Brand
 	brandModel.Name = brand.Name
 	brandModel.IsActive = brand.IsActive
 
