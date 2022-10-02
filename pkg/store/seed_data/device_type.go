@@ -1,22 +1,22 @@
-package tech_service
+package seed_data
 
 import (
-	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
+	"github.com/anthophora/tamircity/pkg/models/db"
 )
 
-var DeviceTypePc = &tech_service.DeviceType{
+var DeviceTypePc = &db.DeviceType{
 	Name:             "Personel Computer",
 	ShortDescription: "PC",
 	IsActive:         true,
 }
 
-var DeviceTypePhone = &tech_service.DeviceType{
+var DeviceTypePhone = &db.DeviceType{
 	Name:             "Phone",
 	ShortDescription: "Phone",
 	IsActive:         true,
 }
 
-var DeviceTypeTablet = &tech_service.DeviceType{
+var DeviceTypeTablet = &db.DeviceType{
 	Name:             "Tablet",
 	ShortDescription: "Tablet",
 	IsActive:         true,

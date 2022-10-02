@@ -1,109 +1,109 @@
-package tech_service
+package seed_data
 
 import (
-	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
+	"github.com/anthophora/tamircity/pkg/models/db"
 	"time"
 )
 
-var technicalService1ShiftMonday = &tech_service.TechnicalServiceShift{
+var expertiseService1ShiftMonday = &db.ExpertiseServiceShift{
 	Day:          time.Monday,
 	StartOfShift: 9,
 	EndOfShift:   18,
 	Status:       true,
 }
 
-var technicalService1ShiftTuesday = &tech_service.TechnicalServiceShift{
+var expertiseService1ShiftTuesday = &db.ExpertiseServiceShift{
 	Day:          time.Tuesday,
 	StartOfShift: 10,
 	EndOfShift:   17,
 	Status:       true,
 }
 
-var technicalService1ShiftWednesday = &tech_service.TechnicalServiceShift{
+var expertiseService1ShiftWednesday = &db.ExpertiseServiceShift{
 	Day:          time.Wednesday,
 	StartOfShift: 9,
 	EndOfShift:   19,
 	Status:       true,
 }
 
-var technicalService1ShiftThursday = &tech_service.TechnicalServiceShift{
+var expertiseService1ShiftThursday = &db.ExpertiseServiceShift{
 	Day:          time.Thursday,
 	StartOfShift: 8,
 	EndOfShift:   16,
 	Status:       true,
 }
 
-var technicalService1ShiftFriday = &tech_service.TechnicalServiceShift{
+var expertiseService1ShiftFriday = &db.ExpertiseServiceShift{
 	Day:          time.Friday,
 	StartOfShift: 8,
 	EndOfShift:   16,
 	Status:       true,
 }
 
-var technicalService2ShiftMonday = &tech_service.TechnicalServiceShift{
+var expertiseService2ShiftMonday = &db.ExpertiseServiceShift{
 	Day:          time.Monday,
 	StartOfShift: 10,
 	EndOfShift:   16,
 	Status:       true,
 }
 
-var technicalService2ShiftTuesday = &tech_service.TechnicalServiceShift{
+var expertiseService2ShiftTuesday = &db.ExpertiseServiceShift{
 	Day:          time.Tuesday,
 	StartOfShift: 8,
 	EndOfShift:   19,
 	Status:       true,
 }
 
-var technicalService2ShiftWednesday = &tech_service.TechnicalServiceShift{
+var expertiseService2ShiftWednesday = &db.ExpertiseServiceShift{
 	Day:          time.Wednesday,
 	StartOfShift: 9,
 	EndOfShift:   20,
 	Status:       true,
 }
 
-var technicalService2ShiftThursday = &tech_service.TechnicalServiceShift{
+var expertiseService2ShiftThursday = &db.ExpertiseServiceShift{
 	Day:          time.Thursday,
 	StartOfShift: 9,
 	EndOfShift:   21,
 	Status:       true,
 }
 
-var technicalService2ShiftFriday = &tech_service.TechnicalServiceShift{
+var expertiseService2ShiftFriday = &db.ExpertiseServiceShift{
 	Day:          time.Friday,
 	StartOfShift: 12,
 	EndOfShift:   22,
 	Status:       true,
 }
 
-var technicalService3ShiftMonday = &tech_service.TechnicalServiceShift{
+var expertiseService3ShiftMonday = &db.ExpertiseServiceShift{
 	Day:          time.Monday,
 	StartOfShift: 12,
 	EndOfShift:   13,
 	Status:       true,
 }
 
-var technicalService3ShiftTuesday = &tech_service.TechnicalServiceShift{
+var expertiseService3ShiftTuesday = &db.ExpertiseServiceShift{
 	Day:          time.Tuesday,
 	StartOfShift: 14,
 	EndOfShift:   15,
 	Status:       true,
 }
 
-var technicalService3ShiftWednesday = &tech_service.TechnicalServiceShift{
+var expertiseService3ShiftWednesday = &db.ExpertiseServiceShift{
 	Day:          time.Wednesday,
 	StartOfShift: 15,
 	EndOfShift:   22,
 	Status:       true,
 }
 
-var technicalService3ShiftThursday = &tech_service.TechnicalServiceShift{
+var expertiseService3ShiftThursday = &db.ExpertiseServiceShift{
 	Day:          time.Thursday,
 	StartOfShift: 6,
 	EndOfShift:   15,
 	Status:       true,
 }
 
-var technicalService3ShiftFriday = &tech_service.TechnicalServiceShift{
+var expertiseService3ShiftFriday = &db.ExpertiseServiceShift{
 	Day:          time.Friday,
 	StartOfShift: 10,
 	EndOfShift:   19,
