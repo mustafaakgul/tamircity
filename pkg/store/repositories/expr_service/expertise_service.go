@@ -1,7 +1,7 @@
 package expr_service
 
 import (
-	"github.com/anthophora/tamircity/pkg/models/db/expr_service"
+	"github.com/anthophora/tamircity/pkg/models/db"
 	"gorm.io/gorm"
 	"time"
 )
@@ -11,14 +11,14 @@ type expertiseServiceStore struct {
 }
 
 type ExpertiseServiceStore interface {
-	Create(model *expr_service.ExpertiseService) error
-	Update(model *expr_service.ExpertiseService) error
-	Delete(model *expr_service.ExpertiseService) error
-	FindAll() ([]expr_service.ExpertiseService, error)
-	FindByID(id int) (expr_service.ExpertiseService, error)
-	FindBy(column string, value interface{}) ([]expr_service.ExpertiseService, error)
-	FindByModelId(modelId int) ([]expr_service.ExpertiseService, error)
-	Search(query string) ([]expr_service.ExpertiseService, error)
+	Create(model *db.ExpertiseService) error
+	Update(model *db.ExpertiseService) error
+	Delete(model *db.ExpertiseService) error
+	FindAll() ([]db.ExpertiseService, error)
+	FindByID(id int) (db.ExpertiseService, error)
+	FindBy(column string, value interface{}) ([]db.ExpertiseService, error)
+	FindByModelId(modelId int) ([]db.ExpertiseService, error)
+	Search(query string) ([]db.ExpertiseService, error)
 	Seed() error
 }
 
@@ -26,39 +26,39 @@ func NewExpertiseServiceStore(db *gorm.DB) ExpertiseServiceStore {
 	return &expertiseServiceStore{db: db}
 }
 
-func (t *expertiseServiceStore) Create(model *expr_service.ExpertiseService) error {
+func (t *expertiseServiceStore) Create(model *db.ExpertiseService) error {
 	return t.db.Create(model).Error
 }
 
-func (t *expertiseServiceStore) Update(model *expr_service.ExpertiseService) error {
+func (t *expertiseServiceStore) Update(model *db.ExpertiseService) error {
 	return t.db.Save(model).Error
 }
 
-func (t *expertiseServiceStore) Delete(model *expr_service.ExpertiseService) error {
+func (t *expertiseServiceStore) Delete(model *db.ExpertiseService) error {
 	return t.db.Delete(model).Error
 }
 
-func (t *expertiseServiceStore) FindAll() ([]expr_service.ExpertiseService, error) {
-	var models []expr_service.ExpertiseService
+func (t *expertiseServiceStore) FindAll() ([]db.ExpertiseService, error) {
+	var models []db.ExpertiseService
 	err := t.db.Find(&models).Error
 	return models, err
 }
 
-func (t *expertiseServiceStore) FindByID(id int) (expr_service.ExpertiseService, error) {
-	var model expr_service.ExpertiseService
+func (t *expertiseServiceStore) FindByID(id int) (db.ExpertiseService, error) {
+	var model db.ExpertiseService
 	err := t.db.First(&model, id).Error
 	return model, err
 }
 
-func (t *expertiseServiceStore) FindBy(column string, value interface{}) ([]expr_service.ExpertiseService, error) {
-	var models []expr_service.ExpertiseService
+func (t *expertiseServiceStore) FindBy(column string, value interface{}) ([]db.ExpertiseService, error) {
+	var models []db.ExpertiseService
 	err := t.db.Where(column+" = ?", value).Find(&models).Error
 	return models, err
 }
 
 // TODO : day alani su an icin time.Monday (1) olarak sabit gonderilemektedir. Yeterli data eklendiginde time.Now().Weekday()
-func (t *expertiseServiceStore) FindByModelId(modelId int) ([]expr_service.ExpertiseService, error) {
-	var expertiseServices []expr_service.ExpertiseService
+func (t *expertiseServiceStore) FindByModelId(modelId int) ([]db.ExpertiseService, error) {
+	var expertiseServices []db.ExpertiseService
 	err := t.db.Joins("INNER JOIN expertise_services_models on expertise_services.id = expertise_services_models.expertise_service_id").Where("expertise_services_models.model_id = ?", modelId).Preload("ExpertiseServiceShifts", "day = ?", time.Monday).Preload("ExpertiseServiceReservations").Find(&expertiseServices).Error
 	return expertiseServices, err
 }
@@ -76,8 +76,8 @@ func (t *expertiseServiceStore) FindReservations(expertiseServiceId uint, dateTi
 	return expertiseServices, err
 }*/
 
-func (t *expertiseServiceStore) Search(query string) ([]expr_service.ExpertiseService, error) {
-	var models []expr_service.ExpertiseService
+func (t *expertiseServiceStore) Search(query string) ([]db.ExpertiseService, error) {
+	var models []db.ExpertiseService
 	err := t.db.Where("name LIKE ?", "%"+query+"%").Find(&models).Error
 	return models, err
 }

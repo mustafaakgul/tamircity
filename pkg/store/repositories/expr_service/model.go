@@ -1,7 +1,7 @@
 package expr_service
 
 import (
-	"github.com/anthophora/tamircity/pkg/models/db/expr_service"
+	"github.com/anthophora/tamircity/pkg/models/db"
 	"gorm.io/gorm"
 )
 
@@ -11,14 +11,14 @@ type modelStore struct {
 
 type ModelStore interface {
 	Migration()
-	Create(model *expr_service.Model) error
-	Update(model *expr_service.Model) error
-	Delete(model *expr_service.Model) error
-	FindAll() ([]expr_service.Model, error)
-	FindByID(id int) (expr_service.Model, error)
-	FindBy(column string, value interface{}) ([]expr_service.Model, error)
-	Where(brandId int, deviceTypeId int) ([]expr_service.Model, error)
-	Search(query string) ([]expr_service.Model, error)
+	Create(model *db.Model) error
+	Update(model *db.Model) error
+	Delete(model *db.Model) error
+	FindAll() ([]db.Model, error)
+	FindByID(id int) (db.Model, error)
+	FindBy(column string, value interface{}) ([]db.Model, error)
+	Where(brandId int, deviceTypeId int) ([]db.Model, error)
+	Search(query string) ([]db.Model, error)
 	Seed() error
 }
 
@@ -27,41 +27,41 @@ func NewModelStore(db *gorm.DB) ModelStore {
 }
 
 func (m *modelStore) Migration() {
-	m.db.AutoMigrate(&expr_service.Model{})
+	m.db.AutoMigrate(&db.Model{})
 }
 
-func (m *modelStore) Create(model *expr_service.Model) error {
+func (m *modelStore) Create(model *db.Model) error {
 	return m.db.Create(model).Error
 }
 
-func (m *modelStore) Update(model *expr_service.Model) error {
+func (m *modelStore) Update(model *db.Model) error {
 	return m.db.Save(model).Error
 }
 
-func (m *modelStore) Delete(model *expr_service.Model) error {
+func (m *modelStore) Delete(model *db.Model) error {
 	return m.db.Delete(model).Error
 }
 
-func (m *modelStore) FindAll() ([]expr_service.Model, error) {
-	var models []expr_service.Model
+func (m *modelStore) FindAll() ([]db.Model, error) {
+	var models []db.Model
 	err := m.db.Find(&models).Error
 	return models, err
 }
 
-func (m *modelStore) FindByID(id int) (expr_service.Model, error) {
-	var model expr_service.Model
+func (m *modelStore) FindByID(id int) (db.Model, error) {
+	var model db.Model
 	err := m.db.First(&model, id).Error
 	return model, err
 }
 
-func (m *modelStore) FindBy(column string, value interface{}) ([]expr_service.Model, error) {
-	var models []expr_service.Model
+func (m *modelStore) FindBy(column string, value interface{}) ([]db.Model, error) {
+	var models []db.Model
 	err := m.db.Where(column+" = ?", value).Find(&models).Error
 	return models, err
 }
 
-func (m *modelStore) Where(brandId int, deviceTypeId int) ([]expr_service.Model, error) {
-	var models []expr_service.Model
+func (m *modelStore) Where(brandId int, deviceTypeId int) ([]db.Model, error) {
+	var models []db.Model
 	/*err := m.db.Model(&models).
 	Joins("inner join models_brands on models.id = models_brands.model_id").
 	Where("models_brands.brand_id = ?", brandId).
@@ -72,8 +72,8 @@ func (m *modelStore) Where(brandId int, deviceTypeId int) ([]expr_service.Model,
 	return models, err
 }
 
-func (m *modelStore) Search(query string) ([]expr_service.Model, error) {
-	var models []expr_service.Model
+func (m *modelStore) Search(query string) ([]db.Model, error) {
+	var models []db.Model
 	err := m.db.Where("name LIKE ?", "%"+query+"%").Find(&models).Error
 	return models, err
 }

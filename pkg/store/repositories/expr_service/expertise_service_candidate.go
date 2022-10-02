@@ -1,7 +1,7 @@
 package expr_service
 
 import (
-	"github.com/anthophora/tamircity/pkg/models/db/expr_service"
+	"github.com/anthophora/tamircity/pkg/models/db"
 	"gorm.io/gorm"
 )
 
@@ -10,9 +10,9 @@ type expertiseServiceCandidateStore struct {
 }
 
 type ExpertiseServiceCandidateStore interface {
-	Create(model *expr_service.ExpertiseServiceCandidate) error
-	FindByID(id int) (expr_service.ExpertiseServiceCandidate, error)
-	Update(model *expr_service.ExpertiseServiceCandidate) error
+	Create(model *db.ExpertiseServiceCandidate) error
+	FindByID(id int) (db.ExpertiseServiceCandidate, error)
+	Update(model *db.ExpertiseServiceCandidate) error
 	//UpdateStatus(model *db.ExpertiseServiceCandidate) error
 }
 
@@ -20,16 +20,16 @@ func NewExpertiseServiceCandidateStore(db *gorm.DB) ExpertiseServiceCandidateSto
 	return &expertiseServiceCandidateStore{db: db}
 }
 
-func (c *expertiseServiceCandidateStore) Create(model *expr_service.ExpertiseServiceCandidate) error {
+func (c *expertiseServiceCandidateStore) Create(model *db.ExpertiseServiceCandidate) error {
 	return c.db.Create(model).Error
 }
 
-func (c *expertiseServiceCandidateStore) FindByID(id int) (expr_service.ExpertiseServiceCandidate, error) {
-	var model expr_service.ExpertiseServiceCandidate
+func (c *expertiseServiceCandidateStore) FindByID(id int) (db.ExpertiseServiceCandidate, error) {
+	var model db.ExpertiseServiceCandidate
 	err := c.db.First(&model, id).Error
 	return model, err
 }
 
-func (c *expertiseServiceCandidateStore) Update(model *expr_service.ExpertiseServiceCandidate) error {
+func (c *expertiseServiceCandidateStore) Update(model *db.ExpertiseServiceCandidate) error {
 	return c.db.Save(model).Error
 }
