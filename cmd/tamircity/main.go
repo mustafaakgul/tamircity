@@ -6,6 +6,7 @@ import (
 	tech_service2 "github.com/anthophora/tamircity/api/routes/tech_service"
 	"github.com/anthophora/tamircity/pkg/middleware"
 	"github.com/anthophora/tamircity/pkg/service"
+	tech_service3 "github.com/anthophora/tamircity/pkg/service/tech_service"
 	"github.com/anthophora/tamircity/pkg/store/repositories"
 	"github.com/anthophora/tamircity/pkg/store/repositories/tech_service"
 	postgres "github.com/anthophora/tamircity/pkg/store/shared/db"
@@ -53,17 +54,17 @@ func main() {
 	// This one need to be integrated systems
 
 	// Service
-	technicalServiceService := service.NewTechnicalServiceService(technicalServiceStore)
-	technicalServiceCandidateService := service.NewTechnicalServiceCandidateService(technicalServiceCandidateStore)
-	serviceTypeService := service.NewServiceTypeService(serviceTypeStore)
-	extraServiceService := service.NewExtraServiceService(extraServiceStore)
-	brandService := service.NewBrandService(brandStore)
-	modelService := service.NewModelService(modelStore)
-	fixTypeService := service.NewFixTypeService(fixTypeStore)
-	deviceTypeService := service.NewDeviceTypeService(deviceTypeStore)
-	reservationService := service.NewReservationService(reservationStore)
+	technicalServiceService := tech_service3.NewTechnicalServiceService(technicalServiceStore)
+	technicalServiceCandidateService := tech_service3.NewTechnicalServiceCandidateService(technicalServiceCandidateStore)
+	serviceTypeService := tech_service3.NewServiceTypeService(serviceTypeStore)
+	extraServiceService := tech_service3.NewExtraServiceService(extraServiceStore)
+	brandService := tech_service3.NewBrandService(brandStore)
+	modelService := tech_service3.NewModelService(modelStore)
+	fixTypeService := tech_service3.NewFixTypeService(fixTypeStore)
+	deviceTypeService := tech_service3.NewDeviceTypeService(deviceTypeStore)
+	reservationService := tech_service3.NewReservationService(reservationStore)
 	userService := service.NewUserService(userStore)
-	technicalServiceShiftService := service.NewTechnicalServiceShiftService(technicalServiceShiftStore)
+	technicalServiceShiftService := tech_service3.NewTechnicalServiceShiftService(technicalServiceShiftStore)
 
 	// Handler
 	technicalServiceHandler := handler.NewTechnicalServiceHandler(technicalServiceService)

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
 	"github.com/anthophora/tamircity/pkg/models/web"
-	"github.com/anthophora/tamircity/pkg/service"
+	tech_service2 "github.com/anthophora/tamircity/pkg/service/tech_service"
 	"github.com/anthophora/tamircity/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -13,7 +13,7 @@ import (
 )
 
 type reservationHandler struct {
-	reservationService service.ReservationService
+	reservationService tech_service2.ReservationService
 }
 
 type ReservationHandler interface {
@@ -29,7 +29,7 @@ type ReservationHandler interface {
 	ChangeOperationStatus(ctx *gin.Context)
 }
 
-func NewReservationHandler(reservationService service.ReservationService) ReservationHandler {
+func NewReservationHandler(reservationService tech_service2.ReservationService) ReservationHandler {
 	return &reservationHandler{
 		reservationService: reservationService,
 	}

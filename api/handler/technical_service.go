@@ -3,7 +3,7 @@ package handler
 import (
 	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
 	"github.com/anthophora/tamircity/pkg/models/web"
-	"github.com/anthophora/tamircity/pkg/service"
+	tech_service2 "github.com/anthophora/tamircity/pkg/service/tech_service"
 	"github.com/anthophora/tamircity/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -11,7 +11,7 @@ import (
 )
 
 type technicalServiceHandler struct {
-	technicalServiceService service.TechnicalServiceService
+	technicalServiceService tech_service2.TechnicalServiceService
 }
 
 type TechnicalServiceHandler interface {
@@ -23,7 +23,7 @@ type TechnicalServiceHandler interface {
 	Delete(ctx *gin.Context)
 }
 
-func NewTechnicalServiceHandler(technicalServiceService service.TechnicalServiceService) TechnicalServiceHandler {
+func NewTechnicalServiceHandler(technicalServiceService tech_service2.TechnicalServiceService) TechnicalServiceHandler {
 	return &technicalServiceHandler{
 		technicalServiceService: technicalServiceService,
 	}

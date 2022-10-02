@@ -3,16 +3,16 @@ package handler
 import (
 	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
 	"github.com/anthophora/tamircity/pkg/models/web"
+	tech_service2 "github.com/anthophora/tamircity/pkg/service/tech_service"
 	"net/http"
 	"strconv"
 
-	"github.com/anthophora/tamircity/pkg/service"
 	"github.com/anthophora/tamircity/pkg/utils"
 	"github.com/gin-gonic/gin"
 )
 
 type deviceTypeHandler struct {
-	deviceTypeService service.DeviceTypeService
+	deviceTypeService tech_service2.DeviceTypeService
 }
 
 type DeviceTypeHandler interface {
@@ -22,7 +22,7 @@ type DeviceTypeHandler interface {
 	GetById(ctx *gin.Context)
 }
 
-func NewDeviceTypeHandler(deviceTypeService service.DeviceTypeService) DeviceTypeHandler {
+func NewDeviceTypeHandler(deviceTypeService tech_service2.DeviceTypeService) DeviceTypeHandler {
 	return &deviceTypeHandler{
 		deviceTypeService: deviceTypeService,
 	}

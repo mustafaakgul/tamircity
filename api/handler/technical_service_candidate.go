@@ -4,7 +4,7 @@ import (
 	"github.com/anthophora/tamircity/pkg/middleware"
 	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
 	"github.com/anthophora/tamircity/pkg/models/web"
-	"github.com/anthophora/tamircity/pkg/service"
+	tech_service2 "github.com/anthophora/tamircity/pkg/service/tech_service"
 	"github.com/anthophora/tamircity/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -12,7 +12,7 @@ import (
 )
 
 type technicalServiceCandidateHandler struct {
-	technicalServiceCandidateService service.TechnicalServiceCandidateService
+	technicalServiceCandidateService tech_service2.TechnicalServiceCandidateService
 }
 
 type TechnicalServiceCandidateHandler interface {
@@ -23,7 +23,7 @@ type TechnicalServiceCandidateHandler interface {
 	ChangeStatusAndCreateTechnicalService(ctx *gin.Context)
 }
 
-func NewTechnicalServiceCandidateHandler(technicalServiceCandidateService service.TechnicalServiceCandidateService) TechnicalServiceCandidateHandler {
+func NewTechnicalServiceCandidateHandler(technicalServiceCandidateService tech_service2.TechnicalServiceCandidateService) TechnicalServiceCandidateHandler {
 	return &technicalServiceCandidateHandler{
 		technicalServiceCandidateService: technicalServiceCandidateService,
 	}

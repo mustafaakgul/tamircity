@@ -1,21 +1,21 @@
 package handler
 
 import (
-	"github.com/anthophora/tamircity/pkg/service"
+	"github.com/anthophora/tamircity/pkg/service/tech_service"
 	"github.com/anthophora/tamircity/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 type extraServiceHandler struct {
-	extraServiceService service.ExtraServiceService
+	extraServiceService tech_service.ExtraServiceService
 }
 
 type ExtraServiceHandler interface {
 	GetAll(ctx *gin.Context)
 }
 
-func NewExtraServiceHandler(extraServiceService service.ExtraServiceService) ExtraServiceHandler {
+func NewExtraServiceHandler(extraServiceService tech_service.ExtraServiceService) ExtraServiceHandler {
 	return &extraServiceHandler{
 		extraServiceService: extraServiceService,
 	}

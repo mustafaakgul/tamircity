@@ -2,7 +2,7 @@ package handler
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/web"
-	"github.com/anthophora/tamircity/pkg/service"
+	"github.com/anthophora/tamircity/pkg/service/tech_service"
 	"github.com/anthophora/tamircity/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -10,7 +10,7 @@ import (
 )
 
 type technicalServiceShiftHandler struct {
-	technicalServiceShiftService service.TechnicalServiceShiftService
+	technicalServiceShiftService tech_service.TechnicalServiceShiftService
 }
 
 type TechnicalServiceShiftHandler interface {
@@ -18,7 +18,7 @@ type TechnicalServiceShiftHandler interface {
 	Create(ctx *gin.Context)
 }
 
-func NewTechnicalServiceShiftHandler(technicalServiceShiftService service.TechnicalServiceShiftService) TechnicalServiceShiftHandler {
+func NewTechnicalServiceShiftHandler(technicalServiceShiftService tech_service.TechnicalServiceShiftService) TechnicalServiceShiftHandler {
 	return &technicalServiceShiftHandler{technicalServiceShiftService: technicalServiceShiftService}
 }
 func (t *technicalServiceShiftHandler) GetByTechnicalServiceId(ctx *gin.Context) {

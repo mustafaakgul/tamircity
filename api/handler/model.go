@@ -3,16 +3,16 @@ package handler
 import (
 	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
 	"github.com/anthophora/tamircity/pkg/models/web"
+	tech_service2 "github.com/anthophora/tamircity/pkg/service/tech_service"
 	"net/http"
 	"strconv"
 
-	"github.com/anthophora/tamircity/pkg/service"
 	"github.com/anthophora/tamircity/pkg/utils"
 	"github.com/gin-gonic/gin"
 )
 
 type modelHandler struct {
-	modelService service.ModelService
+	modelService tech_service2.ModelService
 }
 
 type ModelHandler interface {
@@ -21,7 +21,7 @@ type ModelHandler interface {
 	Create(ctx *gin.Context)
 }
 
-func NewModelHandler(modelService service.ModelService) ModelHandler {
+func NewModelHandler(modelService tech_service2.ModelService) ModelHandler {
 	return &modelHandler{
 		modelService: modelService,
 	}

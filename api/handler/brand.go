@@ -3,16 +3,16 @@ package handler
 import (
 	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
 	"github.com/anthophora/tamircity/pkg/models/web"
+	tech_service2 "github.com/anthophora/tamircity/pkg/service/tech_service"
 	"net/http"
 	"strconv"
 
-	"github.com/anthophora/tamircity/pkg/service"
 	"github.com/anthophora/tamircity/pkg/utils"
 	"github.com/gin-gonic/gin"
 )
 
 type brandHandler struct {
-	brandService service.BrandService
+	brandService tech_service2.BrandService
 }
 
 type BrandHandler interface {
@@ -21,7 +21,7 @@ type BrandHandler interface {
 	Create(ctx *gin.Context)
 }
 
-func NewBrandHandler(brandService service.BrandService) BrandHandler {
+func NewBrandHandler(brandService tech_service2.BrandService) BrandHandler {
 	return &brandHandler{
 		brandService: brandService,
 	}

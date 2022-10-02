@@ -1,16 +1,16 @@
 package handler
 
 import (
+	"github.com/anthophora/tamircity/pkg/service/tech_service"
 	"net/http"
 	"strconv"
 
-	"github.com/anthophora/tamircity/pkg/service"
 	"github.com/anthophora/tamircity/pkg/utils"
 	"github.com/gin-gonic/gin"
 )
 
 type fixTypeHandler struct {
-	fixTypeService service.FixTypeService
+	fixTypeService tech_service.FixTypeService
 }
 
 type FixTypeHandler interface {
@@ -18,7 +18,7 @@ type FixTypeHandler interface {
 	GetAllByDevicetypeId(ctx *gin.Context)
 }
 
-func NewFixTypeHandler(fixTypeService service.FixTypeService) FixTypeHandler {
+func NewFixTypeHandler(fixTypeService tech_service.FixTypeService) FixTypeHandler {
 	return &fixTypeHandler{
 		fixTypeService: fixTypeService,
 	}
