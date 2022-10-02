@@ -66,14 +66,15 @@ func (t *expertiseServiceService) FindByModelId(modelId int) (response []web.Exp
 			expertiseServiceResponse.ExpertiseServiceShift.EndOfShift = shift.EndOfShift
 		}
 
-		for _, reservation := range expertiseService.ExpertiseServiceReservations {
+		// TODO: Error
+		/*for _, reservation := range expertiseService.ExpertiseServiceReservations {
 			var expertiseServiceReservation web.ExpertiseServiceReservation
 			expertiseServiceReservation.Day = reservation.Day
 			expertiseServiceReservation.DateOfDay = reservation.DateofDay
 			expertiseServiceReservation.StartOfShift = reservation.StartOfShift
 			expertiseServiceReservation.EndOfShift = reservation.EndOfShift
 			expertiseServiceResponse.ExpertiseServiceReservations = append(expertiseServiceResponse.ExpertiseServiceReservations, expertiseServiceReservation)
-		}
+		}*/
 		response = append(response, expertiseServiceResponse)
 	}
 
