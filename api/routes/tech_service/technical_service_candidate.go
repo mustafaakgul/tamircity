@@ -1,4 +1,4 @@
-package routes
+package tech_service
 
 import (
 	"github.com/anthophora/tamircity/api/handler"
@@ -6,7 +6,7 @@ import (
 )
 
 func TechnicalServiceCandidateRouter(router *gin.Engine, technicalServiceCandidateHandler handler.TechnicalServiceCandidateHandler) {
-	technicalServiceCandidateRoute := router.Group("api/v1/technical-services-candidate")
+	technicalServiceCandidateRoute := router.Group("api/v1/tech/technical-services-candidate")
 	{
 		technicalServiceCandidateRoute.POST("/apply", technicalServiceCandidateHandler.Create)
 		technicalServiceCandidateRoute.PUT("/:id", technicalServiceCandidateHandler.Update)

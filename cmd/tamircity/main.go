@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/anthophora/tamircity/api/handler"
 	"github.com/anthophora/tamircity/api/routes"
+	tech_service2 "github.com/anthophora/tamircity/api/routes/tech_service"
 	"github.com/anthophora/tamircity/pkg/middleware"
 	"github.com/anthophora/tamircity/pkg/service"
 	"github.com/anthophora/tamircity/pkg/store/repositories"
@@ -88,17 +89,17 @@ func main() {
 	router.Use(cors.New(corsConfig))
 
 	// Routes
-	routes.BrandRouter(router, brandHandler)
-	routes.DeviceTypeRouter(router, deviceTypeHandler)
-	routes.ExtraServiceRouter(router, extraServiceHandler)
-	routes.FixTypeRouter(router, fixTypeHandler)
-	routes.ModelRouter(router, modelHandler)
-	routes.ServiceTypeRouter(router, serviceTypeHandler)
-	routes.TechnicalServiceRouter(router, technicalServiceHandler)
-	routes.TechnicalServiceCandidateRouter(router, technicalServiceCandidateHandler)
-	routes.ReservationRouter(router, reservationHandler)
+	tech_service2.BrandRouter(router, brandHandler)
+	tech_service2.DeviceTypeRouter(router, deviceTypeHandler)
+	tech_service2.ExtraServiceRouter(router, extraServiceHandler)
+	tech_service2.FixTypeRouter(router, fixTypeHandler)
+	tech_service2.ModelRouter(router, modelHandler)
+	tech_service2.ServiceTypeRouter(router, serviceTypeHandler)
+	tech_service2.TechnicalServiceRouter(router, technicalServiceHandler)
+	tech_service2.TechnicalServiceCandidateRouter(router, technicalServiceCandidateHandler)
+	tech_service2.ReservationRouter(router, reservationHandler)
 	routes.UserRouter(router, userHandler)
-	routes.TechnicalServiceShiftRouter(router, technicalServiceShiftHandler)
+	tech_service2.TechnicalServiceShiftRouter(router, technicalServiceShiftHandler)
 
 	port := os.Getenv("API_PORT")
 	router.Run(":" + port)

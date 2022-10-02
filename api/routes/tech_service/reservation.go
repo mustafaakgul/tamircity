@@ -1,4 +1,4 @@
-package routes
+package tech_service
 
 import (
 	"github.com/anthophora/tamircity/api/handler"
@@ -6,7 +6,7 @@ import (
 )
 
 func ReservationRouter(router *gin.Engine, reservationHandler handler.ReservationHandler) {
-	route := router.Group("api/v1/reservations")
+	route := router.Group("api/v1/tech/reservations")
 	{
 		route.POST("", reservationHandler.Create)
 		route.PATCH("/query", reservationHandler.UpdateReservationStatus)
@@ -16,7 +16,7 @@ func ReservationRouter(router *gin.Engine, reservationHandler handler.Reservatio
 		route.GET("/completed", reservationHandler.GetCompletedList)
 		route.GET("/cancelled", reservationHandler.GetCancelledList)
 		route.GET("/approved", reservationHandler.GetApprovedList)
-		route.GET("/approved/query", reservationHandler.GetApprovedListByExpertiseServiceIdAndDatetime)
+		route.GET("/approved/query", reservationHandler.GetApprovedListByTechnicalServiceIdAndDatetime)
 		route.GET("/change-operation-status/query", reservationHandler.ChangeOperationStatus)
 	}
 }

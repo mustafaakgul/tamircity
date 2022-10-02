@@ -1,4 +1,4 @@
-package routes
+package tech_service
 
 import (
 	"github.com/anthophora/tamircity/api/handler"
@@ -6,7 +6,7 @@ import (
 )
 
 func TechnicalServiceRouter(router *gin.Engine, technicalServiceHandler handler.TechnicalServiceHandler) {
-	technicalServiceRoute := router.Group("api/v1/technical-services")
+	technicalServiceRoute := router.Group("api/v1/tech/technical-services")
 	{
 		technicalServiceRoute.GET("", technicalServiceHandler.GetAll)
 		technicalServiceRoute.GET("/query", technicalServiceHandler.GetAllByFilter)

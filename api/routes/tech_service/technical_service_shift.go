@@ -1,4 +1,4 @@
-package routes
+package tech_service
 
 import (
 	"github.com/anthophora/tamircity/api/handler"
@@ -6,7 +6,7 @@ import (
 )
 
 func TechnicalServiceShiftRouter(router *gin.Engine, technicalServiceShiftHandler handler.TechnicalServiceShiftHandler) {
-	route := router.Group("api/v1/technical-service-shifts")
+	route := router.Group("api/v1/tech/technical-service-shifts")
 	{
 		route.GET("/query", technicalServiceShiftHandler.GetByTechnicalServiceId)
 		route.POST("", technicalServiceShiftHandler.Create)
