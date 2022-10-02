@@ -1,4 +1,4 @@
-package expr_service
+package repositories
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db"
