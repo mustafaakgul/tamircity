@@ -1,4 +1,4 @@
-package web
+package tech_service
 
 type TechnicalServiceCandidateRequest struct {
 	ServiceName         string `json:"service_name"`

@@ -2,7 +2,7 @@ package handler
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
-	"github.com/anthophora/tamircity/pkg/models/web"
+	tech_service3 "github.com/anthophora/tamircity/pkg/models/web/tech_service"
 	tech_service2 "github.com/anthophora/tamircity/pkg/service/tech_service"
 	"net/http"
 	"strconv"
@@ -67,7 +67,7 @@ func (m *modelHandler) GetAllByBrandIdDeviceTypeId(ctx *gin.Context) {
 }
 
 func (m *modelHandler) Create(ctx *gin.Context) {
-	var model web.ModelRequest
+	var model tech_service3.ModelRequest
 	if err := ctx.ShouldBindJSON(&model); err != nil {
 		response := utils.HandleResponseModel(false, "", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)

@@ -1,4 +1,4 @@
-package web
+package tech_service
 
 type BrandRequest struct {
 	Name        string               `json:"name"`

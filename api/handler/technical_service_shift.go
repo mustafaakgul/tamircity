@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"github.com/anthophora/tamircity/pkg/models/web"
+	tech_service2 "github.com/anthophora/tamircity/pkg/models/web/tech_service"
 	"github.com/anthophora/tamircity/pkg/service/tech_service"
 	"github.com/anthophora/tamircity/pkg/utils"
 	"github.com/gin-gonic/gin"
@@ -49,7 +49,7 @@ func (t *technicalServiceShiftHandler) Create(ctx *gin.Context) {
 		return
 	}
 
-	var technicalServiceShiftRequest []web.TechnicalServiceShiftRequest
+	var technicalServiceShiftRequest []tech_service2.TechnicalServiceShiftRequest
 	if err := ctx.ShouldBindJSON(&technicalServiceShiftRequest); err != nil {
 		response := utils.HandleResponseModel(false, "", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)

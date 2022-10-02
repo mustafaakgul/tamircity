@@ -1,4 +1,4 @@
-package web
+package tech_service
 
 type ServiceTypeResponse struct {
 	Id          uint   `json:"id"`

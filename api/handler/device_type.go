@@ -2,7 +2,7 @@ package handler
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
-	"github.com/anthophora/tamircity/pkg/models/web"
+	tech_service3 "github.com/anthophora/tamircity/pkg/models/web/tech_service"
 	tech_service2 "github.com/anthophora/tamircity/pkg/service/tech_service"
 	"net/http"
 	"strconv"
@@ -49,7 +49,7 @@ func (d *deviceTypeHandler) GetAllByActive(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, responseErr)
 		return
 	}
-	var deviceTypes []web.DeviceTypeResponse
+	var deviceTypes []tech_service3.DeviceTypeResponse
 	if active == 1 {
 		deviceTypes, err = d.deviceTypeService.FindAllByActive()
 	}
@@ -65,7 +65,7 @@ func (d *deviceTypeHandler) GetAllByActive(ctx *gin.Context) {
 }
 
 func (d *deviceTypeHandler) Create(ctx *gin.Context) {
-	var deviceType web.DeviceTypeRequest
+	var deviceType tech_service3.DeviceTypeRequest
 	if err := ctx.ShouldBindJSON(&deviceType); err != nil {
 		response := utils.HandleResponseModel(false, "", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)

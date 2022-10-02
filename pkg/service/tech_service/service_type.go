@@ -2,7 +2,7 @@ package tech_service
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
-	"github.com/anthophora/tamircity/pkg/models/web"
+	tech_service3 "github.com/anthophora/tamircity/pkg/models/web/tech_service"
 	tech_service2 "github.com/anthophora/tamircity/pkg/store/repositories/tech_service"
 )
 
@@ -14,7 +14,7 @@ type ServiceTypeService interface {
 	Create(model *tech_service.ServiceType) error
 	Update(model *tech_service.ServiceType) error
 	Delete(model *tech_service.ServiceType) error
-	FindAll() ([]web.ServiceTypeResponse, error)
+	FindAll() ([]tech_service3.ServiceTypeResponse, error)
 	FindByID(id int) (tech_service.ServiceType, error)
 	FindBy(column string, value interface{}) ([]tech_service.ServiceType, error)
 	Search(query string) ([]tech_service.ServiceType, error)
@@ -38,14 +38,14 @@ func (s *serviceTypeService) Delete(model *tech_service.ServiceType) error {
 	return s.serviceTypeStore.Delete(model)
 }
 
-func (s *serviceTypeService) FindAll() (res []web.ServiceTypeResponse, err error) {
+func (s *serviceTypeService) FindAll() (res []tech_service3.ServiceTypeResponse, err error) {
 	serviceTypes, err := s.serviceTypeStore.FindAll()
 	if err != nil {
 		return nil, err
 	}
 
 	for _, serviceType := range serviceTypes {
-		res = append(res, web.ServiceTypeResponse{Id: serviceType.ID, Name: serviceType.Name, Description: serviceType.Description, Price: serviceType.Price})
+		res = append(res, tech_service3.ServiceTypeResponse{Id: serviceType.ID, Name: serviceType.Name, Description: serviceType.Description, Price: serviceType.Price})
 	}
 	return res, nil
 }

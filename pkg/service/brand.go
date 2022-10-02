@@ -2,7 +2,7 @@ package service
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db"
-	"github.com/anthophora/tamircity/pkg/models/web"
+	"github.com/anthophora/tamircity/pkg/models/web/tech_service"
 	"github.com/anthophora/tamircity/pkg/store/repositories"
 )
 
@@ -13,7 +13,7 @@ type BrandService interface {
 	FindAll() ([]db.Brand, error)
 	FindByID(id int) (db.Brand, error)
 	FindBy(column string, value interface{}) ([]db.Brand, error)
-	FindByDeviceTypeId(deviceTypeId int) ([]web.BrandResponse, error)
+	FindByDeviceTypeId(deviceTypeId int) ([]tech_service.BrandResponse, error)
 	Search(query string) ([]db.Brand, error)
 }
 
@@ -49,14 +49,14 @@ func (m *brandService) FindBy(column string, value interface{}) ([]db.Brand, err
 	return m.brandStore.FindBy(column, value)
 }
 
-func (m *brandService) FindByDeviceTypeId(deviceTypeId int) (res []web.BrandResponse, err error) {
+func (m *brandService) FindByDeviceTypeId(deviceTypeId int) (res []tech_service.BrandResponse, err error) {
 	brands, err := m.brandStore.FindByDeviceTypeId(deviceTypeId)
 	if err != nil {
 		return nil, err
 	}
 
 	for _, brand := range brands {
-		res = append(res, web.BrandResponse{Id: brand.ID, Name: brand.Name})
+		res = append(res, tech_service.BrandResponse{Id: brand.ID, Name: brand.Name})
 	}
 	return res, nil
 }

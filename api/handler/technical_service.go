@@ -2,7 +2,7 @@ package handler
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
-	"github.com/anthophora/tamircity/pkg/models/web"
+	tech_service3 "github.com/anthophora/tamircity/pkg/models/web/tech_service"
 	tech_service2 "github.com/anthophora/tamircity/pkg/service/tech_service"
 	"github.com/anthophora/tamircity/pkg/utils"
 	"github.com/gin-gonic/gin"
@@ -45,7 +45,7 @@ func (t *technicalServiceHandler) Get(ctx *gin.Context) {
 }
 
 func (t *technicalServiceHandler) Create(ctx *gin.Context) {
-	var technicalService web.TechnicalServiceRequest
+	var technicalService tech_service3.TechnicalServiceRequest
 	if err := ctx.ShouldBindJSON(&technicalService); err != nil {
 		response := utils.HandleResponseModel(false, "", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)
@@ -73,7 +73,7 @@ func (t *technicalServiceHandler) Update(ctx *gin.Context) {
 	id := ctx.Param("id")
 	idInt, _ := strconv.Atoi(id)
 
-	var technicalService web.TechnicalServiceUpdateRequest
+	var technicalService tech_service3.TechnicalServiceUpdateRequest
 	if err := ctx.ShouldBindJSON(&technicalService); err != nil {
 		response := utils.HandleResponseModel(false, "Incorrect JSON Format", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)
@@ -139,7 +139,7 @@ func (t *technicalServiceHandler) GetAllByFilter(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, responseErr)
 		return
 	}
-	var technicalServices []web.TechnicalServiceSearchResponse
+	var technicalServices []tech_service3.TechnicalServiceSearchResponse
 	technicalServices, err = t.technicalServiceService.FindByModelId(modelId)
 
 	if err != nil {

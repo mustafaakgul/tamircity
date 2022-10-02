@@ -3,7 +3,7 @@ package handler
 import (
 	"fmt"
 	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
-	"github.com/anthophora/tamircity/pkg/models/web"
+	tech_service3 "github.com/anthophora/tamircity/pkg/models/web/tech_service"
 	tech_service2 "github.com/anthophora/tamircity/pkg/service/tech_service"
 	"github.com/anthophora/tamircity/pkg/utils"
 	"github.com/gin-gonic/gin"
@@ -36,7 +36,7 @@ func NewReservationHandler(reservationService tech_service2.ReservationService) 
 }
 
 func (r *reservationHandler) Create(ctx *gin.Context) {
-	var reservationReq web.ReservationCreateRequest
+	var reservationReq tech_service3.ReservationCreateRequest
 	if err := ctx.ShouldBindJSON(&reservationReq); err != nil {
 		response := utils.HandleResponseModel(false, "", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)

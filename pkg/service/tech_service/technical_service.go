@@ -2,7 +2,7 @@ package tech_service
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
-	"github.com/anthophora/tamircity/pkg/models/web"
+	tech_service3 "github.com/anthophora/tamircity/pkg/models/web/tech_service"
 	tech_service2 "github.com/anthophora/tamircity/pkg/store/repositories/tech_service"
 )
 
@@ -17,7 +17,7 @@ type TechnicalServiceService interface {
 	FindAll() ([]tech_service.TechnicalService, error)
 	FindByID(id int) (tech_service.TechnicalService, error)
 	FindBy(column string, value interface{}) ([]tech_service.TechnicalService, error)
-	FindByModelId(modelId int) ([]web.TechnicalServiceSearchResponse, error)
+	FindByModelId(modelId int) ([]tech_service3.TechnicalServiceSearchResponse, error)
 	Search(query string) ([]tech_service.TechnicalService, error)
 }
 
@@ -47,7 +47,7 @@ func (t *technicalServiceService) FindByID(id int) (tech_service.TechnicalServic
 	return t.technicalServiceStore.FindByID(id)
 }
 
-func (t *technicalServiceService) FindByModelId(modelId int) (response []web.TechnicalServiceSearchResponse, err error) {
+func (t *technicalServiceService) FindByModelId(modelId int) (response []tech_service3.TechnicalServiceSearchResponse, err error) {
 	technicalServices, err := t.technicalServiceStore.FindByModelId(modelId)
 
 	if err != nil {
@@ -55,7 +55,7 @@ func (t *technicalServiceService) FindByModelId(modelId int) (response []web.Tec
 	}
 
 	for _, technicalService := range technicalServices {
-		var technicalServiceResponse web.TechnicalServiceSearchResponse
+		var technicalServiceResponse tech_service3.TechnicalServiceSearchResponse
 		technicalServiceResponse.Id = int(technicalService.ID)
 		technicalServiceResponse.Name = technicalService.ServiceName
 		technicalServiceResponse.Address = technicalService.Address
@@ -67,7 +67,7 @@ func (t *technicalServiceService) FindByModelId(modelId int) (response []web.Tec
 		}
 
 		for _, reservation := range technicalService.TechnicalServiceReservations {
-			var technicalServiceReservation web.TechnicalServiceReservation
+			var technicalServiceReservation tech_service3.TechnicalServiceReservation
 			technicalServiceReservation.Day = reservation.Day
 			technicalServiceReservation.DateOfDay = reservation.DateofDay
 			technicalServiceReservation.StartOfShift = reservation.StartOfShift

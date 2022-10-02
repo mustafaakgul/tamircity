@@ -1,4 +1,4 @@
-package web
+package tech_service
 
 type ExtraServiceResponse struct {
 	Id          int    `json:"id"`

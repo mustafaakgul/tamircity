@@ -2,7 +2,7 @@ package tech_service
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
-	"github.com/anthophora/tamircity/pkg/models/web"
+	tech_service3 "github.com/anthophora/tamircity/pkg/models/web/tech_service"
 	tech_service2 "github.com/anthophora/tamircity/pkg/store/repositories/tech_service"
 )
 
@@ -14,7 +14,7 @@ type ExtraServiceService interface {
 	Create(model *tech_service.ExtraService) error
 	Update(model *tech_service.ExtraService) error
 	Delete(model *tech_service.ExtraService) error
-	FindAll() (response []web.ExtraServiceResponse, err error)
+	FindAll() (response []tech_service3.ExtraServiceResponse, err error)
 	FindByID(id int) (tech_service.ExtraService, error)
 	FindBy(column string, value interface{}) ([]tech_service.ExtraService, error)
 	Search(query string) ([]tech_service.ExtraService, error)
@@ -38,7 +38,7 @@ func (e *extraServiceService) Delete(model *tech_service.ExtraService) error {
 	return e.extraServiceStore.Delete(model)
 }
 
-func (e *extraServiceService) FindAll() (response []web.ExtraServiceResponse, err error) {
+func (e *extraServiceService) FindAll() (response []tech_service3.ExtraServiceResponse, err error) {
 	extraServices, err := e.extraServiceStore.FindAll()
 
 	if err != nil {
@@ -49,7 +49,7 @@ func (e *extraServiceService) FindAll() (response []web.ExtraServiceResponse, er
 		return nil, err
 	}
 	for _, extraService := range extraServices {
-		var extraServiceResponse web.ExtraServiceResponse
+		var extraServiceResponse tech_service3.ExtraServiceResponse
 		extraServiceResponse.Id = int(extraService.ID)
 		extraServiceResponse.Description = extraService.Description
 		extraServiceResponse.Price = extraService.Price

@@ -3,7 +3,7 @@ package handler
 import (
 	"github.com/anthophora/tamircity/pkg/middleware"
 	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
-	"github.com/anthophora/tamircity/pkg/models/web"
+	tech_service3 "github.com/anthophora/tamircity/pkg/models/web/tech_service"
 	tech_service2 "github.com/anthophora/tamircity/pkg/service/tech_service"
 	"github.com/anthophora/tamircity/pkg/utils"
 	"github.com/gin-gonic/gin"
@@ -30,7 +30,7 @@ func NewTechnicalServiceCandidateHandler(technicalServiceCandidateService tech_s
 }
 
 func (c *technicalServiceCandidateHandler) Create(ctx *gin.Context) {
-	var technicalServiceCandidate web.TechnicalServiceCandidateRequest
+	var technicalServiceCandidate tech_service3.TechnicalServiceCandidateRequest
 	if err := ctx.ShouldBindJSON(&technicalServiceCandidate); err != nil {
 		response := utils.HandleResponseModel(false, "Incorrect JSON Format", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)
@@ -60,7 +60,7 @@ func (c *technicalServiceCandidateHandler) Create(ctx *gin.Context) {
 }
 
 func (c *technicalServiceCandidateHandler) PrepareAndSendAgreement(ctx *gin.Context) {
-	var emailRequest web.EmailRequest
+	var emailRequest tech_service3.EmailRequest
 	if err := ctx.ShouldBindJSON(&emailRequest); err != nil {
 		response := utils.HandleResponseModel(false, "Incorrect JSON Format", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)
@@ -98,7 +98,7 @@ func (c *technicalServiceCandidateHandler) ChangeStatusAndCreateTechnicalService
 }
 
 func (c *technicalServiceCandidateHandler) Update(ctx *gin.Context) {
-	var technicalServiceCandidate web.TechnicalServiceCandidateRequest
+	var technicalServiceCandidate tech_service3.TechnicalServiceCandidateRequest
 	if err := ctx.ShouldBindJSON(&technicalServiceCandidate); err != nil {
 		response := utils.HandleResponseModel(false, "Incorrect JSON Format", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)

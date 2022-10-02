@@ -2,7 +2,7 @@ package tech_service
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
-	"github.com/anthophora/tamircity/pkg/models/web"
+	tech_service3 "github.com/anthophora/tamircity/pkg/models/web/tech_service"
 	tech_service2 "github.com/anthophora/tamircity/pkg/store/repositories/tech_service"
 )
 
@@ -11,7 +11,7 @@ type DeviceTypeService interface {
 	Update(model *tech_service.DeviceType) error
 	Delete(model *tech_service.DeviceType) error
 	FindAll() ([]tech_service.DeviceType, error)
-	FindAllByActive() (response []web.DeviceTypeResponse, err error)
+	FindAllByActive() (response []tech_service3.DeviceTypeResponse, err error)
 	FindByID(id int) (tech_service.DeviceType, error)
 	FindBy(column string, value interface{}) ([]tech_service.DeviceType, error)
 	Search(query string) ([]tech_service.DeviceType, error)
@@ -41,14 +41,14 @@ func (m *deviceTypeService) FindAll() ([]tech_service.DeviceType, error) {
 	return m.deviceTypeStore.FindAll()
 }
 
-func (m *deviceTypeService) FindAllByActive() (response []web.DeviceTypeResponse, err error) {
+func (m *deviceTypeService) FindAllByActive() (response []tech_service3.DeviceTypeResponse, err error) {
 	deviceTypes, err := m.deviceTypeStore.FindAllByActive()
 
 	if err != nil {
 		return nil, err
 	}
 	for _, deviceType := range deviceTypes {
-		var deviceTypeResponse web.DeviceTypeResponse
+		var deviceTypeResponse tech_service3.DeviceTypeResponse
 		deviceTypeResponse.Id = int(deviceType.ID)
 		deviceTypeResponse.Name = deviceType.Name
 		deviceTypeResponse.ShortDescription = deviceType.ShortDescription

@@ -2,7 +2,7 @@ package tech_service
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
-	"github.com/anthophora/tamircity/pkg/models/web"
+	tech_service3 "github.com/anthophora/tamircity/pkg/models/web/tech_service"
 	tech_service2 "github.com/anthophora/tamircity/pkg/store/repositories/tech_service"
 )
 
@@ -13,7 +13,7 @@ type FixTypeService interface {
 	FindAll() ([]tech_service.FixType, error)
 	FindByID(id int) (tech_service.FixType, error)
 	FindBy(column string, value interface{}) ([]tech_service.FixType, error)
-	FindByDeviceTypeId(deviceTypeId int) ([]web.FixTypeResponse, error)
+	FindByDeviceTypeId(deviceTypeId int) ([]tech_service3.FixTypeResponse, error)
 	Search(query string) ([]tech_service.FixType, error)
 }
 
@@ -42,14 +42,14 @@ func (f *fixTypeService) FindByID(id int) (tech_service.FixType, error) {
 func (f *fixTypeService) FindBy(column string, value interface{}) ([]tech_service.FixType, error) {
 	return f.fixTypeStore.FindBy(column, value)
 }
-func (f *fixTypeService) FindByDeviceTypeId(deviceTypeId int) (res []web.FixTypeResponse, err error) {
+func (f *fixTypeService) FindByDeviceTypeId(deviceTypeId int) (res []tech_service3.FixTypeResponse, err error) {
 	fixTypes, err := f.fixTypeStore.FindByDeviceTypeId(deviceTypeId)
 	if err != nil {
 		return nil, err
 	}
 
 	for _, fixType := range fixTypes {
-		res = append(res, web.FixTypeResponse{Id: fixType.ID, Description: fixType.Description, Price: fixType.Price})
+		res = append(res, tech_service3.FixTypeResponse{Id: fixType.ID, Description: fixType.Description, Price: fixType.Price})
 	}
 	return res, nil
 }

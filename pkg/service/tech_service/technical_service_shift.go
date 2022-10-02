@@ -2,15 +2,15 @@ package tech_service
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
-	"github.com/anthophora/tamircity/pkg/models/web"
+	tech_service3 "github.com/anthophora/tamircity/pkg/models/web/tech_service"
 	tech_service2 "github.com/anthophora/tamircity/pkg/store/repositories/tech_service"
 	"strconv"
 	"strings"
 )
 
 type TechnicalServiceShiftService interface {
-	FindByTechnicalServiceId(technicalServiceId int) ([]web.TechnicalServiceShiftResponse, error)
-	Create(technicalServiceId int, req []web.TechnicalServiceShiftRequest) error
+	FindByTechnicalServiceId(technicalServiceId int) ([]tech_service3.TechnicalServiceShiftResponse, error)
+	Create(technicalServiceId int, req []tech_service3.TechnicalServiceShiftRequest) error
 }
 
 type technicalServiceShiftService struct {
@@ -21,13 +21,13 @@ func NewTechnicalServiceShiftService(technicalServiceShiftStore tech_service2.Te
 	return &technicalServiceShiftService{technicalServiceShiftStore: technicalServiceShiftStore}
 }
 
-func (t *technicalServiceShiftService) FindByTechnicalServiceId(technicalServiceId int) (res []web.TechnicalServiceShiftResponse, err error) {
+func (t *technicalServiceShiftService) FindByTechnicalServiceId(technicalServiceId int) (res []tech_service3.TechnicalServiceShiftResponse, err error) {
 	technicalServiceShifts, err := t.technicalServiceShiftStore.FindByTechnicalServiceId(technicalServiceId)
 	if err != nil {
 		return nil, err
 	}
 	for _, technicalServiceShift := range technicalServiceShifts {
-		res = append(res, web.TechnicalServiceShiftResponse{
+		res = append(res, tech_service3.TechnicalServiceShiftResponse{
 			Id:           technicalServiceShift.ID,
 			Day:          technicalServiceShift.Day,
 			StartOfShift: strings.Join([]string{strconv.Itoa(technicalServiceShift.StartOfShift), "00"}, ":"),
@@ -39,7 +39,7 @@ func (t *technicalServiceShiftService) FindByTechnicalServiceId(technicalService
 	return res, nil
 }
 
-func (t *technicalServiceShiftService) Create(technicalServiceId int, req []web.TechnicalServiceShiftRequest) error {
+func (t *technicalServiceShiftService) Create(technicalServiceId int, req []tech_service3.TechnicalServiceShiftRequest) error {
 
 	for _, technicalServiceShift := range req {
 		var technicalServiceShiftEntity tech_service.TechnicalServiceShift
