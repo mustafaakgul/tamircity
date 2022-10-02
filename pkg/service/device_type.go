@@ -1,43 +1,43 @@
 package service
 
 import (
-	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
 	"github.com/anthophora/tamircity/pkg/models/web"
-	"github.com/anthophora/tamircity/pkg/store/repositories"
+	tech_service2 "github.com/anthophora/tamircity/pkg/store/repositories/tech_service"
 )
 
 type DeviceTypeService interface {
-	Create(model *db.DeviceType) error
-	Update(model *db.DeviceType) error
-	Delete(model *db.DeviceType) error
-	FindAll() ([]db.DeviceType, error)
+	Create(model *tech_service.DeviceType) error
+	Update(model *tech_service.DeviceType) error
+	Delete(model *tech_service.DeviceType) error
+	FindAll() ([]tech_service.DeviceType, error)
 	FindAllByActive() (response []web.DeviceTypeResponse, err error)
-	FindByID(id int) (db.DeviceType, error)
-	FindBy(column string, value interface{}) ([]db.DeviceType, error)
-	Search(query string) ([]db.DeviceType, error)
+	FindByID(id int) (tech_service.DeviceType, error)
+	FindBy(column string, value interface{}) ([]tech_service.DeviceType, error)
+	Search(query string) ([]tech_service.DeviceType, error)
 }
 
 type deviceTypeService struct {
-	deviceTypeStore repositories.DeviceTypeStore
+	deviceTypeStore tech_service2.DeviceTypeStore
 }
 
-func NewDeviceTypeService(deviceTypeStore repositories.DeviceTypeStore) DeviceTypeService {
+func NewDeviceTypeService(deviceTypeStore tech_service2.DeviceTypeStore) DeviceTypeService {
 	return &deviceTypeService{deviceTypeStore: deviceTypeStore}
 }
 
-func (m *deviceTypeService) Create(model *db.DeviceType) error {
+func (m *deviceTypeService) Create(model *tech_service.DeviceType) error {
 	return m.deviceTypeStore.Create(model)
 }
 
-func (m *deviceTypeService) Update(model *db.DeviceType) error {
+func (m *deviceTypeService) Update(model *tech_service.DeviceType) error {
 	return m.deviceTypeStore.Update(model)
 }
 
-func (m *deviceTypeService) Delete(model *db.DeviceType) error {
+func (m *deviceTypeService) Delete(model *tech_service.DeviceType) error {
 	return m.deviceTypeStore.Delete(model)
 }
 
-func (m *deviceTypeService) FindAll() ([]db.DeviceType, error) {
+func (m *deviceTypeService) FindAll() ([]tech_service.DeviceType, error) {
 	return m.deviceTypeStore.FindAll()
 }
 
@@ -59,14 +59,14 @@ func (m *deviceTypeService) FindAllByActive() (response []web.DeviceTypeResponse
 	return response, nil
 }
 
-func (m *deviceTypeService) FindByID(id int) (db.DeviceType, error) {
+func (m *deviceTypeService) FindByID(id int) (tech_service.DeviceType, error) {
 	return m.deviceTypeStore.FindByID(id)
 }
 
-func (m *deviceTypeService) FindBy(column string, value interface{}) ([]db.DeviceType, error) {
+func (m *deviceTypeService) FindBy(column string, value interface{}) ([]tech_service.DeviceType, error) {
 	return m.deviceTypeStore.FindBy(column, value)
 }
 
-func (m *deviceTypeService) Search(query string) ([]db.DeviceType, error) {
+func (m *deviceTypeService) Search(query string) ([]tech_service.DeviceType, error) {
 	return m.deviceTypeStore.Search(query)
 }

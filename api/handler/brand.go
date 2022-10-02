@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
 	"github.com/anthophora/tamircity/pkg/models/web"
 	"net/http"
 	"strconv"
@@ -65,7 +65,7 @@ func (b *brandHandler) Create(ctx *gin.Context) {
 		return
 	}
 
-	var brandModel db.Brand
+	var brandModel tech_service.Brand
 	brandModel.Name = brand.Name
 	brandModel.IsActive = brand.IsActive
 

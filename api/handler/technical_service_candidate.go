@@ -2,7 +2,7 @@ package handler
 
 import (
 	"github.com/anthophora/tamircity/pkg/middleware"
-	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
 	"github.com/anthophora/tamircity/pkg/models/web"
 	"github.com/anthophora/tamircity/pkg/service"
 	"github.com/anthophora/tamircity/pkg/utils"
@@ -37,7 +37,7 @@ func (c *technicalServiceCandidateHandler) Create(ctx *gin.Context) {
 		return
 	}
 
-	var technicalServiceCandidateModel db.TechnicalServiceCandidate
+	var technicalServiceCandidateModel tech_service.TechnicalServiceCandidate
 	technicalServiceCandidateModel.ServiceName = technicalServiceCandidate.ServiceName
 	technicalServiceCandidateModel.BusinessType = technicalServiceCandidate.BusinessType
 	technicalServiceCandidateModel.Address = technicalServiceCandidate.Address
@@ -47,7 +47,7 @@ func (c *technicalServiceCandidateHandler) Create(ctx *gin.Context) {
 	technicalServiceCandidateModel.Surname = technicalServiceCandidate.Surname
 	technicalServiceCandidateModel.Email = technicalServiceCandidate.Email
 	technicalServiceCandidateModel.PhoneNumber = technicalServiceCandidate.PhoneNumber
-	technicalServiceCandidateModel.Status = db.TechnicalServiceCandidateStatus_PENDING
+	technicalServiceCandidateModel.Status = tech_service.TechnicalServiceCandidateStatus_PENDING
 
 	err := c.technicalServiceCandidateService.Create(&technicalServiceCandidateModel)
 	if err != nil {
@@ -105,7 +105,7 @@ func (c *technicalServiceCandidateHandler) Update(ctx *gin.Context) {
 		return
 	}
 
-	var technicalServiceCandidateModel db.TechnicalServiceCandidate
+	var technicalServiceCandidateModel tech_service.TechnicalServiceCandidate
 	technicalServiceCandidateModel.ServiceName = technicalServiceCandidate.ServiceName
 	technicalServiceCandidateModel.BusinessType = technicalServiceCandidate.BusinessType
 	technicalServiceCandidateModel.Address = technicalServiceCandidate.Address
@@ -115,7 +115,7 @@ func (c *technicalServiceCandidateHandler) Update(ctx *gin.Context) {
 	technicalServiceCandidateModel.Surname = technicalServiceCandidate.Surname
 	technicalServiceCandidateModel.Email = technicalServiceCandidate.Email
 	technicalServiceCandidateModel.PhoneNumber = technicalServiceCandidate.PhoneNumber
-	technicalServiceCandidateModel.Status = db.TechnicalServiceCandidateStatus_PENDING
+	technicalServiceCandidateModel.Status = tech_service.TechnicalServiceCandidateStatus_PENDING
 
 	err := c.technicalServiceCandidateService.Update(&technicalServiceCandidateModel)
 	if err != nil {
@@ -149,14 +149,14 @@ func CreateApprovedFlow(ctx *gin.Context, c *technicalServiceCandidateHandler, i
 		ctx.JSON(http.StatusBadRequest, response)
 	}
 
-	technicalServiceCandidate.Status = db.TechnicalServiceCandidateStatus_APPROVED
+	technicalServiceCandidate.Status = tech_service.TechnicalServiceCandidateStatus_APPROVED
 	err = c.technicalServiceCandidateService.Update(&technicalServiceCandidate)
 	if err != nil {
 		response := utils.HandleResponseModel(false, "Technical Service Candidate could not be updated", err, nil)
 		ctx.JSON(http.StatusBadRequest, response)
 	}
 
-	var technicalService db.TechnicalService
+	var technicalService tech_service.TechnicalService
 	technicalService.ServiceName = technicalServiceCandidate.ServiceName
 	technicalService.IdentityNumber = "123"
 	technicalService.PhoneNumber = technicalServiceCandidate.PhoneNumber
@@ -175,7 +175,7 @@ func CreateCancelledFlow(ctx *gin.Context, c *technicalServiceCandidateHandler, 
 		ctx.JSON(http.StatusBadRequest, response)
 	}
 
-	technicalServiceCandidate.Status = db.TechnicalServiceCandidateStatus_CANCELLED
+	technicalServiceCandidate.Status = tech_service.TechnicalServiceCandidateStatus_CANCELLED
 	err = c.technicalServiceCandidateService.Update(&technicalServiceCandidate)
 	if err != nil {
 		response := utils.HandleResponseModel(false, "Technical Service Candidate could not be updated", err, nil)

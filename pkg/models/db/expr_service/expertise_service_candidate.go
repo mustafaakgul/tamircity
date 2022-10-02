@@ -1,8 +1,8 @@
-package db
+package expr_service
 
 import "gorm.io/gorm"
 
-type TechnicalServiceCandidate struct {
+type ExpertiseServiceCandidate struct {
 	gorm.Model
 	ServiceName         string `gorm:"type:varchar(50);not null"`
 	BusinessType        string `gorm:"type:varchar(50);not null"`
@@ -14,13 +14,13 @@ type TechnicalServiceCandidate struct {
 	Email               string `gorm:"type:varchar(50);not null"`
 	PhoneNumber         string `gorm:"type:varchar(15);not null"`
 	IsActive            bool   `gorm:"type:boolean;default:true;not null"`
-	Status              TechnicalServiceCandidateStatus
+	Status              ExpertiseServiceCandidateStatus
 }
 
-type TechnicalServiceCandidateStatus string
+type ExpertiseServiceCandidateStatus string
 
 const (
-	TechnicalServiceCandidateStatus_PENDING   TechnicalServiceCandidateStatus = "Pending"
-	TechnicalServiceCandidateStatus_CANCELLED TechnicalServiceCandidateStatus = "Cancelled"
-	TechnicalServiceCandidateStatus_APPROVED  TechnicalServiceCandidateStatus = "Approved"
+	ExpertiseServiceCandidateStatus_PENDING   ExpertiseServiceCandidateStatus = "Pending"
+	ExpertiseServiceCandidateStatus_CANCELLED ExpertiseServiceCandidateStatus = "Cancelled"
+	ExpertiseServiceCandidateStatus_APPROVED  ExpertiseServiceCandidateStatus = "Approved"
 )

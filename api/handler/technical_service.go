@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
 	"github.com/anthophora/tamircity/pkg/models/web"
 	"github.com/anthophora/tamircity/pkg/service"
 	"github.com/anthophora/tamircity/pkg/utils"
@@ -52,7 +52,7 @@ func (t *technicalServiceHandler) Create(ctx *gin.Context) {
 		return
 	}
 
-	var technicalServiceModel db.TechnicalService
+	var technicalServiceModel tech_service.TechnicalService
 	technicalServiceModel.ServiceName = technicalService.ServiceName
 	technicalServiceModel.IdentityNumber = technicalService.IdentityNumber
 	technicalServiceModel.PhoneNumber = technicalService.PhoneNumber

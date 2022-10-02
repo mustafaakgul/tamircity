@@ -1,31 +1,33 @@
 package seed_data
 
-import "github.com/anthophora/tamircity/pkg/models/db"
+import (
+	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
+)
 
-var FixType1 = &db.FixType{
+var FixType1 = &tech_service.FixType{
 	Description: "Ekran Değişimi",
 	IsActive:    true,
 	Price:       400,
-	DeviceTypes: []*db.DeviceType{DeviceTypePc, DeviceTypePhone, DeviceTypeTablet},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePc, DeviceTypePhone, DeviceTypeTablet},
 }
 
-var FixType2 = &db.FixType{
+var FixType2 = &tech_service.FixType{
 	Description: "Batarya Değişimi",
 	IsActive:    true,
 	Price:       1000,
-	DeviceTypes: []*db.DeviceType{DeviceTypePc, DeviceTypePhone, DeviceTypeTablet},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePc, DeviceTypePhone, DeviceTypeTablet},
 }
 
-var FixType3 = &db.FixType{
+var FixType3 = &tech_service.FixType{
 	Description: "Açma Kapama Tuşu Sorunu",
 	IsActive:    true,
 	Price:       250,
-	DeviceTypes: []*db.DeviceType{DeviceTypePc, DeviceTypePhone, DeviceTypeTablet},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePc, DeviceTypePhone, DeviceTypeTablet},
 }
 
-var FixType4 = &db.FixType{
+var FixType4 = &tech_service.FixType{
 	Description: "Hoparlör",
 	IsActive:    true,
 	Price:       250,
-	DeviceTypes: []*db.DeviceType{DeviceTypePc, DeviceTypePhone, DeviceTypeTablet},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePc, DeviceTypePhone, DeviceTypeTablet},
 }

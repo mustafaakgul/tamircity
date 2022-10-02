@@ -1,49 +1,49 @@
 package service
 
 import (
-	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
 	"github.com/anthophora/tamircity/pkg/models/web"
-	"github.com/anthophora/tamircity/pkg/store/repositories"
+	tech_service2 "github.com/anthophora/tamircity/pkg/store/repositories/tech_service"
 )
 
 type technicalServiceService struct {
-	technicalServiceStore repositories.TechnicalServiceStore
+	technicalServiceStore tech_service2.TechnicalServiceStore
 }
 
 type TechnicalServiceService interface {
-	Create(model *db.TechnicalService) error
-	Update(model *db.TechnicalService) error
-	Delete(model *db.TechnicalService) error
-	FindAll() ([]db.TechnicalService, error)
-	FindByID(id int) (db.TechnicalService, error)
-	FindBy(column string, value interface{}) ([]db.TechnicalService, error)
+	Create(model *tech_service.TechnicalService) error
+	Update(model *tech_service.TechnicalService) error
+	Delete(model *tech_service.TechnicalService) error
+	FindAll() ([]tech_service.TechnicalService, error)
+	FindByID(id int) (tech_service.TechnicalService, error)
+	FindBy(column string, value interface{}) ([]tech_service.TechnicalService, error)
 	FindByModelId(modelId int) ([]web.TechnicalServiceSearchResponse, error)
-	Search(query string) ([]db.TechnicalService, error)
+	Search(query string) ([]tech_service.TechnicalService, error)
 }
 
-func NewTechnicalServiceService(technicalServiceStore repositories.TechnicalServiceStore) TechnicalServiceService {
+func NewTechnicalServiceService(technicalServiceStore tech_service2.TechnicalServiceStore) TechnicalServiceService {
 	return &technicalServiceService{
 		technicalServiceStore: technicalServiceStore,
 	}
 }
 
-func (t *technicalServiceService) Create(model *db.TechnicalService) error {
+func (t *technicalServiceService) Create(model *tech_service.TechnicalService) error {
 	return t.technicalServiceStore.Create(model)
 }
 
-func (t *technicalServiceService) Update(model *db.TechnicalService) error {
+func (t *technicalServiceService) Update(model *tech_service.TechnicalService) error {
 	return t.technicalServiceStore.Update(model)
 }
 
-func (t *technicalServiceService) Delete(model *db.TechnicalService) error {
+func (t *technicalServiceService) Delete(model *tech_service.TechnicalService) error {
 	return t.technicalServiceStore.Delete(model)
 }
 
-func (t *technicalServiceService) FindAll() ([]db.TechnicalService, error) {
+func (t *technicalServiceService) FindAll() ([]tech_service.TechnicalService, error) {
 	return t.technicalServiceStore.FindAll()
 }
 
-func (t *technicalServiceService) FindByID(id int) (db.TechnicalService, error) {
+func (t *technicalServiceService) FindByID(id int) (tech_service.TechnicalService, error) {
 	return t.technicalServiceStore.FindByID(id)
 }
 
@@ -80,10 +80,10 @@ func (t *technicalServiceService) FindByModelId(modelId int) (response []web.Tec
 	return response, nil
 }
 
-func (t *technicalServiceService) FindBy(column string, value interface{}) ([]db.TechnicalService, error) {
+func (t *technicalServiceService) FindBy(column string, value interface{}) ([]tech_service.TechnicalService, error) {
 	return t.technicalServiceStore.FindBy(column, value)
 }
 
-func (t *technicalServiceService) Search(query string) ([]db.TechnicalService, error) {
+func (t *technicalServiceService) Search(query string) ([]tech_service.TechnicalService, error) {
 	return t.technicalServiceStore.Search(query)
 }

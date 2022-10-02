@@ -1,40 +1,40 @@
 package service
 
 import (
-	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
 	"github.com/anthophora/tamircity/pkg/models/web"
-	"github.com/anthophora/tamircity/pkg/store/repositories"
+	tech_service2 "github.com/anthophora/tamircity/pkg/store/repositories/tech_service"
 )
 
 type extraServiceService struct {
-	extraServiceStore repositories.ExtraServiceStore
+	extraServiceStore tech_service2.ExtraServiceStore
 }
 
 type ExtraServiceService interface {
-	Create(model *db.ExtraService) error
-	Update(model *db.ExtraService) error
-	Delete(model *db.ExtraService) error
+	Create(model *tech_service.ExtraService) error
+	Update(model *tech_service.ExtraService) error
+	Delete(model *tech_service.ExtraService) error
 	FindAll() (response []web.ExtraServiceResponse, err error)
-	FindByID(id int) (db.ExtraService, error)
-	FindBy(column string, value interface{}) ([]db.ExtraService, error)
-	Search(query string) ([]db.ExtraService, error)
+	FindByID(id int) (tech_service.ExtraService, error)
+	FindBy(column string, value interface{}) ([]tech_service.ExtraService, error)
+	Search(query string) ([]tech_service.ExtraService, error)
 }
 
-func NewExtraServiceService(extraServiceStore repositories.ExtraServiceStore) ExtraServiceService {
+func NewExtraServiceService(extraServiceStore tech_service2.ExtraServiceStore) ExtraServiceService {
 	return &extraServiceService{
 		extraServiceStore: extraServiceStore,
 	}
 }
 
-func (e *extraServiceService) Create(model *db.ExtraService) error {
+func (e *extraServiceService) Create(model *tech_service.ExtraService) error {
 	return e.extraServiceStore.Create(model)
 }
 
-func (e *extraServiceService) Update(model *db.ExtraService) error {
+func (e *extraServiceService) Update(model *tech_service.ExtraService) error {
 	return e.extraServiceStore.Update(model)
 }
 
-func (e *extraServiceService) Delete(model *db.ExtraService) error {
+func (e *extraServiceService) Delete(model *tech_service.ExtraService) error {
 	return e.extraServiceStore.Delete(model)
 }
 
@@ -60,14 +60,14 @@ func (e *extraServiceService) FindAll() (response []web.ExtraServiceResponse, er
 	return response, nil
 }
 
-func (e *extraServiceService) FindByID(id int) (db.ExtraService, error) {
+func (e *extraServiceService) FindByID(id int) (tech_service.ExtraService, error) {
 	return e.extraServiceStore.FindByID(id)
 }
 
-func (e *extraServiceService) FindBy(column string, value interface{}) ([]db.ExtraService, error) {
+func (e *extraServiceService) FindBy(column string, value interface{}) ([]tech_service.ExtraService, error) {
 	return e.extraServiceStore.FindBy(column, value)
 }
 
-func (e *extraServiceService) Search(query string) ([]db.ExtraService, error) {
+func (e *extraServiceService) Search(query string) ([]tech_service.ExtraService, error) {
 	return e.extraServiceStore.Search(query)
 }

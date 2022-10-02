@@ -1,4 +1,4 @@
-package db
+package expr_service
 
 import (
 	"gorm.io/gorm"
@@ -13,14 +13,10 @@ type Reservation struct {
 	Brand              *Brand       `gorm:"foreignkey:BrandId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	ModelId            int          `gorm:"not null"`
 	ModelEntity        *Model       `gorm:"foreignkey:ModelId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
-	FixTypeId          int          `gorm:"not null"`
-	FixType            *FixType     `gorm:"foreignkey:FixTypeId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	ServiceTypeId      int          `gorm:"not null"`
 	ServiceType        *ServiceType `gorm:"foreignkey:ServiceTypeId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
-	ExtraServiceId     int
-	ExtraService       *ExtraService `gorm:"foreignkey:ExtraServiceId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
-	TechnicalServiceId int
-	TechnicalService   *TechnicalService `gorm:"foreignkey:TechnicalServiceId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	ExpertiseServiceId int
+	ExpertiseService   *ExpertiseService `gorm:"foreignkey:ExpertiseServiceId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	ReservationDate    time.Time
 	StartOfHour        int
 	EndOfHour          int

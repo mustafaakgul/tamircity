@@ -1,9 +1,9 @@
 package service
 
 import (
-	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
 	"github.com/anthophora/tamircity/pkg/models/web"
-	"github.com/anthophora/tamircity/pkg/store/repositories"
+	tech_service2 "github.com/anthophora/tamircity/pkg/store/repositories/tech_service"
 	"strconv"
 	"strings"
 )
@@ -14,10 +14,10 @@ type TechnicalServiceShiftService interface {
 }
 
 type technicalServiceShiftService struct {
-	technicalServiceShiftStore repositories.TechnicalServiceShiftStore
+	technicalServiceShiftStore tech_service2.TechnicalServiceShiftStore
 }
 
-func NewTechnicalServiceShiftService(technicalServiceShiftStore repositories.TechnicalServiceShiftStore) TechnicalServiceShiftService {
+func NewTechnicalServiceShiftService(technicalServiceShiftStore tech_service2.TechnicalServiceShiftStore) TechnicalServiceShiftService {
 	return &technicalServiceShiftService{technicalServiceShiftStore: technicalServiceShiftStore}
 }
 
@@ -42,7 +42,7 @@ func (t *technicalServiceShiftService) FindByTechnicalServiceId(technicalService
 func (t *technicalServiceShiftService) Create(technicalServiceId int, req []web.TechnicalServiceShiftRequest) error {
 
 	for _, technicalServiceShift := range req {
-		var technicalServiceShiftEntity db.TechnicalServiceShift
+		var technicalServiceShiftEntity tech_service.TechnicalServiceShift
 		technicalServiceShiftEntity.Day = technicalServiceShift.Day
 		//technicalServiceShiftEntity.StartOfShift = technicalServiceShift.StartOfShift.Split(":")[0]
 		//technicalServiceShiftEntity.EndOfShift = technicalServiceShift.EndOfShift.Split(":")[0]

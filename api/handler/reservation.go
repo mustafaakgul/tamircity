@@ -2,7 +2,7 @@ package handler
 
 import (
 	"fmt"
-	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
 	"github.com/anthophora/tamircity/pkg/models/web"
 	"github.com/anthophora/tamircity/pkg/service"
 	"github.com/anthophora/tamircity/pkg/utils"
@@ -187,7 +187,7 @@ func (r *reservationHandler) UpdateReservationStatus(ctx *gin.Context) {
 		return
 	}
 
-	if err := r.reservationService.UpdateReservationStatus(reservationId, db.ReservationStatus(reservationStatus)); err != nil {
+	if err := r.reservationService.UpdateReservationStatus(reservationId, tech_service.ReservationStatus(reservationStatus)); err != nil {
 		responseErr := utils.HandleResponseModel(false, "", err, nil)
 		ctx.JSON(http.StatusBadRequest, responseErr)
 		return
@@ -233,7 +233,7 @@ func (r *reservationHandler) ChangeOperationStatus(ctx *gin.Context) {
 
 	fmt.Println(idInt, operationStatus)
 
-	if err := r.reservationService.ChangeOperationStatus(idInt, db.OperationStatus(operationStatus)); err != nil {
+	if err := r.reservationService.ChangeOperationStatus(idInt, tech_service.OperationStatus(operationStatus)); err != nil {
 		responseErr := utils.HandleResponseModel(false, "", err, nil)
 		ctx.JSON(http.StatusBadRequest, responseErr)
 		return

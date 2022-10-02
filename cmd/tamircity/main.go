@@ -6,6 +6,7 @@ import (
 	"github.com/anthophora/tamircity/pkg/middleware"
 	"github.com/anthophora/tamircity/pkg/service"
 	"github.com/anthophora/tamircity/pkg/store/repositories"
+	"github.com/anthophora/tamircity/pkg/store/repositories/tech_service"
 	postgres "github.com/anthophora/tamircity/pkg/store/shared/db"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -35,17 +36,17 @@ func main() {
 	postgres.Migrate(db)
 
 	// Store
-	technicalServiceStore := repositories.NewTechnicalServiceStore(db)
-	technicalServiceCandidateStore := repositories.NewTechnicalServiceCandidateStore(db)
-	serviceTypeStore := repositories.NewServiceTypeStore(db)
-	extraServiceStore := repositories.NewExtraServiceStore(db)
-	brandStore := repositories.NewBrandStore(db)
-	modelStore := repositories.NewModelStore(db)
-	reservationStore := repositories.NewReservationStore(db)
-	fixTypeStore := repositories.NewFixTypeStore(db)
-	deviceTypeStore := repositories.NewDeviceTypeStore(db)
+	technicalServiceStore := tech_service.NewTechnicalServiceStore(db)
+	technicalServiceCandidateStore := tech_service.NewTechnicalServiceCandidateStore(db)
+	serviceTypeStore := tech_service.NewServiceTypeStore(db)
+	extraServiceStore := tech_service.NewExtraServiceStore(db)
+	brandStore := tech_service.NewBrandStore(db)
+	modelStore := tech_service.NewModelStore(db)
+	reservationStore := tech_service.NewReservationStore(db)
+	fixTypeStore := tech_service.NewFixTypeStore(db)
+	deviceTypeStore := tech_service.NewDeviceTypeStore(db)
 	userStore := repositories.NewUserStore(db)
-	technicalServiceShiftStore := repositories.NewTechnicalServiceShiftStore(db)
+	technicalServiceShiftStore := tech_service.NewTechnicalServiceShiftStore(db)
 
 	// Clients
 	// This one need to be integrated systems

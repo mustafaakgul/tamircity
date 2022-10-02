@@ -1,30 +1,30 @@
 package service
 
 import (
-	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
 	"github.com/anthophora/tamircity/pkg/models/web"
-	"github.com/anthophora/tamircity/pkg/store/repositories"
+	tech_service2 "github.com/anthophora/tamircity/pkg/store/repositories/tech_service"
 	"time"
 )
 
 type reservationService struct {
-	reservationStore repositories.ReservationStore
+	reservationStore tech_service2.ReservationStore
 }
 
 type ReservationService interface {
 	Create(*web.ReservationCreateRequest) error
-	FindByID(id int) (*db.Reservation, error)
+	FindByID(id int) (*tech_service.Reservation, error)
 	GetPendingListByTechnicalServiceId(technicalServiceId int) (response []web.ReservationPendingResponse, err error)
 	GetCompletedListByTechnicalServiceId(technicalServiceId int) (response []web.ReservationCompletedResponse, err error)
 	GetCancelledListByTechnicalServiceId(technicalServiceId int) (response []web.ReservationCancelledResponse, err error)
 	GetApprovedListByTechnicalServiceId(technicalServiceId int) (response []web.ReservationApprovedResponse, err error)
 	GetApprovedListByTechnicalServiceIdAndDatetime(technicalServiceId int, reservationDate time.Time) (response []web.ReservationApprovedResponse, err error)
 	GetPendingAndCompletedReservationCount(technicalServiceId int) (web.ReservationPendingAndCompletedCountResponse, error)
-	UpdateReservationStatus(int, db.ReservationStatus) error
-	ChangeOperationStatus(int, db.OperationStatus) error
+	UpdateReservationStatus(int, tech_service.ReservationStatus) error
+	ChangeOperationStatus(int, tech_service.OperationStatus) error
 }
 
-func NewReservationService(reservationStore repositories.ReservationStore) ReservationService {
+func NewReservationService(reservationStore tech_service2.ReservationStore) ReservationService {
 	return &reservationService{
 		reservationStore: reservationStore,
 	}
@@ -32,7 +32,7 @@ func NewReservationService(reservationStore repositories.ReservationStore) Reser
 
 // TO DO : Gerekli kontroller sağlanmalı her alan için.
 func (r *reservationService) Create(reservationReq *web.ReservationCreateRequest) error {
-	var reservation db.Reservation
+	var reservation tech_service.Reservation
 	reservation.DeviceTypeId = reservationReq.DeviceTypeId
 	reservation.BrandId = reservationReq.BrandId
 	reservation.ModelId = reservationReq.ModelId
@@ -53,7 +53,7 @@ func (r *reservationService) Create(reservationReq *web.ReservationCreateRequest
 	return r.reservationStore.Create(&reservation)
 }
 
-func (r *reservationService) FindByID(id int) (*db.Reservation, error) {
+func (r *reservationService) FindByID(id int) (*tech_service.Reservation, error) {
 	return r.reservationStore.FindByID(id)
 }
 
@@ -192,22 +192,22 @@ func (r *reservationService) GetCancelledListByTechnicalServiceId(technicalServi
 	return response, nil
 }
 
-func (r *reservationService) UpdateReservationStatus(reservationId int, status db.ReservationStatus) error {
+func (r *reservationService) UpdateReservationStatus(reservationId int, status tech_service.ReservationStatus) error {
 	return r.reservationStore.UpdateReservationStatus(reservationId, status)
 }
 
-func (r *reservationService) ChangeOperationStatus(reservationId int, operationStatus db.OperationStatus) error {
+func (r *reservationService) ChangeOperationStatus(reservationId int, operationStatus tech_service.OperationStatus) error {
 	return r.reservationStore.ChangeOperationStatus(reservationId, operationStatus)
 }
 
 func (r *reservationService) GetPendingAndCompletedReservationCount(technicalServiceId int) (web.ReservationPendingAndCompletedCountResponse, error) {
 	var response web.ReservationPendingAndCompletedCountResponse
-	a, err := r.reservationStore.GetReservationCountWithStatus(technicalServiceId, db.ReservationStatus(0))
+	a, err := r.reservationStore.GetReservationCountWithStatus(technicalServiceId, tech_service.ReservationStatus(0))
 	if err != nil {
 		return response, err
 	}
 	response.PendingCount = a
-	b, err := r.reservationStore.GetReservationCountWithStatus(technicalServiceId, db.ReservationStatus(1))
+	b, err := r.reservationStore.GetReservationCountWithStatus(technicalServiceId, tech_service.ReservationStatus(1))
 	if err != nil {
 		return response, err
 	}

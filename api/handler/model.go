@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
 	"github.com/anthophora/tamircity/pkg/models/web"
 	"net/http"
 	"strconv"
@@ -74,7 +74,7 @@ func (m *modelHandler) Create(ctx *gin.Context) {
 		return
 	}
 
-	var modelModel db.Model
+	var modelModel tech_service.Model
 	modelModel.Name = model.Name
 	modelModel.ShortDescription = model.ShortDescription
 	modelModel.IsActive = model.IsActive

@@ -1,40 +1,40 @@
 package service
 
 import (
-	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
 	"github.com/anthophora/tamircity/pkg/models/web"
-	"github.com/anthophora/tamircity/pkg/store/repositories"
+	tech_service2 "github.com/anthophora/tamircity/pkg/store/repositories/tech_service"
 )
 
 type serviceTypeService struct {
-	serviceTypeStore repositories.ServiceTypeStore
+	serviceTypeStore tech_service2.ServiceTypeStore
 }
 
 type ServiceTypeService interface {
-	Create(model *db.ServiceType) error
-	Update(model *db.ServiceType) error
-	Delete(model *db.ServiceType) error
+	Create(model *tech_service.ServiceType) error
+	Update(model *tech_service.ServiceType) error
+	Delete(model *tech_service.ServiceType) error
 	FindAll() ([]web.ServiceTypeResponse, error)
-	FindByID(id int) (db.ServiceType, error)
-	FindBy(column string, value interface{}) ([]db.ServiceType, error)
-	Search(query string) ([]db.ServiceType, error)
+	FindByID(id int) (tech_service.ServiceType, error)
+	FindBy(column string, value interface{}) ([]tech_service.ServiceType, error)
+	Search(query string) ([]tech_service.ServiceType, error)
 }
 
-func NewServiceTypeService(serviceTypeStore repositories.ServiceTypeStore) ServiceTypeService {
+func NewServiceTypeService(serviceTypeStore tech_service2.ServiceTypeStore) ServiceTypeService {
 	return &serviceTypeService{
 		serviceTypeStore: serviceTypeStore,
 	}
 }
 
-func (s *serviceTypeService) Create(model *db.ServiceType) error {
+func (s *serviceTypeService) Create(model *tech_service.ServiceType) error {
 	return s.serviceTypeStore.Create(model)
 }
 
-func (s *serviceTypeService) Update(model *db.ServiceType) error {
+func (s *serviceTypeService) Update(model *tech_service.ServiceType) error {
 	return s.serviceTypeStore.Update(model)
 }
 
-func (s *serviceTypeService) Delete(model *db.ServiceType) error {
+func (s *serviceTypeService) Delete(model *tech_service.ServiceType) error {
 	return s.serviceTypeStore.Delete(model)
 }
 
@@ -50,15 +50,15 @@ func (s *serviceTypeService) FindAll() (res []web.ServiceTypeResponse, err error
 	return res, nil
 }
 
-func (s *serviceTypeService) FindByID(id int) (db.ServiceType, error) {
+func (s *serviceTypeService) FindByID(id int) (tech_service.ServiceType, error) {
 	return s.serviceTypeStore.FindByID(id)
 }
 
-func (s *serviceTypeService) FindBy(column string, value interface{}) ([]db.ServiceType, error) {
+func (s *serviceTypeService) FindBy(column string, value interface{}) ([]tech_service.ServiceType, error) {
 	return s.serviceTypeStore.FindBy(column, value)
 }
 
-func (s *serviceTypeService) Search(query string) ([]db.ServiceType, error) {
+func (s *serviceTypeService) Search(query string) ([]tech_service.ServiceType, error) {
 	return s.serviceTypeStore.Search(query)
 
 }

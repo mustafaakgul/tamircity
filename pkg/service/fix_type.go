@@ -1,45 +1,45 @@
 package service
 
 import (
-	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
 	"github.com/anthophora/tamircity/pkg/models/web"
-	"github.com/anthophora/tamircity/pkg/store/repositories"
+	tech_service2 "github.com/anthophora/tamircity/pkg/store/repositories/tech_service"
 )
 
 type FixTypeService interface {
-	Create(model *db.FixType) error
-	Update(model *db.FixType) error
-	Delete(model *db.FixType) error
-	FindAll() ([]db.FixType, error)
-	FindByID(id int) (db.FixType, error)
-	FindBy(column string, value interface{}) ([]db.FixType, error)
+	Create(model *tech_service.FixType) error
+	Update(model *tech_service.FixType) error
+	Delete(model *tech_service.FixType) error
+	FindAll() ([]tech_service.FixType, error)
+	FindByID(id int) (tech_service.FixType, error)
+	FindBy(column string, value interface{}) ([]tech_service.FixType, error)
 	FindByDeviceTypeId(deviceTypeId int) ([]web.FixTypeResponse, error)
-	Search(query string) ([]db.FixType, error)
+	Search(query string) ([]tech_service.FixType, error)
 }
 
 type fixTypeService struct {
-	fixTypeStore repositories.FixTypeStore
+	fixTypeStore tech_service2.FixTypeStore
 }
 
-func NewFixTypeService(fixTypeStore repositories.FixTypeStore) FixTypeService {
+func NewFixTypeService(fixTypeStore tech_service2.FixTypeStore) FixTypeService {
 	return &fixTypeService{fixTypeStore: fixTypeStore}
 }
-func (f *fixTypeService) Create(model *db.FixType) error {
+func (f *fixTypeService) Create(model *tech_service.FixType) error {
 	return f.fixTypeStore.Create(model)
 }
-func (f *fixTypeService) Update(model *db.FixType) error {
+func (f *fixTypeService) Update(model *tech_service.FixType) error {
 	return f.fixTypeStore.Update(model)
 }
-func (f *fixTypeService) Delete(model *db.FixType) error {
+func (f *fixTypeService) Delete(model *tech_service.FixType) error {
 	return f.fixTypeStore.Delete(model)
 }
-func (f *fixTypeService) FindAll() ([]db.FixType, error) {
+func (f *fixTypeService) FindAll() ([]tech_service.FixType, error) {
 	return f.fixTypeStore.FindAll()
 }
-func (f *fixTypeService) FindByID(id int) (db.FixType, error) {
+func (f *fixTypeService) FindByID(id int) (tech_service.FixType, error) {
 	return f.fixTypeStore.FindByID(id)
 }
-func (f *fixTypeService) FindBy(column string, value interface{}) ([]db.FixType, error) {
+func (f *fixTypeService) FindBy(column string, value interface{}) ([]tech_service.FixType, error) {
 	return f.fixTypeStore.FindBy(column, value)
 }
 func (f *fixTypeService) FindByDeviceTypeId(deviceTypeId int) (res []web.FixTypeResponse, err error) {
@@ -53,6 +53,6 @@ func (f *fixTypeService) FindByDeviceTypeId(deviceTypeId int) (res []web.FixType
 	}
 	return res, nil
 }
-func (f *fixTypeService) Search(query string) ([]db.FixType, error) {
+func (f *fixTypeService) Search(query string) ([]tech_service.FixType, error) {
 	return f.fixTypeStore.Search(query)
 }

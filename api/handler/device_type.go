@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
 	"github.com/anthophora/tamircity/pkg/models/web"
 	"net/http"
 	"strconv"
@@ -72,7 +72,7 @@ func (d *deviceTypeHandler) Create(ctx *gin.Context) {
 		return
 	}
 
-	var deviceTypeModel db.DeviceType
+	var deviceTypeModel tech_service.DeviceType
 	deviceTypeModel.Name = deviceType.Name
 	deviceTypeModel.ShortDescription = deviceType.ShortDescription
 	deviceTypeModel.IsActive = deviceType.IsActive

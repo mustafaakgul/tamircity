@@ -1,16 +1,16 @@
 package seed_data
 
 import (
-	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
 	"time"
 )
 
-var Reservation1 = &db.Reservation{
+var Reservation1 = &tech_service.Reservation{
 	ReservationDate:   time.Now(),
 	StartOfHour:       13,
 	EndOfHour:         14,
 	Price:             100,
-	Status:            db.Pending,
+	Status:            tech_service.Pending,
 	FullName:          "Kullanıcı 1",
 	Email:             "msk@test.com",
 	PhoneNumber:       "05555555555",
@@ -25,12 +25,12 @@ var Reservation1 = &db.Reservation{
 	TechnicalService:  TechnicalService1,
 }
 
-var Reservation2 = &db.Reservation{
+var Reservation2 = &tech_service.Reservation{
 	ReservationDate:   time.Now(),
 	StartOfHour:       15,
 	EndOfHour:         16,
 	Price:             150,
-	Status:            db.Cancelled,
+	Status:            tech_service.Cancelled,
 	FullName:          "Kullanıcı 2",
 	Email:             "msk@test.com",
 	PhoneNumber:       "05555555555",
@@ -45,12 +45,12 @@ var Reservation2 = &db.Reservation{
 	TechnicalService:  TechnicalService1,
 }
 
-var Reservation3 = &db.Reservation{
+var Reservation3 = &tech_service.Reservation{
 	ReservationDate:   time.Now(),
 	StartOfHour:       17,
 	EndOfHour:         18,
 	Price:             150,
-	Status:            db.Pending,
+	Status:            tech_service.Pending,
 	FullName:          "Kullanıcı 3",
 	Email:             "msk@test.com",
 	PhoneNumber:       "05555555555",
@@ -65,12 +65,12 @@ var Reservation3 = &db.Reservation{
 	TechnicalService:  TechnicalService1,
 }
 
-var Reservation4 = &db.Reservation{
+var Reservation4 = &tech_service.Reservation{
 	ReservationDate:   time.Now(),
 	StartOfHour:       12,
 	EndOfHour:         13,
 	Price:             200,
-	Status:            db.Completed,
+	Status:            tech_service.Completed,
 	FullName:          "Kullanıcı 4",
 	Email:             "msk@test.com",
 	PhoneNumber:       "05555555555",
@@ -85,12 +85,12 @@ var Reservation4 = &db.Reservation{
 	TechnicalService:  TechnicalService1,
 }
 
-var Reservation5 = &db.Reservation{
+var Reservation5 = &tech_service.Reservation{
 	ReservationDate:   time.Now(),
 	StartOfHour:       15,
 	EndOfHour:         16,
 	Price:             400,
-	Status:            db.Approved,
+	Status:            tech_service.Approved,
 	FullName:          "Kullanıcı 5",
 	Email:             "msk@test.com",
 	PhoneNumber:       "05555555555",
@@ -105,12 +105,12 @@ var Reservation5 = &db.Reservation{
 	TechnicalService:  TechnicalService1,
 }
 
-var Reservation6 = &db.Reservation{
+var Reservation6 = &tech_service.Reservation{
 	ReservationDate:   time.Now(),
 	StartOfHour:       9,
 	EndOfHour:         10,
 	Price:             1000,
-	Status:            db.Approved,
+	Status:            tech_service.Approved,
 	FullName:          "Kullanıcı 6",
 	Email:             "msk@test.com",
 	PhoneNumber:       "05555555555",

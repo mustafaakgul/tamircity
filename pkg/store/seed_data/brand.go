@@ -1,224 +1,226 @@
 package seed_data
 
-import "github.com/anthophora/tamircity/pkg/models/db"
+import (
+	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
+)
 
-var BrandApple = &db.Brand{
+var BrandApple = &tech_service.Brand{
 	Name:        "Apple",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePc, DeviceTypePhone, DeviceTypeTablet},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePc, DeviceTypePhone, DeviceTypeTablet},
 }
 
-var BrandSamsung = &db.Brand{
+var BrandSamsung = &tech_service.Brand{
 	Name:        "Samsung",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePc, DeviceTypePhone, DeviceTypeTablet},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePc, DeviceTypePhone, DeviceTypeTablet},
 }
 
-var BrandLenovo = &db.Brand{
+var BrandLenovo = &tech_service.Brand{
 	Name:        "Lenovo",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePc, DeviceTypePhone, DeviceTypeTablet},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePc, DeviceTypePhone, DeviceTypeTablet},
 }
 
-var BrandHp = &db.Brand{
+var BrandHp = &tech_service.Brand{
 	Name:        "HP",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePc},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePc},
 }
 
-var BrandAsus = &db.Brand{
+var BrandAsus = &tech_service.Brand{
 	Name:        "Asus",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePc, DeviceTypePhone},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePc, DeviceTypePhone},
 }
 
-var BrandAcer = &db.Brand{
+var BrandAcer = &tech_service.Brand{
 	Name:        "Acer",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePc},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePc},
 }
 
-var BrandToshiba = &db.Brand{
+var BrandToshiba = &tech_service.Brand{
 	Name:        "Toshiba",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePc},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePc},
 }
 
-var BrandDell = &db.Brand{
+var BrandDell = &tech_service.Brand{
 	Name:        "Dell",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePc},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePc},
 }
 
-var BrandCasper = &db.Brand{
+var BrandCasper = &tech_service.Brand{
 	Name:        "Casper",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePc, DeviceTypeTablet, DeviceTypePhone},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePc, DeviceTypeTablet, DeviceTypePhone},
 }
 
-var BrandHuawei = &db.Brand{
+var BrandHuawei = &tech_service.Brand{
 	Name:        "Huawei",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePc, DeviceTypeTablet, DeviceTypePhone},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePc, DeviceTypeTablet, DeviceTypePhone},
 }
 
-var BrandMsi = &db.Brand{
+var BrandMsi = &tech_service.Brand{
 	Name:        "MSI",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePc},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePc},
 }
 
-var BrandMicrosoft = &db.Brand{
+var BrandMicrosoft = &tech_service.Brand{
 	Name:        "Microsoft",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePc, DeviceTypeTablet},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePc, DeviceTypeTablet},
 }
 
-var BrandMonster = &db.Brand{
+var BrandMonster = &tech_service.Brand{
 	Name:        "Monster",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePc},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePc},
 }
 
-var BrandAsusRog = &db.Brand{
+var BrandAsusRog = &tech_service.Brand{
 	Name:        "Asus Rog",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePc},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePc},
 }
 
-var BrandNokia = &db.Brand{
+var BrandNokia = &tech_service.Brand{
 	Name:        "Nokia",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePhone},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePhone},
 }
 
-var BrandOppo = &db.Brand{
+var BrandOppo = &tech_service.Brand{
 	Name:        "Oppo",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePhone},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePhone},
 }
-var BrandGeneralMobile = &db.Brand{
+var BrandGeneralMobile = &tech_service.Brand{
 	Name:        "General Mobile",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePhone, DeviceTypeTablet},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePhone, DeviceTypeTablet},
 }
 
-var BrandHometech = &db.Brand{
+var BrandHometech = &tech_service.Brand{
 	Name:        "Hometech",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypeTablet},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypeTablet},
 }
 
-var BrandXiaomi = &db.Brand{
+var BrandXiaomi = &tech_service.Brand{
 	Name:        "Xiaomi",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypeTablet, DeviceTypePhone},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypeTablet, DeviceTypePhone},
 }
 
-var BrandAlcatel = &db.Brand{
+var BrandAlcatel = &tech_service.Brand{
 	Name:        "Alcatel",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypeTablet, DeviceTypePhone},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypeTablet, DeviceTypePhone},
 }
 
-var BrandReeder = &db.Brand{
+var BrandReeder = &tech_service.Brand{
 	Name:        "Reeder",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypeTablet, DeviceTypePhone},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypeTablet, DeviceTypePhone},
 }
 
-var BrandPhilips = &db.Brand{
+var BrandPhilips = &tech_service.Brand{
 	Name:        "Philips",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypeTablet},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypeTablet},
 }
 
-var BrandAmazon = &db.Brand{
+var BrandAmazon = &tech_service.Brand{
 	Name:        "Amazon",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypeTablet},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypeTablet},
 }
 
-var BrandLG = &db.Brand{
+var BrandLG = &tech_service.Brand{
 	Name:        "LG",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypeTablet, DeviceTypePhone},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypeTablet, DeviceTypePhone},
 }
 
-var BrandBlackberry = &db.Brand{
+var BrandBlackberry = &tech_service.Brand{
 	Name:        "Blackberry",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePhone},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePhone},
 }
 
-var BrandGoogle = &db.Brand{
+var BrandGoogle = &tech_service.Brand{
 	Name:        "Google",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePhone},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePhone},
 }
 
-var BrandHiking = &db.Brand{
+var BrandHiking = &tech_service.Brand{
 	Name:        "Hiking",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePhone},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePhone},
 }
 
-var BrandHonor = &db.Brand{
+var BrandHonor = &tech_service.Brand{
 	Name:        "Honor",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePhone},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePhone},
 }
 
-var BrandHTC = &db.Brand{
+var BrandHTC = &tech_service.Brand{
 	Name:        "HTC",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePhone},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePhone},
 }
 
-var BrandInfinix = &db.Brand{
+var BrandInfinix = &tech_service.Brand{
 	Name:        "Infinix",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePhone},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePhone},
 }
 
-var BrandOnePlus = &db.Brand{
+var BrandOnePlus = &tech_service.Brand{
 	Name:        "OnePlus",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePhone},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePhone},
 }
 
-var BrandRealme = &db.Brand{
+var BrandRealme = &tech_service.Brand{
 	Name:        "Realme",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePhone},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePhone},
 }
 
-var BrandSony = &db.Brand{
+var BrandSony = &tech_service.Brand{
 	Name:        "Sony",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePhone},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePhone},
 }
 
-var BrandTCL = &db.Brand{
+var BrandTCL = &tech_service.Brand{
 	Name:        "TCL",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePhone},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePhone},
 }
 
-var BrandTecno = &db.Brand{
+var BrandTecno = &tech_service.Brand{
 	Name:        "Tecno",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePhone},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePhone},
 }
 
-var BrandVestel = &db.Brand{
+var BrandVestel = &tech_service.Brand{
 	Name:        "Vestel",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePhone},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePhone},
 }
 
-var BrandVivo = &db.Brand{
+var BrandVivo = &tech_service.Brand{
 	Name:        "Vivo",
 	IsActive:    true,
-	DeviceTypes: []*db.DeviceType{DeviceTypePhone},
+	DeviceTypes: []*tech_service.DeviceType{DeviceTypePhone},
 }

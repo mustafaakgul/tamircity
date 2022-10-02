@@ -1,7 +1,7 @@
-package repositories
+package tech_service
 
 import (
-	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/models/db/tech_service"
 	"github.com/anthophora/tamircity/pkg/store/seed_data"
 	"gorm.io/gorm"
 )
@@ -12,14 +12,14 @@ type brandStore struct {
 
 // interface
 type BrandStore interface {
-	Create(model *db.Brand) error
-	Update(model *db.Brand) error
-	Delete(model *db.Brand) error
-	FindAll() ([]db.Brand, error)
-	FindByID(id int) (db.Brand, error)
-	FindBy(column string, value interface{}) ([]db.Brand, error)
-	FindByDeviceTypeId(deviceTypeId int) ([]db.Brand, error)
-	Search(query string) ([]db.Brand, error)
+	Create(model *tech_service.Brand) error
+	Update(model *tech_service.Brand) error
+	Delete(model *tech_service.Brand) error
+	FindAll() ([]tech_service.Brand, error)
+	FindByID(id int) (tech_service.Brand, error)
+	FindBy(column string, value interface{}) ([]tech_service.Brand, error)
+	FindByDeviceTypeId(deviceTypeId int) ([]tech_service.Brand, error)
+	Search(query string) ([]tech_service.Brand, error)
 	Seed() error
 }
 
@@ -27,48 +27,48 @@ func NewBrandStore(db *gorm.DB) BrandStore {
 	return &brandStore{db: db}
 }
 
-func (b *brandStore) Create(model *db.Brand) error {
+func (b *brandStore) Create(model *tech_service.Brand) error {
 	return b.db.Create(model).Error
 }
 
-func (b *brandStore) Update(model *db.Brand) error {
+func (b *brandStore) Update(model *tech_service.Brand) error {
 	return b.db.Save(model).Error
 }
 
-func (b *brandStore) Delete(model *db.Brand) error {
+func (b *brandStore) Delete(model *tech_service.Brand) error {
 	return b.db.Delete(model).Error
 }
 
-func (b *brandStore) FindAll() ([]db.Brand, error) {
-	var models []db.Brand
+func (b *brandStore) FindAll() ([]tech_service.Brand, error) {
+	var models []tech_service.Brand
 	err := b.db.Find(&models).Error
 	return models, err
 }
 
-func (b *brandStore) FindByID(id int) (db.Brand, error) {
-	var model db.Brand
+func (b *brandStore) FindByID(id int) (tech_service.Brand, error) {
+	var model tech_service.Brand
 	err := b.db.First(&model, id).Error
 	return model, err
 }
 
-func (b *brandStore) FindBy(column string, value interface{}) ([]db.Brand, error) {
-	var models []db.Brand
+func (b *brandStore) FindBy(column string, value interface{}) ([]tech_service.Brand, error) {
+	var models []tech_service.Brand
 	err := b.db.Where(column+" = ?", value).Find(&models).Error
 	return models, err
 }
 
-func (b *brandStore) Search(query string) ([]db.Brand, error) {
-	var models []db.Brand
+func (b *brandStore) Search(query string) ([]tech_service.Brand, error) {
+	var models []tech_service.Brand
 	err := b.db.Where("name LIKE ?", "%"+query+"%").Find(&models).Error
 	return models, err
 }
 
-func (b *brandStore) FindByDeviceTypeId(deviceTypeId int) ([]db.Brand, error) {
+func (b *brandStore) FindByDeviceTypeId(deviceTypeId int) ([]tech_service.Brand, error) {
 	//var brands []db.Brand
 	//err := b.db.Model(&brands).Joins("inner join device_types_brands on brands.id = device_types_brands.brand_id").Where("device_types_brands.device_type_id = ?", deviceTypeId).Find(&brands).Error
 	//return brands, err
 
-	var brands []db.Brand
+	var brands []tech_service.Brand
 	err := b.db.Model(&brands).Joins("inner join device_types_brands on brands.id = device_types_brands.brand_id").Where("device_types_brands.device_type_id = ?", deviceTypeId).Find(&brands).Error
 	//err := b.db.Model(brands).Preload("DeviceTypes").Where("device_types.id = ?", deviceTypeId).Find(&brands).Error
 	return brands, err
