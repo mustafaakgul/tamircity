@@ -67,7 +67,7 @@ func (t *expertiseServiceStore) FindByModelId(modelId int) ([]db.ExpertiseServic
 
 func (t *expertiseServiceStore) FindByBrandIdDeviceTypeId(brandId int, deviceTypeId int) ([]db.ExpertiseService, error) {
 	var expertiseServices []db.ExpertiseService
-	err := t.db.Joins("INNER JOIN expertise_services_brands on expertise_services.id = expertise_services_brands.expertise_service_id").Where("expertise_services_brands.brand_id = ?", brandId).Preload("ExpertiseServiceShifts", "day = ?", time.Monday).Preload("Reservations").Find(&expertiseServices).Error
+	err := t.db.Joins("INNER JOIN expertise_services_brands on expertise_services.id = expertise_services_brands.expertise_service_id").Where("expertise_services_brands.brand_id = ?", brandId).Find(&expertiseServices).Error
 	return expertiseServices, err
 }
 
