@@ -37,7 +37,6 @@ type ExpertiseServiceSearchResponse struct {
 	Id                           int                           `json:"id"`
 	Name                         string                        `json:"name"`
 	Address                      string                        `json:"address"`
-	Price                        uint64                        `json:"price"`
 	ExpertiseServiceShift        ExpertiseServiceShift         `json:"expertise_service_shift"`
 	ExpertiseServiceReservations []ExpertiseServiceReservation `json:"expertise_service_reservation"`
 }
