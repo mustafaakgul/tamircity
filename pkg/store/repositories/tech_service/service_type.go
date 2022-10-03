@@ -62,7 +62,6 @@ func (s *serviceTypeStore) Search(query string) ([]tech_service.ServiceType, err
 }
 
 func (s *serviceTypeStore) Seed() error {
-
 	s.db.Create(&tech_service2.ServiceType1)
 	s.db.Create(&tech_service2.ServiceType2)
 	s.db.Create(&tech_service2.ServiceType3)

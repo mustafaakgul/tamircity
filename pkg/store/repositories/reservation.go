@@ -2,6 +2,7 @@ package repositories
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/store/seed_data"
 	"gorm.io/gorm"
 	"time"
 )
@@ -115,5 +116,12 @@ func (r *reservationStore) GetReservationCountWithStatus(expertiseServiceId int,
 }
 
 func (r *reservationStore) Seed() error {
+	r.db.Create(&seed_data.Reservation1)
+	r.db.Create(&seed_data.Reservation2)
+	r.db.Create(&seed_data.Reservation3)
+	r.db.Create(&seed_data.Reservation4)
+	r.db.Create(&seed_data.Reservation5)
+	r.db.Create(&seed_data.Reservation6)
+
 	return nil
 }

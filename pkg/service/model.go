@@ -2,7 +2,7 @@ package service
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db"
-	"github.com/anthophora/tamircity/pkg/models/web/tech_service"
+	"github.com/anthophora/tamircity/pkg/models/web"
 	"github.com/anthophora/tamircity/pkg/store/repositories"
 )
 
@@ -13,7 +13,7 @@ type ModelService interface {
 	FindAll() ([]db.Model, error)
 	FindByID(id int) (db.Model, error)
 	FindBy(column string, value interface{}) ([]db.Model, error)
-	FindByBrandIdDeviceTypeId(brandId int, deviceTypeId int) ([]tech_service.ModelResponse, error)
+	FindByBrandIdDeviceTypeId(brandId int, deviceTypeId int) ([]web.ModelResponse, error)
 	Search(query string) ([]db.Model, error)
 }
 
@@ -49,7 +49,7 @@ func (m *modelService) FindBy(column string, value interface{}) ([]db.Model, err
 	return m.modelStore.FindBy(column, value)
 }
 
-func (m *modelService) FindByBrandIdDeviceTypeId(brandId int, deviceTypeId int) (res []tech_service.ModelResponse, err error) {
+func (m *modelService) FindByBrandIdDeviceTypeId(brandId int, deviceTypeId int) (res []web.ModelResponse, err error) {
 	//query := fmt.Sprintf("brand_id = %x AND device_type_id = %x ", brandId, deviceTypeId)
 
 	models, err := m.modelStore.Where(brandId, deviceTypeId)
@@ -57,7 +57,7 @@ func (m *modelService) FindByBrandIdDeviceTypeId(brandId int, deviceTypeId int) 
 		return nil, err
 	}
 	for _, model := range models {
-		res = append(res, tech_service.ModelResponse{Id: model.ID, Name: model.Name})
+		res = append(res, web.ModelResponse{Id: model.ID, Name: model.Name})
 	}
 	return res, nil
 }

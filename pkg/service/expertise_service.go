@@ -18,6 +18,7 @@ type ExpertiseServiceService interface {
 	FindByID(id int) (db.ExpertiseService, error)
 	FindBy(column string, value interface{}) ([]db.ExpertiseService, error)
 	FindByModelId(modelId int) ([]web.ExpertiseServiceSearchResponse, error)
+	FindByBrandIdDeviceTypeId(brandId int, deviceTypeId int) ([]web.ExpertiseServiceSearchResponse, error)
 	Search(query string) ([]db.ExpertiseService, error)
 }
 
@@ -78,6 +79,21 @@ func (t *expertiseServiceService) FindByModelId(modelId int) (response []web.Exp
 	}
 
 	return response, nil
+}
+
+func (t *expertiseServiceService) FindByBrandIdDeviceTypeId(brandId int, deviceTypeId int) (res []web.ExpertiseServiceSearchResponse, err error) {
+	expertiseServices, err := t.expertiseServiceStore.FindByBrandIdDeviceTypeId(brandId, deviceTypeId)
+	if err != nil {
+		return nil, err
+	}
+	for _, expertiseService := range expertiseServices {
+		res = append(res, web.ExpertiseServiceSearchResponse{
+			Id:      int(expertiseService.ID),
+			Name:    expertiseService.ServiceName,
+			Address: expertiseService.Address,
+		})
+	}
+	return res, nil
 }
 
 func (t *expertiseServiceService) FindBy(column string, value interface{}) ([]db.ExpertiseService, error) {

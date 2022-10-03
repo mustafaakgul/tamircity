@@ -2,6 +2,7 @@ package repositories
 
 import (
 	"github.com/anthophora/tamircity/pkg/models/db"
+	"github.com/anthophora/tamircity/pkg/store/seed_data"
 	"gorm.io/gorm"
 	"time"
 )
@@ -18,6 +19,7 @@ type ExpertiseServiceStore interface {
 	FindByID(id int) (db.ExpertiseService, error)
 	FindBy(column string, value interface{}) ([]db.ExpertiseService, error)
 	FindByModelId(modelId int) ([]db.ExpertiseService, error)
+	FindByBrandIdDeviceTypeId(brandId int, deviceTypeId int) ([]db.ExpertiseService, error)
 	Search(query string) ([]db.ExpertiseService, error)
 	Seed() error
 }
@@ -63,6 +65,12 @@ func (t *expertiseServiceStore) FindByModelId(modelId int) ([]db.ExpertiseServic
 	return expertiseServices, err
 }
 
+func (t *expertiseServiceStore) FindByBrandIdDeviceTypeId(brandId int, deviceTypeId int) ([]db.ExpertiseService, error) {
+	var expertiseServices []db.ExpertiseService
+	err := t.db.Joins("INNER JOIN expertise_services_brands on expertise_services.id = expertise_services_brands.expertise_service_id").Where("expertise_services_brands.brand_id = ?", brandId).Preload("ExpertiseServiceShifts", "day = ?", time.Monday).Preload("Reservations").Find(&expertiseServices).Error
+	return expertiseServices, err
+}
+
 /*
 func (t *expertiseServiceStore) FindShifts(expertiseServiceId uint) ([]db.ExpertiseService, error) {
 	var expertiseServices []db.ExpertiseService
@@ -83,5 +91,9 @@ func (t *expertiseServiceStore) Search(query string) ([]db.ExpertiseService, err
 }
 
 func (t *expertiseServiceStore) Seed() error {
+	t.db.Create(&seed_data.ExpertiseService1)
+	t.db.Create(&seed_data.ExpertiseService2)
+	t.db.Create(&seed_data.ExpertiseService3)
+
 	return nil
 }

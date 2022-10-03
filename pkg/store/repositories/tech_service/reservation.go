@@ -122,5 +122,6 @@ func (r *reservationStore) Seed() error {
 	r.db.Create(&tech_service2.Reservation4)
 	r.db.Create(&tech_service2.Reservation5)
 	r.db.Create(&tech_service2.Reservation6)
+
 	return nil
 }

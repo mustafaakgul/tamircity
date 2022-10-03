@@ -133,21 +133,28 @@ func (t *expertiseServiceHandler) GetAll(ctx *gin.Context) {
 
 func (t *expertiseServiceHandler) GetAllByFilter(ctx *gin.Context) {
 
-	modelId, err := strconv.Atoi(ctx.Query("model_id"))
+	brandId, err := strconv.Atoi(ctx.Query("brand_id"))
 	if err != nil {
-		responseErr := utils.HandleResponseModel(false, "", err, nil)
+		responseErr := utils.HandleResponseModel(false, "Brand id not found", err, nil)
 		ctx.JSON(http.StatusBadRequest, responseErr)
 		return
 	}
+
+	deviceTypeId, err := strconv.Atoi(ctx.Query("device_type_id"))
+	if err != nil {
+		responseErr := utils.HandleResponseModel(false, "Device Type id not found", err, nil)
+		ctx.JSON(http.StatusBadRequest, responseErr)
+		return
+	}
+
 	var expertiseServices []web.ExpertiseServiceSearchResponse
-	expertiseServices, err = t.expertiseServiceService.FindByModelId(modelId)
-
+	expertiseServices, err = t.expertiseServiceService.FindByBrandIdDeviceTypeId(brandId, deviceTypeId)
 	if err != nil {
-		responseErr := utils.HandleResponseModel(false, "", err, nil)
+		responseErr := utils.HandleResponseModel(false, "Expertise Service not found", err, nil)
 		ctx.JSON(http.StatusBadRequest, responseErr)
 		return
 	}
 
-	response := utils.HandleResponseModel(true, "", nil, expertiseServices)
+	response := utils.HandleResponseModel(true, "Expertise Service found successfully", nil, expertiseServices)
 	ctx.JSON(http.StatusOK, response)
 }

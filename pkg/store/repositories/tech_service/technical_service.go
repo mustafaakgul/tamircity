@@ -84,7 +84,6 @@ func (t *technicalServiceStore) Search(query string) ([]tech_service.TechnicalSe
 }
 
 func (t *technicalServiceStore) Seed() error {
-
 	t.db.Create(&tech_service2.TechnicalService1)
 	t.db.Create(&tech_service2.TechnicalService2)
 	t.db.Create(&tech_service2.TechnicalService3)
