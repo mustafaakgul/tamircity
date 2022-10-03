@@ -81,19 +81,34 @@ func (t *expertiseServiceService) FindByModelId(modelId int) (response []web.Exp
 	return response, nil
 }
 
-func (t *expertiseServiceService) FindByBrandIdDeviceTypeId(brandId int, deviceTypeId int) (res []web.ExpertiseServiceSearchResponse, err error) {
+func (t *expertiseServiceService) FindByBrandIdDeviceTypeId(brandId int, deviceTypeId int) (response []web.ExpertiseServiceSearchResponse, err error) {
 	expertiseServices, err := t.expertiseServiceStore.FindByBrandIdDeviceTypeId(brandId, deviceTypeId)
 	if err != nil {
 		return nil, err
 	}
 	for _, expertiseService := range expertiseServices {
-		res = append(res, web.ExpertiseServiceSearchResponse{
-			Id:      int(expertiseService.ID),
-			Name:    expertiseService.ServiceName,
-			Address: expertiseService.Address,
-		})
+		var expertiseServiceResponse web.ExpertiseServiceSearchResponse
+		expertiseServiceResponse.Id = int(expertiseService.ID)
+		expertiseServiceResponse.Name = expertiseService.ServiceName
+		expertiseServiceResponse.Address = expertiseService.Address
+
+		for _, shift := range expertiseService.ExpertiseServiceShifts {
+			expertiseServiceResponse.ExpertiseServiceShift.Day = shift.Day
+			expertiseServiceResponse.ExpertiseServiceShift.StartOfShift = shift.StartOfShift
+			expertiseServiceResponse.ExpertiseServiceShift.EndOfShift = shift.EndOfShift
+		}
+
+		for _, reservation := range expertiseService.Reservations {
+			var expertiseServiceReservation web.ExpertiseServiceReservation
+			expertiseServiceReservation.Day = reservation.WeekDay
+			expertiseServiceReservation.DateOfDay = reservation.Date
+			expertiseServiceReservation.StartOfShift = reservation.StartOfHour
+			expertiseServiceReservation.EndOfShift = reservation.EndOfHour
+			expertiseServiceResponse.ExpertiseServiceReservations = append(expertiseServiceResponse.ExpertiseServiceReservations, expertiseServiceReservation)
+		}
+		response = append(response, expertiseServiceResponse)
 	}
-	return res, nil
+	return response, nil
 }
 
 func (t *expertiseServiceService) FindBy(column string, value interface{}) ([]db.ExpertiseService, error) {

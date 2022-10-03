@@ -13,7 +13,7 @@ var ExpertiseService1 = &db.ExpertiseService{
 	Address:                "Basaksehir/ISTANBUL",
 	Iban:                   "123456789",
 	IsActive:               true,
-	DeviceTypes:            []*db.DeviceType{DeviceTypePc},
+	DeviceTypes:            []*db.DeviceType{DeviceTypePhone, DeviceTypePc},
 	ExpertiseServiceShifts: []*db.ExpertiseServiceShift{expertiseService1ShiftMonday, expertiseService1ShiftTuesday, expertiseService1ShiftWednesday, expertiseService1ShiftThursday, expertiseService1ShiftFriday},
 }
 
@@ -23,10 +23,10 @@ var ExpertiseService2 = &db.ExpertiseService{
 	IdentityNumber:         "123456789",
 	PhoneNumber:            "123456789",
 	Email:                  "email1@email.com",
-	Address:                "Bahcelievler/ISTANBUL",
+	Address:                "Kayasehir/ISTANBUL",
 	Iban:                   "123456789",
 	IsActive:               true,
-	DeviceTypes:            []*db.DeviceType{DeviceTypePc},
+	DeviceTypes:            []*db.DeviceType{DeviceTypePhone, DeviceTypePc},
 	ExpertiseServiceShifts: []*db.ExpertiseServiceShift{expertiseService2ShiftMonday, expertiseService2ShiftTuesday, expertiseService2ShiftWednesday, expertiseService2ShiftThursday, expertiseService2ShiftFriday},
 }
 
