@@ -42,31 +42,31 @@ func (r *reservationStore) FindByID(id int) (*db.Reservation, error) {
 
 func (r *reservationStore) GetPendingListByExpertiseServiceId(expertiseServiceId int) ([]db.Reservation, error) {
 	var reservations []db.Reservation
-	err := r.db.Where("expertise_service_id  = ? AND status = ? ", expertiseServiceId, db.Pending).Preload("DeviceType").Preload("Brand").Preload("ModelEntity").Preload("FixType").Preload("ServiceType").Preload("ExtraService").Preload("ExpertiseService").Find(&reservations).Error
+	err := r.db.Where("expertise_service_id  = ? AND status = ? ", expertiseServiceId, db.Pending).Preload("DeviceType").Preload("Brand").Preload("ModelEntity").Preload("ServiceType").Preload("ExpertiseService").Find(&reservations).Error
 	return reservations, err
 }
 
 func (r *reservationStore) GetCompletedListByExpertiseServiceId(expertiseServiceId int) ([]db.Reservation, error) {
 	var reservations []db.Reservation
-	err := r.db.Where("expertise_service_id  = ? AND status = ? ", expertiseServiceId, db.Completed).Preload("DeviceType").Preload("Brand").Preload("ModelEntity").Preload("FixType").Preload("ServiceType").Preload("ExtraService").Preload("ExpertiseService").Find(&reservations).Error
+	err := r.db.Where("expertise_service_id  = ? AND status = ? ", expertiseServiceId, db.Completed).Preload("DeviceType").Preload("Brand").Preload("ModelEntity").Preload("ServiceType").Preload("ExpertiseService").Find(&reservations).Error
 	return reservations, err
 }
 
 func (r *reservationStore) GetApprovedListByExpertiseServiceId(expertiseServiceId int) ([]db.Reservation, error) {
 	var reservations []db.Reservation
-	err := r.db.Where("expertise_service_id  = ? AND status = ? ", expertiseServiceId, db.Approved).Preload("DeviceType").Preload("Brand").Preload("ModelEntity").Preload("FixType").Preload("ServiceType").Preload("ExtraService").Preload("ExpertiseService").Find(&reservations).Error
+	err := r.db.Where("expertise_service_id  = ? AND status = ? ", expertiseServiceId, db.Approved).Preload("DeviceType").Preload("Brand").Preload("ModelEntity").Preload("ServiceType").Preload("ExpertiseService").Find(&reservations).Error
+	return reservations, err
+}
+
+func (r *reservationStore) GetCancelledListByExpertiseServiceId(expertiseServiceId int) ([]db.Reservation, error) {
+	var reservations []db.Reservation
+	err := r.db.Where("expertise_service_id  = ? AND status = ? ", expertiseServiceId, db.Cancelled).Preload("DeviceType").Preload("Brand").Preload("ModelEntity").Preload("ServiceType").Preload("ExpertiseService").Find(&reservations).Error
 	return reservations, err
 }
 
 func (r *reservationStore) GetApprovedListByExpertiseServiceIdAndDatetime(expertiseServiceId int, reservationDate time.Time) ([]db.Reservation, error) {
 	var reservations []db.Reservation
 	err := r.db.Where("expertise_service_id  = ? AND reservation_date > ? AND reservation_date < ?  AND status = ?  ", expertiseServiceId, reservationDate, reservationDate.Add(time.Hour*24), db.Approved).Preload("DeviceType").Preload("Brand").Preload("ModelEntity").Preload("FixType").Preload("ServiceType").Preload("ExtraService").Preload("ExpertiseService").Find(&reservations).Error
-	return reservations, err
-}
-
-func (r *reservationStore) GetCancelledListByExpertiseServiceId(expertiseServiceId int) ([]db.Reservation, error) {
-	var reservations []db.Reservation
-	err := r.db.Where("expertise_service_id  = ? AND status = ? ", expertiseServiceId, db.Cancelled).Preload("DeviceType").Preload("Brand").Preload("ModelEntity").Preload("FixType").Preload("ServiceType").Preload("ExtraService").Preload("ExpertiseService").Find(&reservations).Error
 	return reservations, err
 }
 
