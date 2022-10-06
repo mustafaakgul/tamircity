@@ -19,6 +19,19 @@ type ReservationCreateRequest struct {
 	Description        string    `json:"description"`
 }
 
+type ReservationDetail struct {
+	ReservationId  int    `json:"reservation_id"`
+	DeviceTypeId   int    `json:"device_type_id"`
+	DeviceTypeName string `json:"device_type_name"`
+	BrandId        int    `json:"brand_id"`
+	BrandName      string `json:"brand_name"`
+	ModelId        int    `json:"model_id"`
+	ModelName      string `json:"model_name"`
+	FullName       string `json:"full_name"`
+	Email          string `json:"email"`
+	PhoneNumber    string `json:"phone_number"`
+}
+
 type ReservationPendingResponse struct {
 	ReservationId    int       `json:"reservation_id"`
 	ReservationDate  time.Time `json:"reservation_date"`

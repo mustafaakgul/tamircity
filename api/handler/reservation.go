@@ -2,14 +2,15 @@ package handler
 
 import (
 	"fmt"
+	"net/http"
+	"strconv"
+	"time"
+
 	"github.com/anthophora/tamircity/pkg/models/db"
 	"github.com/anthophora/tamircity/pkg/models/web"
 	"github.com/anthophora/tamircity/pkg/service"
 	"github.com/anthophora/tamircity/pkg/utils"
 	"github.com/gin-gonic/gin"
-	"net/http"
-	"strconv"
-	"time"
 )
 
 type reservationHandler struct {
@@ -27,6 +28,7 @@ type ReservationHandler interface {
 	UpdateReservationStatus(ctx *gin.Context)
 	GetPendingAndCompletedReservationCount(ctx *gin.Context)
 	ChangeOperationStatus(ctx *gin.Context)
+	GetReservationDetail(ctx *gin.Context)
 }
 
 func NewReservationHandler(reservationService service.ReservationService) ReservationHandler {
@@ -71,6 +73,25 @@ func (r *reservationHandler) FindByID(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, response)
 }
 
+func (r *reservationHandler) GetReservationDetail(ctx *gin.Context) {
+	reservationId, err := strconv.Atoi(ctx.Query("reservation_id"))
+	if err != nil {
+		responseErr := utils.HandleResponseModel(false, "", err, nil)
+		ctx.JSON(http.StatusBadRequest, responseErr)
+		return
+	}
+
+	reservation, err := r.reservationService.GetReservationDetail(reservationId)
+	if err != nil {
+		responseErr := utils.HandleResponseModel(false, "Reservation not found", err, nil)
+		ctx.JSON(http.StatusBadRequest, responseErr)
+		return
+	}
+	response := utils.HandleResponseModel(true, "", nil, reservation)
+	ctx.JSON(http.StatusOK, response)
+
+}
+
 func (r *reservationHandler) GetPendingList(ctx *gin.Context) {
 	expertiseServiceId, err := strconv.Atoi(ctx.Query("expertise_service_id"))
 	if err != nil {
@@ -87,7 +108,6 @@ func (r *reservationHandler) GetPendingList(ctx *gin.Context) {
 	}
 	response := utils.HandleResponseModel(true, "", nil, reservations)
 	ctx.JSON(http.StatusOK, response)
-
 }
 
 func (r *reservationHandler) GetCompletedList(ctx *gin.Context) {

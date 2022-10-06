@@ -1,6 +1,9 @@
 package main
 
 import (
+	"log"
+	"os"
+
 	"github.com/anthophora/tamircity/api/handler"
 	"github.com/anthophora/tamircity/api/routes"
 	"github.com/anthophora/tamircity/pkg/middleware"
@@ -10,8 +13,6 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"log"
-	"os"
 )
 
 func main() {
@@ -19,7 +20,7 @@ func main() {
 	middleware.SentryLogger()
 
 	// Set Enviroment Variables
-	err := godotenv.Load(".env")
+	err := godotenv.Load("../../.env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}

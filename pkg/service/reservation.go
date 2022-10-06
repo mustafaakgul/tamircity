@@ -1,10 +1,11 @@
 package service
 
 import (
+	"time"
+
 	"github.com/anthophora/tamircity/pkg/models/db"
 	"github.com/anthophora/tamircity/pkg/models/web"
 	"github.com/anthophora/tamircity/pkg/store/repositories"
-	"time"
 )
 
 type reservationService struct {
@@ -14,6 +15,7 @@ type reservationService struct {
 type ReservationService interface {
 	Create(*web.ReservationCreateRequest) error
 	FindByID(id int) (*db.Reservation, error)
+	GetReservationDetail(reservationId int) (response *web.ReservationDetail, err error)
 	GetPendingListByExpertiseServiceId(expertiseServiceId int) (response []web.ReservationPendingResponse, err error)
 	GetCompletedListByExpertiseServiceId(expertiseServiceId int) (response []web.ReservationCompletedResponse, err error)
 	GetCancelledListByExpertiseServiceId(expertiseServiceId int) (response []web.ReservationCancelledResponse, err error)
@@ -53,6 +55,25 @@ func (r *reservationService) Create(reservationReq *web.ReservationCreateRequest
 
 func (r *reservationService) FindByID(id int) (*db.Reservation, error) {
 	return r.reservationStore.FindByID(id)
+}
+
+func (r *reservationService) GetReservationDetail(reservationId int) (*web.ReservationDetail, error) {
+	reservation, err := r.reservationStore.GetReservationDetail(reservationId)
+
+	if err != nil {
+		return nil, err
+	}
+	var response web.ReservationDetail
+	response.ReservationId = int(reservation.Model.ID)
+	response.Email = reservation.Email
+	response.FullName = reservation.FullName
+	response.BrandId = reservation.BrandId
+	response.BrandName = reservation.Brand.Name
+	response.DeviceTypeId = reservation.DeviceTypeId
+	response.ModelId = reservation.ModelId
+	response.ModelName = reservation.ModelEntity.Name
+
+	return &response, nil
 }
 
 func (r *reservationService) GetPendingListByExpertiseServiceId(expertiseServiceId int) (response []web.ReservationPendingResponse, err error) {

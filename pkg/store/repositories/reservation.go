@@ -14,6 +14,7 @@ type reservationStore struct {
 type ReservationStore interface {
 	Create(reservation *db.Reservation) error
 	FindByID(id int) (*db.Reservation, error)
+	GetReservationDetail(reservationId int)(reservation *db.Reservation, err error)
 	GetPendingListByExpertiseServiceId(expertiseServiceId int) ([]db.Reservation, error)
 	GetCompletedListByExpertiseServiceId(expertiseServiceId int) ([]db.Reservation, error)
 	GetCancelledListByExpertiseServiceId(expertiseServiceId int) ([]db.Reservation, error)
@@ -38,6 +39,11 @@ func (r *reservationStore) FindByID(id int) (*db.Reservation, error) {
 	err := r.db.First(&reservation, id).Error
 	//err := r.db.Where("id = ?", id).Preload("DeviceType").Preload("Brand").Preload("ModelEntity").Preload("FixType").Preload("ServiceType").Preload("ExtraService").Preload("ExpertiseService").Find(&reservation).Error
 	return &reservation, err
+}
+
+func(r *reservationStore) GetReservationDetail(reservationId int)(reservation *db.Reservation, err error){
+	err = r.db.Preload("DeviceType").Preload("Brand").Preload("ModelEntity").Preload("ExpertiseService").First(&reservation, reservationId).Error
+	return reservation, err
 }
 
 func (r *reservationStore) GetPendingListByExpertiseServiceId(expertiseServiceId int) ([]db.Reservation, error) {
