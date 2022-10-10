@@ -4,7 +4,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type ExpertiseGameConsoleInfo struct {
+type ExpertiseConsoleInfo struct {
 	gorm.Model
 	ReservationId    uint
 	Reservation      *Reservation `gorm:"foreignkey:ReservationId;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
