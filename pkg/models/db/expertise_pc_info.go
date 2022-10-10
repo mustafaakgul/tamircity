@@ -53,7 +53,19 @@ type ExpertisePcInfo struct {
 	USB2Number                 int
 	USB3Number                 int
 	USBTypeCNumber             int
-	// 4- Calisma Durumu
+
+	IsScreenHasBrokenProblem            bool
+	IsScreenHasLossProblem              bool
+	IsScreenHasDeadPixelPixel           bool
+	IsDeviceHasCaseProblem              bool
+	IsDeviceHasCoverProblem             bool
+	IsKeyboardHasBrokenKeyProblem       bool
+	IsKeyboardHasFunctionlessKeyProblem bool
+	IsDeviceHasChargeSocketProblem      bool
+	IsDeviceHasTouchPadProblem          bool
+	IsDeviceHasSpeakerProblem           bool
+	IsDeviceHasHighHeatProblem          bool
+	IsDeviceHashighSoundProblem         bool
 }
 
 // TODO: Refactor
