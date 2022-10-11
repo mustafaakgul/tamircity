@@ -76,7 +76,7 @@ func (e *expertiseTvInfoHandler) Create(ctx *gin.Context) {
 	expertiseTvInfoModel.IsBluetoothHasProblem = expertiseTvInfo.IsBluetoothHasProblem
 	expertiseTvInfoModel.IsHDMIHasProblem = expertiseTvInfo.IsHDMIHasProblem
 	expertiseTvInfoModel.IsUSBHasProblem = expertiseTvInfo.IsUSBHasProblem
-	//expertiseTvInfoModel.IsRemoteControlHasProblem = expertiseTvInfo.
+	expertiseTvInfoModel.IsRemoteControlHasProblem = expertiseTvInfo.IsRemoteControlHasProblem
 
 	err := e.expertiseTvInfoService.Create(&expertiseTvInfoModel)
 	if err != nil {
