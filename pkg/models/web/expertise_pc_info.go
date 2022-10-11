@@ -1,11 +1,11 @@
 package web
 
 type ExpertisePcInfoRequest struct {
-	ReservationId                 int
+	ReservationId                 uint
 	Invoice                       bool
 	Box                           bool
 	GuaranteeTerm                 int
-	PhoneColor                    PhoneColor
+	PhoneColor                    string
 	ScrenSize                     float32
 	ScreenResolution              string
 	ScreenResolutionType          string
@@ -33,22 +33,21 @@ type ExpertisePcInfoRequest struct {
 	ExternalGraphicsCardSeries    string
 	ExternalGraphicsCardBit       int
 	ExternalGraphicsCardCoreSpeed int
-	// Dahili Ekran Karti
-	InternalGraphicCardCPU     string
-	GraphicBaseFrequency       int
-	GraphicMaxDynamicFrequency int
-	FourK                      bool
-	DirectX                    bool
-	OpenGL                     float32
-	SuppertedScreenNumber      int
-	Ethernet                   bool
-	EthernetVersion            bool
-	WifiVersion                string
-	HDMI                       bool
-	Bluetooth                  bool
-	USB2Number                 int
-	USB3Number                 int
-	USBTypeCNumber             int
+	InternalGraphicCardCPU        string
+	GraphicBaseFrequency          int
+	GraphicMaxDynamicFrequency    int
+	FourK                         bool
+	DirectX                       bool
+	OpenGL                        float32
+	SuppertedScreenNumber         int
+	Ethernet                      bool
+	EthernetVersion               bool
+	WifiVersion                   string
+	HDMI                          bool
+	Bluetooth                     bool
+	USB2Number                    int
+	USB3Number                    int
+	USBTypeCNumber                int
 
 	IsScreenHasBrokenProblem              bool
 	IsScreenHasLossProblem                bool

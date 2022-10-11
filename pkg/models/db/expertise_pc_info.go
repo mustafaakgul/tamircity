@@ -9,7 +9,7 @@ type ExpertisePcInfo struct {
 	Invoice                       bool         //Fatura var mi
 	Box                           bool         //Kutu
 	GuaranteeTerm                 int          //1-24
-	PhoneColor                    PhoneColor
+	PhoneColor                    string
 	ScrenSize                     float32 // TODO: Refactor
 	ScreenResolution              string  // TODO: Refactor
 	ScreenResolutionType          string  // TODO: Refactor
