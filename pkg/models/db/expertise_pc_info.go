@@ -9,7 +9,7 @@ type ExpertisePcInfo struct {
 	Invoice                       bool         //Fatura var mi
 	Box                           bool         //Kutu
 	GuaranteeTerm                 int          //1-24
-	PhoneColor                    PhoneColor
+	PhoneColor                    string
 	ScrenSize                     float32 // TODO: Refactor
 	ScreenResolution              string  // TODO: Refactor
 	ScreenResolutionType          string  // TODO: Refactor
@@ -53,7 +53,39 @@ type ExpertisePcInfo struct {
 	USB2Number                 int
 	USB3Number                 int
 	USBTypeCNumber             int
-	// 4- Calisma Durumu
+
+	IsScreenHasBrokenProblem              bool
+	IsScreenHasLossProblem                bool
+	IsScreenHasDeadPixelPixel             bool
+	IsDeviceHasCaseProblem                bool
+	IsDeviceHasCoverProblem               bool
+	IsKeyboardHasBrokenKeyProblem         bool
+	IsKeyboardHasFunctionlessKeyProblem   bool
+	IsDeviceHasChargeSocketProblem        bool
+	IsDeviceHasTouchPadProblem            bool
+	IsDeviceHasSpeakerProblem             bool
+	IsDeviceHasHighHeatProblem            bool
+	IsDeviceHasHighSoundProblem           bool
+	IsDeviceHasDVDDriverProblem           bool
+	IsDeviceHasUSBInputProblem            bool
+	IsDeviceHasUSBTypeCProblem            bool
+	IsDeviceHasCardReaderProblem          bool
+	IsDeviceHasCameraProblem              bool
+	IsDeviceHasFingerPrintProblem         bool
+	IsDeviceHasMotherboardProblem         bool
+	IsDeviceHasRAMProblem                 bool
+	IsDeviceHasHDDProblem                 bool
+	IsDeviceHasSSDProblem                 bool
+	IsDeviceHasExternalGraphicCardProblem bool
+	IsDeviceHasInternalGraphicCardProblem bool
+	IsDeviceHasOpticalReaderProblem       bool
+	IsDeviceHasEthernetConnectionProblem  bool
+	IsDeviceHasWiFiProblem                bool
+	IsDeviceHasHDMIProblem                bool
+	IsDeviceHasBluetoothProblem           bool
+	IsDeviceHasHeadPhoneSocketProblem     bool
+	IsDeviceHasTouchScreenProblem         bool
+	IsDeviceHasKeyboardBacklightProblem   bool
 }
 
 // TODO: Refactor
