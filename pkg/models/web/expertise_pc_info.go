@@ -2,15 +2,15 @@ package web
 
 type ExpertisePcInfoRequest struct {
 	ReservationId                 int
-	Invoice                       bool //Fatura var mi
-	Box                           bool //Kutu
-	GuaranteeTerm                 int  //1-24
+	Invoice                       bool
+	Box                           bool
+	GuaranteeTerm                 int
 	PhoneColor                    PhoneColor
-	ScrenSize                     float32 // TODO: Refactor
-	ScreenResolution              string  // TODO: Refactor
-	ScreenResolutionType          string  // TODO: Refactor
-	ScreenPanelType               string  // TODO: Refactor
-	OperatingSystem               string  // TODO: Refactor
+	ScrenSize                     float32
+	ScreenResolution              string
+	ScreenResolutionType          string
+	ScreenPanelType               string
+	OperatingSystem               string
 	CardReader                    bool
 	Camera                        bool
 	FingerPrintReader             bool
@@ -28,13 +28,13 @@ type ExpertisePcInfoRequest struct {
 	HDDCapacity                   int
 	SSD                           bool
 	SSDCapacity                   int
-	ExternalGraphicsCard          bool // Harici Ekran Karti
+	ExternalGraphicsCard          bool
 	ExternalGraphicsCardBrand     string
 	ExternalGraphicsCardSeries    string
 	ExternalGraphicsCardBit       int
 	ExternalGraphicsCardCoreSpeed int
 	// Dahili Ekran Karti
-	InternalGraphicCardCPU     string // ????
+	InternalGraphicCardCPU     string
 	GraphicBaseFrequency       int
 	GraphicMaxDynamicFrequency int
 	FourK                      bool
@@ -49,7 +49,6 @@ type ExpertisePcInfoRequest struct {
 	USB2Number                 int
 	USB3Number                 int
 	USBTypeCNumber             int
-	// 4- Calisma Durumu
 
 	IsScreenHasBrokenProblem              bool
 	IsScreenHasLossProblem                bool
