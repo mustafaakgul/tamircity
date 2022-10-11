@@ -1,12 +1,13 @@
 package handler
 
 import (
+	"net/http"
+
 	"github.com/anthophora/tamircity/pkg/models/db"
 	"github.com/anthophora/tamircity/pkg/models/web"
 	"github.com/anthophora/tamircity/pkg/service"
 	"github.com/anthophora/tamircity/pkg/utils"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
 type expertisePcInfoHandler struct {
@@ -37,7 +38,7 @@ func (e *expertisePcInfoHandler) Create(ctx *gin.Context) {
 	expertisePcInfoModel.Box = expertisePcInfo.Box
 	expertisePcInfoModel.GuaranteeTerm = expertisePcInfo.GuaranteeTerm
 	expertisePcInfoModel.PhoneColor = expertisePcInfo.PhoneColor
-	expertisePcInfoModel.ScrenSize = expertisePcInfo.ScrenSize
+	expertisePcInfoModel.ScrenSize = expertisePcInfo.ScreenSize
 	expertisePcInfoModel.ScreenResolution = expertisePcInfo.ScreenResolution
 	expertisePcInfoModel.ScreenResolutionType = expertisePcInfo.ScreenResolutionType
 	expertisePcInfoModel.ScreenPanelType = expertisePcInfo.ScreenPanelType
@@ -81,7 +82,7 @@ func (e *expertisePcInfoHandler) Create(ctx *gin.Context) {
 	expertisePcInfoModel.USBTypeCNumber = expertisePcInfo.USBTypeCNumber
 	expertisePcInfoModel.IsScreenHasBrokenProblem = expertisePcInfo.IsScreenHasBrokenProblem
 	expertisePcInfoModel.IsScreenHasLossProblem = expertisePcInfo.IsScreenHasLossProblem
-	expertisePcInfoModel.IsScreenHasDeadPixelPixel = expertisePcInfo.IsScreenHasDeadPixelPixel
+	expertisePcInfoModel.IsScreenHasDeadPixelPixel = expertisePcInfo.IsScreenHasDeadPixelProblem
 	expertisePcInfoModel.IsDeviceHasCaseProblem = expertisePcInfo.IsDeviceHasCaseProblem
 	expertisePcInfoModel.IsDeviceHasCoverProblem = expertisePcInfo.IsDeviceHasCoverProblem
 	expertisePcInfoModel.IsKeyboardHasBrokenKeyProblem = expertisePcInfo.IsKeyboardHasBrokenKeyProblem
