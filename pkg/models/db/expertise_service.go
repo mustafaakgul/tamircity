@@ -17,6 +17,7 @@ type ExpertiseService struct {
 	Address                string        `gorm:"type:varchar(50);not null"`
 	About                  string        `gorm:"type:varchar(200);not null"`
 	IsActive               bool          `gorm:"type:boolean;default:true;not null"`
+	Models                 []*Model      `gorm:"many2many:expertise_services_models;"`
 	DeviceTypes            []*DeviceType `gorm:"many2many:expertise_services_device_types;"`
 	Brands                 []*Brand      `gorm:"many2many:expertise_services_brands;"`
 	ExpertiseServiceShifts []*ExpertiseServiceShift
