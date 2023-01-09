@@ -46,6 +46,12 @@ func main() {
 	userStore := repositories.NewUserStore(db)
 	expertiseServiceShiftStore := repositories.NewExpertiseServiceShiftStore(db)
 
+	expertiseConsoleInfoStore := repositories.NewExpertiseConsoleInfoStore(db)
+	expertisePcInfoStoreStore := repositories.NewExpertisePcInfoStoreStore(db)
+	expertisePhoneInfoStore := repositories.NewExpertisePhoneInfoStore(db)
+	expertiseTvInfoStore := repositories.NewExpertiseTvInfoStore(db)
+	expertiseWatchInfoStoreStore := repositories.NewExpertiseWatchInfoStoreStore(db)
+
 	// Clients
 	// This one need to be integrated systems
 
@@ -60,6 +66,12 @@ func main() {
 	userService := service.NewUserService(userStore)
 	expertiseServiceShiftService := service.NewExpertiseServiceShiftService(expertiseServiceShiftStore)
 
+	expertiseConsoleInfoService := service.NewExpertiseConsoleInfoService(expertiseConsoleInfoStore)
+	expertisePCInfoService := service.NewExpertisePCInfoService(expertisePcInfoStoreStore)
+	expertisePhoneInfoService := service.NewExpertisePhoneInfoService(expertisePhoneInfoStore)
+	expertiseTvInfoService := service.NewExpertiseTvInfoService(expertiseTvInfoStore)
+	expertiseWatchInfoService := service.NewExpertiseWatchInfoService(expertiseWatchInfoStoreStore)
+
 	// Handler
 	expertiseServiceHandler := handler.NewExpertiseServiceHandler(expertiseServiceService)
 	expertiseServiceCandidateHandler := handler.NewExpertiseServiceCandidateHandler(expertiseServiceCandidateService)
@@ -70,6 +82,12 @@ func main() {
 	reservationHandler := handler.NewReservationHandler(reservationService)
 	userHandler := handler.NewUserHandler(userService)
 	expertiseServiceShiftHandler := handler.NewExpertiseServiceShiftHandler(expertiseServiceShiftService)
+
+	expertiseConsoleInfoHandler := handler.NewExpertiseConsoleInfoHandler(expertiseConsoleInfoService)
+	expertisePcInfoHandler := handler.NewExpertisePcInfoHandler(expertisePCInfoService)
+	expertisePhoneInfoHandler := handler.NewExpertisePhoneInfoHandler(expertisePhoneInfoService)
+	expertiseTvInfoHandler := handler.NewExpertiseTvInfoHandler(expertiseTvInfoService)
+	expertiseWatchInfoHandler := handler.NewExpertiseWatchInfoHandler(expertiseWatchInfoService)
 
 	// Gin Server
 	router := gin.Default()
@@ -91,6 +109,12 @@ func main() {
 	routes.ReservationRouter(router, reservationHandler)
 	routes.UserRouter(router, userHandler)
 	routes.ExpertiseServiceShiftRouter(router, expertiseServiceShiftHandler)
+
+	routes.ExpertiseConsoleInfoRouter(router, expertiseConsoleInfoHandler)
+	routes.ExpertisePcInfoRouter(router, expertisePcInfoHandler)
+	routes.ExpertisePhoneInfoRouter(router, expertisePhoneInfoHandler)
+	routes.ExpertiseTvInfoRouter(router, expertiseTvInfoHandler)
+	routes.ExpertiseWatchInfoRouter(router, expertiseWatchInfoHandler)
 
 	port := os.Getenv("API_PORT")
 	router.Run(":" + port)

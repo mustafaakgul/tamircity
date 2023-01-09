@@ -35,6 +35,7 @@ type ExpertisePcInfo struct {
 	ExternalGraphicsCard          bool // Harici Ekran Karti
 	ExternalGraphicsCardBrand     string
 	ExternalGraphicsCardSeries    string
+	ExternalGraphicsCardMemory    string
 	ExternalGraphicsCardBit       int
 	ExternalGraphicsCardCoreSpeed int
 	// Dahili Ekran Karti
