@@ -1,12 +1,13 @@
 package handler
 
 import (
+	"net/http"
+
 	"github.com/anthophora/tamircity/pkg/models/db"
 	"github.com/anthophora/tamircity/pkg/models/web"
 	"github.com/anthophora/tamircity/pkg/service"
 	"github.com/anthophora/tamircity/pkg/utils"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
 type expertisePhoneInfoHandler struct {
@@ -81,7 +82,7 @@ func (e *expertisePhoneInfoHandler) Create(ctx *gin.Context) {
 	expertisePhoneInfoModel.IsScreenHasBrokenProblem = expertisePhoneInfo.IsScreenHasBrokenProblem
 	expertisePhoneInfoModel.IsScreenHasObscurationProblem = expertisePhoneInfo.IsScreenHasObscurationProblem
 	expertisePhoneInfoModel.IsTouchScreenHasProblem = expertisePhoneInfo.IsTouchScreenHasProblem
-	expertisePhoneInfoModel.IsScreenHasDeadPixelPixel = expertisePhoneInfo.IsScreenHasDeadPixelPixel
+	expertisePhoneInfoModel.IsScreenHasDeadPixelPixel = expertisePhoneInfo.IsScreenHasDeadPixelProblem
 	expertisePhoneInfoModel.IsDeviceHasCaseProblem = expertisePhoneInfo.IsDeviceHasCaseProblem
 	expertisePhoneInfoModel.IsDeviceHasCoverProblem = expertisePhoneInfo.IsDeviceHasCoverProblem
 	expertisePhoneInfoModel.IsDeviceHaveCamerasProblem = expertisePhoneInfo.IsDeviceHaveCamerasProblem

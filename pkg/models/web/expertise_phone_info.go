@@ -1,70 +1,70 @@
 package web
 
 type ExpertisePhoneInfoRequest struct {
-	ReservationId             uint
-	Invoice                   bool
-	Box                       bool
-	GuaranteeTerm             int
-	Color                     string
-	IMEIRegistration          string
-	EDevletRegistration       string
-	ScreenSize                float32
-	ScreenTechnology          string
-	ScreenResolution          string
-	ScratchResistance         bool
-	CPUModel                  string
-	CPUFrequency              int
-	Ram                       int
-	OSType                    string
-	OSTypeVersion             string
-	CPUCoreNumber             int
-	CameraResolution          int
-	FrontCameraResolution     int
-	VideoRecordResolution     string
-	VideoFPS                  int
-	FaceRecognition           bool
-	SlowMotionVideo           bool
-	CameraAI                  bool
-	Timer                     bool
-	AutomaticFocus            bool
-	GeographicLocation        bool
-	VoiceControl              bool
-	InternalStorage           int
-	ExternalStorage           int
-	MaxExternalStorage        int
-	BatteryType               string
-	BatteryCapacity           int
-	BatteryWirelessCharge     bool
-	BatteryFastCharge         bool
-	BatteryWirelessFastCharge bool
-	BatteryDetachable         bool
-	WiFiFrequency             string
-	NFC                       bool
-	G5Support                 bool
-	ReleaseYear               int
-	ResistanceofWater         bool
-	ResistanceofDust          bool
-	Fingerprint               bool
-	DoubleSim                 bool
-	AnTuTuScore               int
+	ReservationId             uint    `json:"reservation_id"`
+	Invoice                   bool    `json:"invoice"`
+	Box                       bool    `json:"box"`
+	GuaranteeTerm             int     `json:"guarantee_term"`
+	Color                     string  `json:"color"`
+	IMEIRegistration          string  `json:"imei_registration"`
+	EDevletRegistration       string  `json:"e_devlet_registration"`
+	ScreenSize                float32 `json:"screen_size"`
+	ScreenTechnology          string  `json:"screen_technology"`
+	ScreenResolution          string  `json:"screen_resolution"`
+	ScratchResistance         bool    `json:"scratch_resistance"`
+	CPUModel                  string  `json:"cpu_model"`
+	CPUFrequency              int     `json:"cpu_frequency"`
+	Ram                       int     `json:"ram"`
+	OSType                    string  `json:"os_type"`
+	OSTypeVersion             string  `json:"os_type_version"`
+	CPUCoreNumber             int     `json:"cpu_core_number"`
+	CameraResolution          int     `json:"camera_resolution"`
+	FrontCameraResolution     int     `json:"front_camera_resolution"`
+	VideoRecordResolution     string  `json:"video_record_resolution"`
+	VideoFPS                  int     `json:"video_fps"`
+	FaceRecognition           bool    `json:"face_recognition"`
+	SlowMotionVideo           bool    `json:"slow_motion_video"`
+	CameraAI                  bool    `json:"camera_ai"`
+	Timer                     bool    `json:"timer"`
+	AutomaticFocus            bool    `json:"automatic_focus"`
+	GeographicLocation        bool    `json:"geographic_location"`
+	VoiceControl              bool    `json:"voice_control"`
+	InternalStorage           int     `json:"internal_storage"`
+	ExternalStorage           int     `json:"external_storage"`
+	MaxExternalStorage        int     `json:"max_external_storage"`
+	BatteryType               string  `json:"battery_type"`
+	BatteryCapacity           int     `json:"battery_capacity"`
+	BatteryWirelessCharge     bool    `json:"battery_wireless_charge"`
+	BatteryFastCharge         bool    `json:"battery_fast_charge"`
+	BatteryWirelessFastCharge bool    `json:"battery_wireless_fast_charge"`
+	BatteryDetachable         bool    `json:"battery_detachable"`
+	WiFiFrequency             string  `json:"wifi_frequency"`
+	NFC                       bool    `json:"nfc"`
+	G5Support                 bool    `json:"g5_support"`
+	ReleaseYear               int     `json:"release_year"`
+	ResistanceofWater         bool    `json:"resistance_o_water"`
+	ResistanceofDust          bool    `json:"resistance_of_dust"`
+	Fingerprint               bool    `json:"finger_print"`
+	DoubleSim                 bool    `json:"double_sim"`
+	AnTuTuScore               int     `json:"antutu_score"`
 
-	IsScreenHasBrokenProblem        bool
-	IsScreenHasObscurationProblem   bool
-	IsTouchScreenHasProblem         bool
-	IsScreenHasDeadPixelPixel       bool
-	IsDeviceHasCaseProblem          bool
-	IsDeviceHasCoverProblem         bool
-	IsDeviceHaveCamerasProblem      bool
-	IsDeviceHaveSpeakerProblem      bool
-	IsDeviceHasHighHeatProblem      bool
-	IsDeviceHasChargeSocketProblem  bool
-	IsDeviceHasPowerButtonProblem   bool
-	IsDeviceHasOpenedCaseProblem    bool
-	IsDeviceHasSideButtonProblem    bool
-	IsDeviceHasFreezingProblem      bool
-	IsDeviceHasBluetoothProblem     bool
-	IsDeviceHasWiFiProblem          bool
-	IsDeviceHasMicrophoneProblem    bool
-	IsDeviceHasCellularProblem      bool
-	IsDeviceHasSoundTransferProblem bool
+	IsScreenHasBrokenProblem        bool `json:"is_screen_has_broken_problem"`
+	IsScreenHasObscurationProblem   bool `json:"is_screen_has_obscuration_problem"`
+	IsTouchScreenHasProblem         bool `json:"is_touch_screen_has_problem"`
+	IsScreenHasDeadPixelProblem     bool `json:"is_screen_has_dead_pixel_problem"`
+	IsDeviceHasCaseProblem          bool `json:"is_device_has_case_problem"`
+	IsDeviceHasCoverProblem         bool `json:"is_device_has_cover_problem"`
+	IsDeviceHaveCamerasProblem      bool `json:"is_device_has_cameras_problem"`
+	IsDeviceHaveSpeakerProblem      bool `json:"is_device_has_speaker_problem"`
+	IsDeviceHasHighHeatProblem      bool `json:"is_device_has_hight_heat_problem"`
+	IsDeviceHasChargeSocketProblem  bool `json:"is_device_has_charge_socket_problem"`
+	IsDeviceHasPowerButtonProblem   bool `json:"is_device_has_power_button_problem"`
+	IsDeviceHasOpenedCaseProblem    bool `json:"is_device_has_opened_case_problem"`
+	IsDeviceHasSideButtonProblem    bool `json:"is_device_has_side_button_problem"`
+	IsDeviceHasFreezingProblem      bool `json:"is_device_has_freezing_problem"`
+	IsDeviceHasBluetoothProblem     bool `json:"is_device_has_bluetooth_problem"`
+	IsDeviceHasWiFiProblem          bool `json:"is_device_has_wifi_problem"`
+	IsDeviceHasMicrophoneProblem    bool `json:"is_device_has_microphone_problem"`
+	IsDeviceHasCellularProblem      bool `json:"is_device_has_cellular_problem"`
+	IsDeviceHasSoundTransferProblem bool `json:"is_device_has_sound_transfer_problem"`
 }
