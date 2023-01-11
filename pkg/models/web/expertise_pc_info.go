@@ -31,6 +31,7 @@ type ExpertisePcInfoRequest struct {
 	ExternalGraphicsCard          bool    `json:"external_graphics_card"`
 	ExternalGraphicsCardBrand     string  `json:"external_graphics_card_brand"`
 	ExternalGraphicsCardSeries    string  `json:"external_graphics_card_series"`
+	ExternalGraphicsCardMemory    string  `json:"external_graphics_card_memory"`
 	ExternalGraphicsCardBit       int     `json:"external_graphics_card_bit"`
 	ExternalGraphicsCardCoreSpeed int     `json:"external_graphics_card_core_speed"`
 	InternalGraphicCardCPU        string  `json:"internal_graphics_card_cpu"`
