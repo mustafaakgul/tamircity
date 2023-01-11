@@ -24,6 +24,12 @@ func Migrate(db *gorm.DB) error {
 			&dbModels.ExpertiseServiceCandidate{},
 			&dbModels.User{},
 			&dbModels.ExpertiseServiceShift{},
+
+			&dbModels.ExpertisePcInfo{},
+			&dbModels.ExpertiseWatchInfo{},
+			&dbModels.ExpertisePhoneInfo{},
+			&dbModels.ExpertiseConsoleInfo{},
+			&dbModels.ExpertiseTvInfo{},
 		)
 
 		Seeder(db)
