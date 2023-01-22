@@ -63,6 +63,7 @@ func (e *expertisePcInfoHandler) Create(ctx *gin.Context) {
 	expertisePcInfoModel.ExternalGraphicsCard = expertisePcInfo.ExternalGraphicsCard
 	expertisePcInfoModel.ExternalGraphicsCardBrand = expertisePcInfo.ExternalGraphicsCardBrand
 	expertisePcInfoModel.ExternalGraphicsCardSeries = expertisePcInfo.ExternalGraphicsCardSeries
+	expertisePcInfoModel.ExternalGraphicsCardMemory = expertisePcInfo.ExternalGraphicsCardMemory
 	expertisePcInfoModel.ExternalGraphicsCardBit = expertisePcInfo.ExternalGraphicsCardBit
 	expertisePcInfoModel.ExternalGraphicsCardCoreSpeed = expertisePcInfo.ExternalGraphicsCardCoreSpeed
 	expertisePcInfoModel.InternalGraphicCardCPU = expertisePcInfo.InternalGraphicCardCPU
