@@ -11,12 +11,17 @@ type expertisePhoneInfoService struct {
 
 type ExpertisePhoneInfoService interface {
 	Create(model *db.ExpertisePhoneInfo) error
+	GetByID(id int) (*db.ExpertisePhoneInfo, error)
 }
 
 func NewExpertisePhoneInfoService(expertisePhoneInfoStore repositories.ExpertisePhoneInfoStore) ExpertisePhoneInfoService {
 	return &expertisePhoneInfoService{
 		expertisePhoneInfoStore: expertisePhoneInfoStore,
 	}
+}
+
+func (e *expertisePhoneInfoService) GetByID(id int) (*db.ExpertisePhoneInfo, error) {
+	return e.expertisePhoneInfoStore.GetByID(id)
 }
 
 func (e *expertisePhoneInfoService) Create(model *db.ExpertisePhoneInfo) error {
