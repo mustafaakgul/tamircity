@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/anthophora/tamircity/pkg/models/db"
 	"github.com/anthophora/tamircity/pkg/models/web"
@@ -16,12 +17,32 @@ type expertisePhoneInfoHandler struct {
 
 type ExpertisePhoneInfoHandler interface {
 	Create(ctx *gin.Context)
+	GetByID(ctx *gin.Context)
 }
 
 func NewExpertisePhoneInfoHandler(expertisePhoneInfoService service.ExpertisePhoneInfoService) ExpertisePhoneInfoHandler {
 	return &expertisePhoneInfoHandler{
 		expertisePhoneInfoService: expertisePhoneInfoService,
 	}
+}
+
+func (e *expertisePhoneInfoHandler) GetByID(ctx *gin.Context) {
+	id, err := strconv.Atoi(ctx.Param("id"))
+	if err != nil {
+		response := utils.HandleResponseModel(false, "Wrong Params", err, nil)
+		ctx.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	expertisePhoneInfo, err := e.expertisePhoneInfoService.GetByID(id)
+	if err != nil {
+		response := utils.HandleResponseModel(false, "Expertise Phone Info could not be found", err, nil)
+		ctx.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	response := utils.HandleResponseModel(true, "Expertise Phone Info found successfully", nil, expertisePhoneInfo)
+	ctx.JSON(http.StatusOK, response)
 }
 
 func (e *expertisePhoneInfoHandler) Create(ctx *gin.Context) {

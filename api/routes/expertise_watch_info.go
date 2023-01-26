@@ -9,5 +9,6 @@ func ExpertiseWatchInfoRouter(router *gin.Engine, expertiseWatchInfoHandler hand
 	route := router.Group("api/v1/expertise_watch_infos")
 	{
 		route.POST("", expertiseWatchInfoHandler.Create)
+		route.GET("/:id", expertiseWatchInfoHandler.GetByID)
 	}
 }

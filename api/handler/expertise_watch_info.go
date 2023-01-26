@@ -7,6 +7,7 @@ import (
 	"github.com/anthophora/tamircity/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
 
 type expertiseWatchInfoHandler struct {
@@ -15,12 +16,32 @@ type expertiseWatchInfoHandler struct {
 
 type ExpertiseWatchInfoHandler interface {
 	Create(ctx *gin.Context)
+	GetByID(ctx *gin.Context)
 }
 
 func NewExpertiseWatchInfoHandler(expertiseWatchInfoService service.ExpertiseWatchInfoService) ExpertiseWatchInfoHandler {
 	return &expertiseWatchInfoHandler{
 		expertiseWatchInfoService: expertiseWatchInfoService,
 	}
+}
+
+func (e *expertiseWatchInfoHandler) GetByID(ctx *gin.Context) {
+	id, err := strconv.Atoi(ctx.Param("id"))
+	if err != nil {
+		response := utils.HandleResponseModel(false, "Wrong Params", err, nil)
+		ctx.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	expertiseWatchInfo, err := e.expertiseWatchInfoService.GetByID(id)
+	if err != nil {
+		response := utils.HandleResponseModel(false, "Expertise Watch Info could not be found", err, nil)
+		ctx.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	response := utils.HandleResponseModel(true, "Expertise Watch Info found successfully", nil, expertiseWatchInfo)
+	ctx.JSON(http.StatusOK, response)
 }
 
 func (e *expertiseWatchInfoHandler) Create(ctx *gin.Context) {

@@ -9,5 +9,6 @@ func ExpertiseConsoleInfoRouter(router *gin.Engine, expertiseConsoleInfoHandler 
 	route := router.Group("api/v1/expertise_console_infos")
 	{
 		route.POST("", expertiseConsoleInfoHandler.Create)
+		route.GET("/:id", expertiseConsoleInfoHandler.GetByID)
 	}
 }

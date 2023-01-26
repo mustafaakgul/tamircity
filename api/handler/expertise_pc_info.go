@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/anthophora/tamircity/pkg/models/db"
 	"github.com/anthophora/tamircity/pkg/models/web"
@@ -16,12 +17,32 @@ type expertisePcInfoHandler struct {
 
 type ExpertisePcInfoHandler interface {
 	Create(ctx *gin.Context)
+	GetByID(ctx *gin.Context)
 }
 
 func NewExpertisePcInfoHandler(expertisePcInfoService service.ExpertisePcInfoService) ExpertisePcInfoHandler {
 	return &expertisePcInfoHandler{
 		expertisePcInfoService: expertisePcInfoService,
 	}
+}
+
+func (e *expertisePcInfoHandler) GetByID(ctx *gin.Context) {
+	id, err := strconv.Atoi(ctx.Param("id"))
+	if err != nil {
+		response := utils.HandleResponseModel(false, "Wrong Params", err, nil)
+		ctx.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	expertisePcInfo, err := e.expertisePcInfoService.GetByID(id)
+	if err != nil {
+		response := utils.HandleResponseModel(false, "Expertise PC Info could not be found", err, nil)
+		ctx.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	response := utils.HandleResponseModel(true, "Expertise PC Info found successfully", nil, expertisePcInfo)
+	ctx.JSON(http.StatusOK, response)
 }
 
 func (e *expertisePcInfoHandler) Create(ctx *gin.Context) {

@@ -7,6 +7,7 @@ import (
 	"github.com/anthophora/tamircity/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
 
 type expertiseConsoleInfoHandler struct {
@@ -15,12 +16,32 @@ type expertiseConsoleInfoHandler struct {
 
 type ExpertiseConsoleInfoHandler interface {
 	Create(ctx *gin.Context)
+	GetByID(ctx *gin.Context)
 }
 
 func NewExpertiseConsoleInfoHandler(expertiseConsoleInfoService service.ExpertiseConsoleInfoService) ExpertiseConsoleInfoHandler {
 	return &expertiseConsoleInfoHandler{
 		expertiseConsoleInfoService: expertiseConsoleInfoService,
 	}
+}
+
+func (e *expertiseConsoleInfoHandler) GetByID(ctx *gin.Context) {
+	id, err := strconv.Atoi(ctx.Param("id"))
+	if err != nil {
+		response := utils.HandleResponseModel(false, "Wrong Params", err, nil)
+		ctx.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	expertiseConsoleInfo, err := e.expertiseConsoleInfoService.GetByID(id)
+	if err != nil {
+		response := utils.HandleResponseModel(false, "Expertise Console Info could not be found", err, nil)
+		ctx.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	response := utils.HandleResponseModel(true, "Expertise Console Info found successfully", nil, expertiseConsoleInfo)
+	ctx.JSON(http.StatusOK, response)
 }
 
 func (e *expertiseConsoleInfoHandler) Create(ctx *gin.Context) {

@@ -9,5 +9,6 @@ func ExpertisePhoneInfoRouter(router *gin.Engine, expertisePhoneInfoHandler hand
 	route := router.Group("api/v1/expertise_phone_infos")
 	{
 		route.POST("", expertisePhoneInfoHandler.Create)
+		route.GET("/:id", expertisePhoneInfoHandler.GetByID)
 	}
 }

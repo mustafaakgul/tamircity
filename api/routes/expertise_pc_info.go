@@ -9,5 +9,6 @@ func ExpertisePcInfoRouter(router *gin.Engine, expertisePcInfoHandler handler.Ex
 	route := router.Group("api/v1/expertise_pc_infos")
 	{
 		route.POST("", expertisePcInfoHandler.Create)
+		route.GET("/:id", expertisePcInfoHandler.GetByID)
 	}
 }

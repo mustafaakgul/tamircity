@@ -7,6 +7,7 @@ import (
 	"github.com/anthophora/tamircity/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
 
 type expertiseTvInfoHandler struct {
@@ -15,12 +16,32 @@ type expertiseTvInfoHandler struct {
 
 type ExpertiseTvInfoHandler interface {
 	Create(ctx *gin.Context)
+	GetByID(ctx *gin.Context)
 }
 
 func NewExpertiseTvInfoHandler(expertiseTvInfoService service.ExpertiseTvInfoService) ExpertiseTvInfoHandler {
 	return &expertiseTvInfoHandler{
 		expertiseTvInfoService: expertiseTvInfoService,
 	}
+}
+
+func (e *expertiseTvInfoHandler) GetByID(ctx *gin.Context) {
+	id, err := strconv.Atoi(ctx.Param("id"))
+	if err != nil {
+		response := utils.HandleResponseModel(false, "Wrong Params", err, nil)
+		ctx.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	expertiseTvInfo, err := e.expertiseTvInfoService.GetByID(id)
+	if err != nil {
+		response := utils.HandleResponseModel(false, "Expertise TV Info could not be found", err, nil)
+		ctx.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	response := utils.HandleResponseModel(true, "Expertise TV Info found successfully", nil, expertiseTvInfo)
+	ctx.JSON(http.StatusOK, response)
 }
 
 func (e *expertiseTvInfoHandler) Create(ctx *gin.Context) {

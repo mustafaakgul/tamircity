@@ -9,5 +9,6 @@ func ExpertiseTvInfoRouter(router *gin.Engine, expertiseTvInfoHandler handler.Ex
 	route := router.Group("api/v1/expertise_tv_infos")
 	{
 		route.POST("", expertiseTvInfoHandler.Create)
+		route.GET("/:id", expertiseTvInfoHandler.GetByID)
 	}
 }
