@@ -75,17 +75,18 @@ type ReservationCancelledResponse struct {
 }
 
 type ReservationApprovedResponse struct {
-	ReservationId    int       `json:"reservation_id"`
-	ReservationDate  time.Time `json:"reservation_date"`
-	DeviceTypeName   string    `json:"device_type_name"`
-	BrandName        string    `json:"brand_name"`
-	ModelName        string    `json:"model_name"`
-	FixTypeName      string    `json:"fix_type_name"`
-	ServiceTypeName  string    `json:"service_type_name"`
-	ExtraServiceName string    `json:"extra_service_name"`
-	FullName         string    `json:"full_name"`
-	Email            string    `json:"email"`
-	PhoneNumber      string    `json:"phone_number"`
+	ReservationId     int       `json:"reservation_id"`
+	ReservationDate   time.Time `json:"reservation_date"`
+	DeviceTypeName    string    `json:"device_type_name"`
+	BrandName         string    `json:"brand_name"`
+	ModelName         string    `json:"model_name"`
+	FixTypeName       string    `json:"fix_type_name"`
+	ServiceTypeName   string    `json:"service_type_name"`
+	ExtraServiceName  string    `json:"extra_service_name"`
+	OperationalStatus string    `json:"operational_status"`
+	FullName          string    `json:"full_name"`
+	Email             string    `json:"email"`
+	PhoneNumber       string    `json:"phone_number"`
 }
 
 type ReservationPendingAndCompletedCountResponse struct {

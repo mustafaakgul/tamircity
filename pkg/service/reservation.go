@@ -144,6 +144,7 @@ func (r *reservationService) GetApprovedListByExpertiseServiceId(expertiseServic
 		reservationResponse.FullName = reservation.FullName
 		reservationResponse.Email = reservation.Email
 		reservationResponse.PhoneNumber = reservation.PhoneNumber
+		reservationResponse.OperationalStatus = string(reservation.OperationalStatus)
 
 		response = append(response, reservationResponse)
 	}
