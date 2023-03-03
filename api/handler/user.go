@@ -118,7 +118,11 @@ func (u *userHandler) LoginJwt(ctx *gin.Context) {
 		return
 	}
 
-	userResult, _ := u.userService.FindByEmail(user.Email)
+	userResult, err := u.userService.FindByEmail(user.Email)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"Error": "username or password is incorrect."})
+		return
+	}
 
 	token, err := u.userService.LoginCheck(userResult, user.Password)
 	if err != nil {
