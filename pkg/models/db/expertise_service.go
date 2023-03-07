@@ -21,4 +21,5 @@ type ExpertiseService struct {
 	Brands                 []*Brand      `gorm:"many2many:expertise_services_brands;"`
 	ExpertiseServiceShifts []*ExpertiseServiceShift
 	Reservations           []*Reservation
+	Comments               []*Comment
 }
