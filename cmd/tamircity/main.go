@@ -45,6 +45,7 @@ func main() {
 	deviceTypeStore := repositories.NewDeviceTypeStore(db)
 	userStore := repositories.NewUserStore(db)
 	expertiseServiceShiftStore := repositories.NewExpertiseServiceShiftStore(db)
+	commentStore := repositories.NewCommentStore(db)
 
 	expertiseConsoleInfoStore := repositories.NewExpertiseConsoleInfoStore(db)
 	expertisePcInfoStoreStore := repositories.NewExpertisePcInfoStoreStore(db)
@@ -65,6 +66,7 @@ func main() {
 	reservationService := service.NewReservationService(reservationStore)
 	userService := service.NewUserService(userStore)
 	expertiseServiceShiftService := service.NewExpertiseServiceShiftService(expertiseServiceShiftStore)
+	commentService := service.NewCommentService(commentStore)
 
 	expertiseConsoleInfoService := service.NewExpertiseConsoleInfoService(expertiseConsoleInfoStore)
 	expertisePCInfoService := service.NewExpertisePCInfoService(expertisePcInfoStoreStore)
@@ -82,6 +84,7 @@ func main() {
 	reservationHandler := handler.NewReservationHandler(reservationService)
 	userHandler := handler.NewUserHandler(userService)
 	expertiseServiceShiftHandler := handler.NewExpertiseServiceShiftHandler(expertiseServiceShiftService)
+	commentHandler := handler.NewCommentHandler(commentService)
 
 	expertiseConsoleInfoHandler := handler.NewExpertiseConsoleInfoHandler(expertiseConsoleInfoService)
 	expertisePcInfoHandler := handler.NewExpertisePcInfoHandler(expertisePCInfoService)
@@ -109,6 +112,7 @@ func main() {
 	routes.ReservationRouter(router, reservationHandler)
 	routes.UserRouter(router, userHandler)
 	routes.ExpertiseServiceShiftRouter(router, expertiseServiceShiftHandler)
+	routes.CommentRouter(router, commentHandler)
 
 	routes.ExpertiseConsoleInfoRouter(router, expertiseConsoleInfoHandler)
 	routes.ExpertisePcInfoRouter(router, expertisePcInfoHandler)
