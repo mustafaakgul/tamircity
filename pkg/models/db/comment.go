@@ -1,12 +1,15 @@
 package db
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+	"time"
+)
 
 type Comment struct {
 	gorm.Model
 	CommentOwner       string `gorm:"type:varchar(100);not null"`
 	Comment            string `gorm:"type:varchar(200);not null"`
-	CommentDate        string `gorm:"type:varchar(50);not null"`
+	CommentDate        time.Time
 	CommentTime        string `gorm:"type:varchar(50);not null"`
 	Rate               int    `gorm:"type:int;not null"`
 	ExpertiseServiceID int
