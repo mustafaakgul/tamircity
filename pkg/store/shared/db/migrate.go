@@ -24,6 +24,7 @@ func Migrate(db *gorm.DB) error {
 			&dbModels.ExpertiseServiceCandidate{},
 			&dbModels.User{},
 			&dbModels.ExpertiseServiceShift{},
+			&dbModels.Comment{},
 
 			&dbModels.ExpertisePcInfo{},
 			&dbModels.ExpertiseWatchInfo{},

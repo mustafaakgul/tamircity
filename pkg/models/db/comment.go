@@ -10,8 +10,7 @@ type Comment struct {
 	CommentOwner       string `gorm:"type:varchar(100);not null"`
 	Comment            string `gorm:"type:varchar(200);not null"`
 	CommentDate        time.Time
-	CommentTime        string `gorm:"type:varchar(50);not null"`
-	Rate               int    `gorm:"type:int;not null"`
+	Rate               int `gorm:"type:int;not null"`
 	ExpertiseServiceID int
 	ExpertiseService   *ExpertiseService `gorm:"foreignkey:ExpertiseServiceID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 }
