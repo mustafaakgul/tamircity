@@ -13,7 +13,7 @@ type paymentInfoService struct {
 type PaymentInfoService interface {
 	Create(request *web.PaymentInfoRequest) error
 	FindAllByExpertiseServiceId(expertiseServiceId int) ([]web.PaymentInfoResponse, error)
-	FindByID(id int) (res *web.PaymentInfoResponse, err error)
+	FindByID(id int) (web.PaymentInfoResponse, error)
 }
 
 func NewPaymentInfoService(paymentInfoStore repositories.PaymentInfoStore) PaymentInfoService {
@@ -52,10 +52,11 @@ func (p *paymentInfoService) FindAllByExpertiseServiceId(expertiseServiceId int)
 
 }
 
-func (p *paymentInfoService) FindByID(id int) (res *web.PaymentInfoResponse, err error) {
+func (p *paymentInfoService) FindByID(id int) (web.PaymentInfoResponse, error) {
+	var res web.PaymentInfoResponse
 	paymentInfo, err := p.paymentInfoStore.FindByID(id)
 	if err != nil {
-		return nil, err
+		return res, err
 	}
 
 	res.Id = paymentInfo.ID
