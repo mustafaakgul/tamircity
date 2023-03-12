@@ -46,6 +46,7 @@ func main() {
 	userStore := repositories.NewUserStore(db)
 	expertiseServiceShiftStore := repositories.NewExpertiseServiceShiftStore(db)
 	commentStore := repositories.NewCommentStore(db)
+	paymentInfoStore := repositories.NewPaymentInfoStore(db)
 
 	expertiseConsoleInfoStore := repositories.NewExpertiseConsoleInfoStore(db)
 	expertisePcInfoStoreStore := repositories.NewExpertisePcInfoStoreStore(db)
@@ -67,6 +68,7 @@ func main() {
 	userService := service.NewUserService(userStore)
 	expertiseServiceShiftService := service.NewExpertiseServiceShiftService(expertiseServiceShiftStore)
 	commentService := service.NewCommentService(commentStore)
+	paymentInfoService := service.NewPaymentInfoService(paymentInfoStore)
 
 	expertiseConsoleInfoService := service.NewExpertiseConsoleInfoService(expertiseConsoleInfoStore)
 	expertisePCInfoService := service.NewExpertisePCInfoService(expertisePcInfoStoreStore)
@@ -85,6 +87,7 @@ func main() {
 	userHandler := handler.NewUserHandler(userService)
 	expertiseServiceShiftHandler := handler.NewExpertiseServiceShiftHandler(expertiseServiceShiftService)
 	commentHandler := handler.NewCommentHandler(commentService)
+	paymentInfoHandler := handler.NewPaymentInfoHandler(paymentInfoService)
 
 	expertiseConsoleInfoHandler := handler.NewExpertiseConsoleInfoHandler(expertiseConsoleInfoService)
 	expertisePcInfoHandler := handler.NewExpertisePcInfoHandler(expertisePCInfoService)
@@ -113,6 +116,7 @@ func main() {
 	routes.UserRouter(router, userHandler)
 	routes.ExpertiseServiceShiftRouter(router, expertiseServiceShiftHandler)
 	routes.CommentRouter(router, commentHandler)
+	routes.PaymentInfoRouter(router, paymentInfoHandler)
 
 	routes.ExpertiseConsoleInfoRouter(router, expertiseConsoleInfoHandler)
 	routes.ExpertisePcInfoRouter(router, expertisePcInfoHandler)
