@@ -9,8 +9,8 @@ type EmailManager struct {
 }
 
 func SendEmail4Agreement(emailTo string) error {
-	from := "mustafaakguldev@gmail.com"
-	password := "cuyzdndpitjvbdvm"
+	from := "YOUR_ACC"
+	password := "YOUR_PASS"
 
 	to := []string{
 		emailTo,
